@@ -163,8 +163,21 @@ Component({
             try {
               wx.showLoading({ title: '设置中...' });
 
-              // TODO: 调用设置默认身份 API
-              // await setDefaultPersona(persona.personaId);
+              // 调用设置默认身份 API
+              const result = await request({
+                url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.setDefaultPersona}`,
+                method: 'PUT',
+                data: {
+                  personaId: persona.personaId
+                },
+                needAuth: true
+              });
+
+              // 如果返回了新的 accessToken,更新本地存储
+              if (result.c) {
+                wx.setStorageSync('accessToken', result.c);
+                console.log('Access token已更新');
+              }
 
               wx.hideLoading();
               wx.showToast({
@@ -178,7 +191,7 @@ Component({
               console.error('设置默认身份失败:', error);
               wx.hideLoading();
               wx.showToast({
-                title: '设置失败',
+                title: error.message || '设置失败',
                 icon: 'none'
               });
             }
@@ -210,8 +223,15 @@ Component({
             try {
               wx.showLoading({ title: '删除中...' });
 
-              // TODO: 调用删除身份 API
-              // await deletePersona(persona.personaId);
+              // 调用删除身份 API
+              const result = await request({
+                url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.personas}`,
+                method: 'DELETE',
+                data: {
+                  personaId: persona.personaId
+                },
+                needAuth: true
+              });
 
               wx.hideLoading();
               wx.showToast({
@@ -225,7 +245,7 @@ Component({
               console.error('删除身份失败:', error);
               wx.hideLoading();
               wx.showToast({
-                title: '删除失败',
+                title: error.message || '删除失败',
                 icon: 'none'
               });
             }
@@ -253,8 +273,12 @@ Component({
             try {
               wx.showLoading({ title: '注销中...' });
 
-              // TODO: 调用注销账号 API
-              // await deleteAccount();
+              // 调用注销账号 API
+              const result = await request({
+                url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.deleteAccount}`,
+                method: 'DELETE',
+                needAuth: true
+              });
 
               wx.hideLoading();
               wx.showToast({
@@ -275,7 +299,7 @@ Component({
               console.error('注销账号失败:', error);
               wx.hideLoading();
               wx.showToast({
-                title: '注销失败',
+                title: error.message || '注销失败',
                 icon: 'none'
               });
             }
@@ -285,6 +309,9 @@ Component({
     }
   }
 })
+
+
+
 
 
 

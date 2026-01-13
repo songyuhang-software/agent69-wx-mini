@@ -8,6 +8,7 @@ const API_CONFIG = {
     // 用户相关
     userDetail: '/api/users/detail',
     wechatRegister: '/api/wechat/users/register',
+    deleteAccount: '/api/users/delete',
 
     // 身份管理
     personas: '/api/personas',

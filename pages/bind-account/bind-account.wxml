@@ -1,0 +1,7 @@
+<!-- pages/bind-account/bind-account.wxml -->
+<view class="container">
+  <view class="placeholder">
+    <text class="title">绑定已有Agent69账号</text>
+    <text class="subtitle">此功能待后续实现</text>
+  </view>
+</view>

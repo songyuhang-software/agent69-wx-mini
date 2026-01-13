@@ -1,0 +1,17 @@
+<!-- pages/auth-select/auth-select.wxml -->
+<view class="container">
+  <view class="title">欢迎使用Agent69</view>
+  <view class="subtitle">请选择登录方式</view>
+
+  <view class="auth-options">
+    <button class="auth-btn wechat-btn" bindtap="onWechatAuth">
+      <image class="icon" src="/images/wechat-icon.png" mode="aspectFit"></image>
+      <text>微信授权登录</text>
+    </button>
+
+    <button class="auth-btn bind-btn" bindtap="onBindAccount">
+      <image class="icon" src="/images/account-icon.png" mode="aspectFit"></image>
+      <text>绑定已有Agent69账号</text>
+    </button>
+  </view>
+</view>

@@ -1,0 +1,27 @@
+/* pages/mine/mine.wxss */
+.scrollarea {
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx;
+  box-sizing: border-box;
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx;
+}
+
+.placeholder-text {
+  font-size: 32rpx;
+  color: #999;
+}

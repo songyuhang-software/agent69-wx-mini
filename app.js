@@ -9,7 +9,7 @@ App({
         if (res.code) {
           // 使用获取到的 code 调用后端接口
           wx.request({
-            url: `${API_CONFIG.userservice}/api/wechat/users/login?weChatCode=${res.code}`,
+            url: `${API_CONFIG.userserviceUrl}/api/wechat/users/login?weChatCode=${res.code}`,
             method: 'POST',
             success: response => {
               const data = response.data;

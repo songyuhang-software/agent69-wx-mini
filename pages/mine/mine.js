@@ -1,10 +1,295 @@
 // pages/mine/mine.js
+const { request } = require('../../utils/request.js');
+const API_CONFIG = require('../../config/api.js');
+
 Component({
   data: {
+    userDetail: {
+      personaName: '',
+      personaAvatarUrl: '',
+      personaBio: '',
+      username: '',
+      email: '',
+      personaId: '',
+      otherPersonas: []
+    },
+    accountActionsExpanded: false
+  },
 
+  lifetimes: {
+    attached() {
+      this.loadUserDetail();
+    }
+  },
+
+  pageLifetimes: {
+    // 页面显示时触发
+    show() {
+      // 当从其他页面返回时,重新加载用户详情
+      this.loadUserDetail();
+    }
   },
 
   methods: {
+    // 加载用户详情
+    async loadUserDetail() {
+      try {
+        wx.showLoading({ title: '加载中...' });
 
+        // 调用用户详情 API
+        const data = await request({
+          url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.userDetail}`,
+          method: 'GET',
+          needAuth: true
+        });
+
+        // 处理返回的数据,映射到组件的数据结构
+        const userDetail = {
+          personaName: data.personaName || '',
+          personaAvatarUrl: data.personaAvatarUrl || '',
+          personaBio: data.personaBio || '',
+          username: data.username || '',
+          email: data.email || '',
+          personaId: data.personaId || '',
+          otherPersonas: data.otherPersonas || []
+        };
+
+        this.setData({
+          userDetail
+        });
+
+        wx.hideLoading();
+      } catch (error) {
+        console.error('加载用户详情失败:', error);
+        wx.hideLoading();
+        wx.showToast({
+          title: error.message || '加载失败',
+          icon: 'none'
+        });
+      }
+    },
+
+    // 点击头像
+    onAvatarTap() {
+      wx.showToast({
+        title: '头像点击',
+        icon: 'none'
+      });
+      // TODO: 实现头像上传功能
+    },
+
+    // 补全账号
+    onSupplementAccount() {
+      wx.showToast({
+        title: '补全账号功能待实现',
+        icon: 'none'
+      });
+      // TODO: 跳转到补全账号页面或弹出弹窗
+    },
+
+    // 修改密码
+    onChangePassword() {
+      wx.showToast({
+        title: '修改密码功能待实现',
+        icon: 'none'
+      });
+      // TODO: 跳转到修改密码页面或弹出弹窗
+    },
+
+    // 退出登录
+    onLogout() {
+      wx.showModal({
+        title: '退出登录',
+        content: '确定要退出登录吗？',
+        success: (res) => {
+          if (res.confirm) {
+            // TODO: 调用退出登录 API
+            wx.showToast({
+              title: '已退出登录',
+              icon: 'success'
+            });
+
+            // 清除登录状态
+            wx.removeStorageSync('accessToken');
+
+            // 跳转到登录页
+            setTimeout(() => {
+              wx.reLaunch({
+                url: '/pages/login/login'
+              });
+            }, 1500);
+          }
+        }
+      });
+    },
+
+    // 邮箱操作（绑定/解绑）
+    onEmailAction() {
+      const hasEmail = this.data.userDetail.email;
+      const action = hasEmail ? '解绑' : '绑定';
+
+      wx.showToast({
+        title: `${action}邮箱功能待实现`,
+        icon: 'none'
+      });
+      // TODO: 实现邮箱绑定/解绑功能
+    },
+
+    // 新增身份
+    onAddPersona() {
+      wx.navigateTo({
+        url: '/pages/edit-persona/edit-persona?mode=add'
+      });
+    },
+
+    // 编辑当前身份
+    onEditCurrentPersona() {
+      const { userDetail } = this.data;
+
+      wx.navigateTo({
+        url: `/pages/edit-persona/edit-persona?mode=edit&personaId=${userDetail.personaId}&name=${encodeURIComponent(userDetail.personaName || '')}&bio=${encodeURIComponent(userDetail.personaBio || '')}&avatarUrl=${encodeURIComponent(userDetail.personaAvatarUrl || '')}&isCurrent=true`
+      });
+    },
+
+    // 设为默认身份
+    onSetDefaultPersona(e) {
+      const persona = e.currentTarget.dataset.persona;
+
+      wx.showModal({
+        title: '设置默认身份',
+        content: `确定要将"${persona.name}"设为默认身份吗？`,
+        success: async (res) => {
+          if (res.confirm) {
+            try {
+              wx.showLoading({ title: '设置中...' });
+
+              // TODO: 调用设置默认身份 API
+              // await setDefaultPersona(persona.personaId);
+
+              wx.hideLoading();
+              wx.showToast({
+                title: '设置成功',
+                icon: 'success'
+              });
+
+              // 重新加载用户详情
+              this.loadUserDetail();
+            } catch (error) {
+              console.error('设置默认身份失败:', error);
+              wx.hideLoading();
+              wx.showToast({
+                title: '设置失败',
+                icon: 'none'
+              });
+            }
+          }
+        }
+      });
+    },
+
+    // 编辑身份
+    onEditPersona(e) {
+      const persona = e.currentTarget.dataset.persona;
+
+      wx.navigateTo({
+        url: `/pages/edit-persona/edit-persona?mode=edit&personaId=${persona.personaId}&name=${encodeURIComponent(persona.name || '')}&bio=${encodeURIComponent(persona.bio || '')}&avatarUrl=${encodeURIComponent(persona.avatarUrl || '')}&isCurrent=false`
+      });
+    },
+
+    // 删除身份
+    onDeletePersona(e) {
+      const persona = e.currentTarget.dataset.persona;
+
+      wx.showModal({
+        title: '删除身份',
+        content: `确定要删除身份"${persona.name}"吗？此操作不可撤销。`,
+        confirmText: '确认删除',
+        confirmColor: '#dc3545',
+        success: async (res) => {
+          if (res.confirm) {
+            try {
+              wx.showLoading({ title: '删除中...' });
+
+              // TODO: 调用删除身份 API
+              // await deletePersona(persona.personaId);
+
+              wx.hideLoading();
+              wx.showToast({
+                title: '删除成功',
+                icon: 'success'
+              });
+
+              // 重新加载用户详情
+              this.loadUserDetail();
+            } catch (error) {
+              console.error('删除身份失败:', error);
+              wx.hideLoading();
+              wx.showToast({
+                title: '删除失败',
+                icon: 'none'
+              });
+            }
+          }
+        }
+      });
+    },
+
+    // 切换账号操作区域展开/收起
+    onToggleAccountActions() {
+      this.setData({
+        accountActionsExpanded: !this.data.accountActionsExpanded
+      });
+    },
+
+    // 注销账号
+    onDeleteAccount() {
+      wx.showModal({
+        title: '注销账号',
+        content: '注销账号将删除所有数据且不可恢复，确定要继续吗？',
+        confirmText: '确认注销',
+        confirmColor: '#dc3545',
+        success: async (res) => {
+          if (res.confirm) {
+            try {
+              wx.showLoading({ title: '注销中...' });
+
+              // TODO: 调用注销账号 API
+              // await deleteAccount();
+
+              wx.hideLoading();
+              wx.showToast({
+                title: '账号已注销',
+                icon: 'success'
+              });
+
+              // 清除登录状态
+              wx.removeStorageSync('accessToken');
+
+              // 跳转到登录页
+              setTimeout(() => {
+                wx.reLaunch({
+                  url: '/pages/login/login'
+                });
+              }, 1500);
+            } catch (error) {
+              console.error('注销账号失败:', error);
+              wx.hideLoading();
+              wx.showToast({
+                title: '注销失败',
+                icon: 'none'
+              });
+            }
+          }
+        }
+      });
+    }
   }
 })
+
+
+
+
+
+
+
+

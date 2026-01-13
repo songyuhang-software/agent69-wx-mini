@@ -31,7 +31,7 @@ Page({
 
         // 调用注册接口
         wx.request({
-          url: `${API_CONFIG.userservice}/api/wechat/users/register`,
+          url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.wechatRegister}`,
           method: 'POST',
           header: {
             'Content-Type': 'application/json'
@@ -89,3 +89,4 @@ Page({
     });
   }
 });
+

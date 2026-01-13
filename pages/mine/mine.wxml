@@ -2,8 +2,123 @@
 <navigation-bar title="我的" back="{{false}}" color="black" background="#FFF"></navigation-bar>
 <scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
-    <view class="placeholder">
-      <text class="placeholder-text">我的页面内容待开发</text>
+    <!-- 用户信息区域 -->
+    <view class="user-info-section">
+      <view class="user-avatar-section">
+        <view class="user-avatar-large {{!userDetail.personaAvatarUrl ? 'default' : ''}}" bindtap="onAvatarTap">
+          <image wx:if="{{userDetail.personaAvatarUrl}}" src="{{userDetail.personaAvatarUrl}}" mode="aspectFill" />
+          <text wx:else>默认</text>
+        </view>
+        <view class="user-basic-info">
+          <text class="user-name">{{userDetail.personaName || userDetail.username || '未设置'}}</text>
+          <view class="username-line">
+            <text class="username">@{{userDetail.username || '未设置'}}</text>
+            <text wx:if="{{!userDetail.username}}" class="account-action-link" bindtap="onSupplementAccount">补全账号</text>
+            <text wx:else class="account-action-link" bindtap="onChangePassword">修改密码</text>
+          </view>
+        </view>
+      </view>
+      <text class="user-bio">{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}</text>
+      <view class="user-footer-actions">
+        <button class="logout-btn" bindtap="onLogout">退出登录</button>
+      </view>
+    </view>
+
+    <!-- 账户信息区域 -->
+    <view class="detail-section">
+      <text class="section-title">账户信息</text>
+      <view class="detail-card" bindtap="onEmailAction">
+        <text class="detail-icon">📧</text>
+        <view class="detail-content">
+          <text class="detail-label">邮箱</text>
+          <view class="detail-value">
+            <text>{{userDetail.email || '未设置'}}</text>
+            <button class="action-small-btn {{userDetail.email ? 'danger' : ''}}" catchtap="onEmailAction">
+              {{userDetail.email ? '解绑' : '绑定'}}
+            </button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 身份管理区域 -->
+    <view class="personas-section">
+      <view class="personas-header">
+        <text class="personas-title">身份管理</text>
+        <button class="add-persona-btn" bindtap="onAddPersona">
+          <text>+</text>
+          <text>新增身份</text>
+        </button>
+      </view>
+
+      <view class="personas-list">
+        <!-- 当前身份 -->
+        <view class="persona-card current">
+          <view class="persona-header">
+            <view class="persona-info">
+              <view class="persona-avatar-small {{!userDetail.personaAvatarUrl ? 'default' : ''}}">
+                <image wx:if="{{userDetail.personaAvatarUrl}}" src="{{userDetail.personaAvatarUrl}}" mode="aspectFill" />
+                <text wx:else>默认</text>
+              </view>
+              <view class="persona-details">
+                <view class="persona-name-row">
+                  <text class="persona-name">{{userDetail.personaName || '未设置昵称'}}</text>
+                  <view class="current-badge">
+                    <text class="star-icon">⭐</text>
+                    <text>当前默认</text>
+                  </view>
+                </view>
+                <text class="persona-bio">{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}</text>
+              </view>
+            </view>
+            <view class="persona-actions">
+              <button class="action-icon-btn edit" bindtap="onEditCurrentPersona">✏️</button>
+            </view>
+          </view>
+        </view>
+
+        <!-- 其他身份 -->
+        <block wx:if="{{userDetail.otherPersonas && userDetail.otherPersonas.length > 0}}">
+          <view class="persona-card" wx:for="{{userDetail.otherPersonas}}" wx:key="personaId" data-persona="{{item}}">
+            <view class="persona-header">
+              <view class="persona-info">
+                <view class="persona-avatar-small {{!item.avatarUrl ? 'default' : ''}}">
+                  <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}" mode="aspectFill" />
+                  <text wx:else>默认</text>
+                </view>
+                <view class="persona-details">
+                  <view class="persona-name-row">
+                    <text class="persona-name">{{item.name}}</text>
+                  </view>
+                  <text class="persona-bio">{{item.bio || '这个人很懒,什么都没有留下...'}}</text>
+                </view>
+              </view>
+              <view class="persona-actions">
+                <button class="action-icon-btn set-default" bindtap="onSetDefaultPersona" data-persona="{{item}}">⭐</button>
+                <button class="action-icon-btn edit" bindtap="onEditPersona" data-persona="{{item}}">✏️</button>
+                <button class="action-icon-btn delete" bindtap="onDeletePersona" data-persona="{{item}}">🗑️</button>
+              </view>
+            </view>
+          </view>
+        </block>
+        <view wx:else class="empty-personas">
+          <text>暂无其他身份</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 账号操作区域 -->
+    <view class="account-actions-section">
+      <button class="account-actions-toggle {{accountActionsExpanded ? 'active' : ''}}" bindtap="onToggleAccountActions">
+        <text class="toggle-text">账号与安全</text>
+        <text class="toggle-icon">▼</text>
+      </button>
+      <view class="account-actions-content {{accountActionsExpanded ? 'show' : ''}}" wx:if="{{accountActionsExpanded}}">
+        <button class="account-action-item delete-account-item" bindtap="onDeleteAccount">
+          <text class="action-label">注销账号</text>
+          <text class="action-arrow">›</text>
+        </button>
+      </view>
     </view>
   </view>
 </scroll-view>

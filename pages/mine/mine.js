@@ -103,7 +103,15 @@ Component({
         content: '确定要退出登录吗？',
         success: (res) => {
           if (res.confirm) {
-            // TODO: 调用退出登录 API
+            // 调用后端登出接口
+            request({
+              url: `${API_CONFIG.userserviceUrl}/api/users/logout`,
+              method: 'POST',
+              needAuth: true
+            }).catch(error => {
+              console.error('调用后端登出接口失败:', error);
+            });
+
             wx.showToast({
               title: '已退出登录',
               icon: 'success'
@@ -309,6 +317,7 @@ Component({
     }
   }
 })
+
 
 
 

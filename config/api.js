@@ -1,6 +1,7 @@
 // config/api.js
 const API_CONFIG = {
   userserviceUrl: 'https://userservice.preview.huawei-zeabur.cn',
+  filePlatformUrl: 'https://file-platform.preview.huawei-zeabur.cn',
 
   // API 端点
   endpoints: {
@@ -10,7 +11,10 @@ const API_CONFIG = {
 
     // 身份管理
     personas: '/api/personas',
-    setDefaultPersona: '/api/personas/set-default'
+    setDefaultPersona: '/api/personas/set-default',
+
+    // 文件相关
+    randomAvatar: '/api/image/getRandomAvatar'
   },
 
   // 又拍云存储配置

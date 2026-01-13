@@ -1,7 +1,7 @@
 // pages/edit-persona/edit-persona.js
 const { request } = require('../../utils/request.js');
 const API_CONFIG = require('../../config/api.js');
-const { uploadAvatar, getSafeAvatarUrl } = require('../../utils/avatarUpload.js');
+const { uploadAvatar, getSafeAvatarUrl, RandomAvatarManager } = require('../../utils/avatarUpload.js');
 
 Page({
   data: {
@@ -10,10 +10,15 @@ Page({
     personaName: '',
     personaBio: '',
     personaAvatarUrl: '',
-    isCurrent: false // 是否为当前默认身份
+    isCurrent: false, // 是否为当前默认身份
+    currentAvatarId: null, // 当前随机头像的ID
+    randomAvatarManager: null // 随机头像管理器
   },
 
   onLoad(options) {
+    // 初始化随机头像管理器
+    this.randomAvatarManager = new RandomAvatarManager();
+
     // 从页面参数中获取模式和数据
     if (options.mode) {
       this.setData({ mode: options.mode });
@@ -97,9 +102,10 @@ Page({
         sourceType: 'auto' // 支持相册和相机
       });
 
-      // 更新头像URL
+      // 更新头像URL，清除随机头像ID
       this.setData({
-        personaAvatarUrl: imageUrl
+        personaAvatarUrl: imageUrl,
+        currentAvatarId: null
       });
 
     } catch (error) {
@@ -119,8 +125,48 @@ Page({
   // 移除头像
   onRemoveAvatar() {
     this.setData({
-      personaAvatarUrl: ''
+      personaAvatarUrl: '',
+      currentAvatarId: null
     });
+    wx.showToast({
+      title: '头像已移除',
+      icon: 'none'
+    });
+  },
+
+  // 随机头像
+  async onRandomAvatar() {
+    try {
+      wx.showLoading({ title: '正在获取随机头像...' });
+
+      const result = await this.randomAvatarManager.getNewAvatar();
+
+      wx.hideLoading();
+
+      if (result.success && result.avatarUrl) {
+        this.setData({
+          personaAvatarUrl: result.avatarUrl,
+          currentAvatarId: result.avatarId
+        });
+
+        wx.showToast({
+          title: '随机头像获取成功',
+          icon: 'success'
+        });
+      } else {
+        wx.showToast({
+          title: result.message || '获取随机头像失败',
+          icon: 'none'
+        });
+      }
+    } catch (error) {
+      console.error('获取随机头像失败:', error);
+      wx.hideLoading();
+      wx.showToast({
+        title: error.message || '获取随机头像失败',
+        icon: 'none'
+      });
+    }
   },
 
   // 保存
@@ -201,6 +247,9 @@ Page({
     wx.navigateBack();
   }
 });
+
+
+
 
 
 

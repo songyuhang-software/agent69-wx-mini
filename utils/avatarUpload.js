@@ -267,6 +267,102 @@ function prepareAvatarData(avatarUrl) {
   return getSafeAvatarUrl(avatarUrl);
 }
 
+/**
+ * 获取随机头像
+ * @param {Array<number>} excludeIds - 需要排除的头像ID列表
+ * @returns {Promise<Object>} 返回头像信息 { avatarId, avatarUrl, success, message }
+ */
+function getRandomAvatar(excludeIds = []) {
+  return new Promise((resolve, reject) => {
+    // 引入 API 配置
+    const API_CONFIG = require('../config/api.js');
+    const RANDOM_AVATAR_API = API_CONFIG.filePlatformUrl + API_CONFIG.endpoints.randomAvatar;
+
+    // 构建查询参数
+    let url = RANDOM_AVATAR_API;
+    if (excludeIds.length > 0) {
+      url += '?excludeIds=' + excludeIds.join(',');
+    }
+
+    wx.request({
+      url: url,
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode === 200 && res.data) {
+          const data = res.data;
+
+          if (!data.success) {
+            reject(new Error(data.message || '获取随机头像失败'));
+            return;
+          }
+
+          resolve({
+            avatarId: data.avatarId,
+            avatarUrl: data.avatarUrl,
+            success: true,
+            message: data.message
+          });
+        } else {
+          reject(new Error('获取随机头像失败: HTTP ' + res.statusCode));
+        }
+      },
+      fail: (error) => {
+        console.error('获取随机头像失败:', error);
+        reject(new Error(error.errMsg || '获取随机头像失败'));
+      }
+    });
+  });
+}
+
+/**
+ * 随机头像管理器类
+ * 用于管理已使用的头像ID列表
+ */
+class RandomAvatarManager {
+  constructor() {
+    this.usedAvatarIds = [];
+  }
+
+  /**
+   * 获取一个新的随机头像
+   * @returns {Promise<Object>} 返回头像信息
+   */
+  async getNewAvatar() {
+    try {
+      const result = await getRandomAvatar(this.usedAvatarIds);
+
+      if (result.success && result.avatarId) {
+        // 将新头像ID添加到已使用列表
+        this.usedAvatarIds.push(result.avatarId);
+      }
+
+      return result;
+    } catch (error) {
+      return {
+        avatarId: null,
+        avatarUrl: null,
+        success: false,
+        message: error.message || '获取随机头像失败'
+      };
+    }
+  }
+
+  /**
+   * 重置已使用的头像ID列表
+   */
+  reset() {
+    this.usedAvatarIds = [];
+  }
+
+  /**
+   * 获取已使用的头像ID列表
+   * @returns {Array<number>}
+   */
+  getUsedIds() {
+    return [...this.usedAvatarIds];
+  }
+}
+
 // 导出模块
 module.exports = {
   uploadAvatar,
@@ -274,8 +370,12 @@ module.exports = {
   uploadImageToStorage,
   getSafeAvatarUrl,
   prepareAvatarData,
+  getRandomAvatar,
+  RandomAvatarManager,
   STORAGE_CONFIG
 };
+
+
 
 
 

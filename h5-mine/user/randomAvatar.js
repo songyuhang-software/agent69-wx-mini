@@ -3,7 +3,7 @@
  * 用于从后端获取随机头像
  */
 import { API_FILE_URL } from '../common.js';
-const RANDOM_AVATAR_API = API_FILE_URL + '/api/image/getRandomAvatar';
+const RANDOM_AVATAR_API = API_FILE_URL + '/api/avatar/getRandomAvatar';
 
 /**
  * 获取随机头像

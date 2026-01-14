@@ -14,7 +14,7 @@ const API_CONFIG = {
     setDefaultPersona: '/api/personas/set-default',
 
     // 文件相关
-    randomAvatar: '/api/image/getRandomAvatar'
+    randomAvatar: '/api/avatar/getRandomAvatar'
   },
 
   // 又拍云存储配置

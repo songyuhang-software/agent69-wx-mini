@@ -276,7 +276,7 @@ function getRandomAvatar(excludeIds = []) {
   return new Promise((resolve, reject) => {
     // 引入 API 配置
     const API_CONFIG = require('../config/api.js');
-    const RANDOM_AVATAR_API = API_CONFIG.filePlatformUrl + API_CONFIG.endpoints.randomAvatar;
+    const RANDOM_AVATAR_API = API_CONFIG.userserviceUrl + API_CONFIG.endpoints.randomAvatar;
 
     // 构建查询参数
     let url = RANDOM_AVATAR_API;

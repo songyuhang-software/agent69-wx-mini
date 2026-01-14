@@ -1,7 +1,7 @@
 // config/api.js
 const API_CONFIG = {
-  userserviceUrl: 'https://userservice.preview.huawei-zeabur.cn',
-  filePlatformUrl: 'https://file-platform.preview.huawei-zeabur.cn',
+  userserviceUrl: 'https://agent69-api.preview.huawei-zeabur.cn/user-service',
+  filePlatformUrl: 'https://agent69-api.preview.huawei-zeabur.cn/file-platform',
 
   // API 端点
   endpoints: {

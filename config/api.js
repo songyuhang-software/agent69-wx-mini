@@ -18,7 +18,7 @@ const API_CONFIG = {
     // 身份管理
     personas: '/api/personas',
     setDefaultPersona: '/api/personas/set-default',
-    showBio: '/api/personas/show-bio',
+    showBio: '/api/users/show-bio',
 
     // 文件相关
     randomAvatar: '/api/avatar/getRandomAvatar'

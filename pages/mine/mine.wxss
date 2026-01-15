@@ -141,6 +141,119 @@
   /* 移除了退出登录功能后的样式调整 */
 }
 
+/* ShowBio 开关样式 */
+.show-bio-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 0;
+  margin: 0 0 24rpx 0;
+  border-bottom: 1rpx solid #e9ecef;
+}
+
+.toggle-content {
+  flex: 1;
+  margin-right: 24rpx;
+}
+
+.toggle-label {
+  flex: 1;
+}
+
+.toggle-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 8rpx;
+}
+
+.toggle-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #212529;
+}
+
+.info-icon {
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+  color: white;
+  font-size: 20rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2rpx solid #6c757d;
+}
+
+.info-icon:active {
+  background: linear-gradient(135deg, #495057 0%, #343a40 100%);
+  transform: scale(0.9);
+}
+
+.toggle-description {
+  display: block;
+  font-size: 24rpx;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.toggle-switch {
+  width: 96rpx;
+  height: 56rpx;
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+  border-radius: 56rpx;
+  border: 2rpx solid #dee2e6;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.toggle-switch.active {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  border-color: #28a745;
+  box-shadow: 0 4rpx 12rpx rgba(40, 167, 69, 0.3);
+}
+
+.switch-button {
+  width: 48rpx;
+  height: 48rpx;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 50%;
+  position: absolute;
+  top: 2rpx;
+  left: 2rpx;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 2rpx 8rpx rgba(0, 0, 0, 0.15),
+    0 1rpx 4rpx rgba(0, 0, 0, 0.1);
+  border: 2rpx solid #e9ecef;
+}
+
+.toggle-switch.active .switch-button {
+  transform: translateX(36rpx);
+  background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+  border-color: #28a745;
+  box-shadow:
+    0 2rpx 12rpx rgba(40, 167, 69, 0.4),
+    0 1rpx 6rpx rgba(0, 0, 0, 0.15);
+}
+
+/* 开关点击时的动画效果 */
+.toggle-switch:active {
+  transform: scale(0.95);
+}
+
+.toggle-switch:active .switch-button {
+  box-shadow:
+    0 1rpx 4rpx rgba(0, 0, 0, 0.2),
+    0 1rpx 2rpx rgba(0, 0, 0, 0.1);
+}
+
 /* 详情卡片 - 提升层次感 */
 .detail-section {
   margin-bottom: 32rpx;
@@ -618,6 +731,135 @@
 .delete-account-item:active .action-arrow {
   color: #dc3545;
 }
+
+/* 功能说明弹窗样式 */
+.info-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.info-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 24rpx;
+  margin: 40rpx;
+  max-width: 600rpx;
+  width: 100%;
+  max-height: 80vh;
+  overflow: hidden;
+  box-shadow:
+    0 20rpx 60rpx rgba(0, 0, 0, 0.3),
+    0 8rpx 24rpx rgba(0, 0, 0, 0.2);
+  transform: scale(0.7) translateY(50rpx);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1rpx solid #e9ecef;
+}
+
+.info-modal.show .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32rpx 32rpx 24rpx 32rpx;
+  border-bottom: 1rpx solid #e9ecef;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.modal-title {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #212529;
+  margin: 0;
+}
+
+.close-btn {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+  color: #6c757d;
+  font-size: 28rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2rpx solid #dee2e6;
+}
+
+.close-btn:active {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+  border-color: #dc3545;
+  transform: scale(0.9);
+}
+
+.modal-body {
+  padding: 32rpx;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.modal-text {
+  display: block;
+  font-size: 28rpx;
+  color: #495057;
+  line-height: 1.6;
+  margin-bottom: 24rpx;
+}
+
+.modal-examples {
+  display: block;
+  font-size: 26rpx;
+  font-weight: 600;
+  color: #212529;
+  margin-bottom: 16rpx;
+  margin-top: 8rpx;
+}
+
+.modal-example {
+  display: block;
+  font-size: 24rpx;
+  color: #6c757d;
+  line-height: 1.5;
+  margin-bottom: 12rpx;
+  padding-left: 24rpx;
+  position: relative;
+}
+
+.modal-example::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18rpx;
+  width: 8rpx;
+  height: 8rpx;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  border-radius: 50%;
+}
+
+
+
+
 
 
 

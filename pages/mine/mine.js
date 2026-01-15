@@ -8,6 +8,7 @@ Component({
       personaName: '',
       personaAvatarUrl: '',
       personaBio: '',
+      showBio: false,
       username: '',
       email: '',
       personaId: '',
@@ -17,7 +18,9 @@ Component({
     // 当前身份卡片激活状态
     currentPersonaActive: false,
     // 其他身份卡片激活状态数组
-    otherPersonasActive: []
+    otherPersonasActive: [],
+    // 显示个人简介说明弹窗
+    showBioInfoModal: false
   },
 
   lifetimes: {
@@ -98,6 +101,7 @@ Component({
           personaName: data.personaName || '',
           personaAvatarUrl: data.personaAvatarUrl || '',
           personaBio: data.personaBio || '',
+          showBio: data.showBio || false,
           username: data.username || '',
           email: data.email || '',
           personaId: data.personaId || '',
@@ -332,9 +336,68 @@ Component({
           }
         }
       });
+    },
+
+    // 切换showBio开关
+    async onToggleShowBio() {
+      const { userDetail } = this.data;
+      const newShowBio = !userDetail.showBio;
+
+      try {
+        wx.showLoading({ title: '更新中...' });
+
+        // 调用showBio API
+        const result = await request({
+          url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.showBio}?showBio=${newShowBio}`,
+          method: 'PUT',
+          needAuth: true
+        });
+
+        // 更新本地数据
+        const updatedUserDetail = {
+          ...userDetail,
+          showBio: newShowBio
+        };
+
+        this.setData({
+          userDetail: updatedUserDetail
+        });
+
+        wx.hideLoading();
+        wx.showToast({
+          title: newShowBio ? '已开启个人简介展示' : '已关闭个人简介展示',
+          icon: 'success'
+        });
+      } catch (error) {
+        console.error('更新showBio失败:', error);
+        wx.hideLoading();
+        wx.showToast({
+          title: error.message || '更新失败',
+          icon: 'none'
+        });
+      }
+    },
+
+    // 显示个人简介说明
+    onShowBioInfo() {
+      this.setData({
+        showBioInfoModal: true
+      });
+    },
+
+    // 关闭个人简介说明
+    onCloseBioInfoModal() {
+      this.setData({
+        showBioInfoModal: false
+      });
     }
   }
 })
+
+
+
+
+
 
 
 

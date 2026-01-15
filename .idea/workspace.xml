@@ -64,21 +64,26 @@
         </option>
         <option name="isMavenProject" value="false" />
         <option name="jdkVersion" value="" />
-        <option name="queryString" value="?chatId=83415911-4316-4655-b0cf-c34c1457e985" />
+        <option name="queryString" value="?chatId=74c185a0-4474-4205-98a3-2ac09421f235" />
         <option name="sideCarIDEInfo">
           <SideCarIDEInfo>
             <option name="allFiles">
               <set>
+                <option value="$PROJECT_DIR$/app.js" />
                 <option value="$PROJECT_DIR$/config/api.js" />
                 <option value="$PROJECT_DIR$/h5-mine/user/randomAvatar.js" />
+                <option value="$PROJECT_DIR$/pages/edit-persona/edit-persona.js" />
+                <option value="$PROJECT_DIR$/pages/mine/mine.js" />
                 <option value="$PROJECT_DIR$/utils/avatarUpload.js" />
+                <option value="$PROJECT_DIR$/utils/request.js" />
+                <option value="$PROJECT_DIR$/utils/util.js" />
               </set>
             </option>
             <option name="autoRun" value="true" />
             <option name="editorUrl" value="http://127.0.0.1:41100/" />
             <option name="openFiles">
               <set>
-                <option value="$PROJECT_DIR$/h5-mine/user/randomAvatar.js" />
+                <option value="$PROJECT_DIR$/utils/request.js" />
               </set>
             </option>
             <option name="projectId" value="13d0381" />

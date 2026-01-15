@@ -29,44 +29,59 @@ Page({
 
         console.log('获取到用户信息:', nickName, avatarUrl);
 
-        // 调用注册接口
-        wx.request({
-          url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.wechatRegister}`,
-          method: 'POST',
-          header: {
-            'Content-Type': 'application/json'
-          },
-          data: {
-            weChatCode: that.data.weChatCode,
-            weChatNickName: nickName,
-            weChatAvatarUrl: avatarUrl
-          },
-          success: (response) => {
-            console.log('注册成功:', response.data);
-            const data = response.data;
+        // 重新获取微信授权码（因为之前的 code 可能已经被使用或过期）
+        wx.login({
+          success: (loginRes) => {
+            const newCode = loginRes.code;
+            console.log('重新获取授权码:', newCode);
 
-            if (data.accessToken) {
-              // 保存 accessToken 和 refreshToken
-              wx.setStorageSync('accessToken', data.accessToken);
-              wx.setStorageSync('refreshToken', data.refreshToken);
-              wx.setStorageSync('userId', data.userId);
-              wx.setStorageSync('username', data.username);
+            // 调用注册接口
+            wx.request({
+              url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.wechatRegister}`,
+              method: 'POST',
+              header: {
+                'Content-Type': 'application/json'
+              },
+              data: {
+                weChatCode: newCode,
+                weChatNickName: nickName,
+                weChatAvatarUrl: avatarUrl
+              },
+              success: (response) => {
+                console.log('注册成功:', response.data);
+                const data = response.data;
 
-              // 跳转到主页
-              wx.reLaunch({
-                url: '/pages/index/index'
-              });
-            } else {
-              wx.showToast({
-                title: '注册失败，请重试',
-                icon: 'none'
-              });
-            }
+                if (data.accessToken) {
+                  // 保存 accessToken 和 refreshToken
+                  wx.setStorageSync('accessToken', data.accessToken);
+                  wx.setStorageSync('refreshToken', data.refreshToken);
+                  wx.setStorageSync('userId', data.userId);
+                  wx.setStorageSync('username', data.username);
+
+                  // 跳转到主页
+                  wx.reLaunch({
+                    url: '/pages/index/index'
+                  });
+                } else {
+                  wx.showToast({
+                    title: '注册失败，请重试',
+                    icon: 'none'
+                  });
+                }
+              },
+              fail: (error) => {
+                console.error('注册失败:', error);
+                wx.showToast({
+                  title: '网络请求失败',
+                  icon: 'none'
+                });
+              }
+            });
           },
-          fail: (error) => {
-            console.error('注册失败:', error);
+          fail: (loginError) => {
+            console.error('获取授权码失败:', loginError);
             wx.showToast({
-              title: '网络请求失败',
+              title: '获取授权码失败',
               icon: 'none'
             });
           }
@@ -89,4 +104,5 @@ Page({
     });
   }
 });
+
 

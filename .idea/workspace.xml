@@ -64,21 +64,28 @@
         </option>
         <option name="isMavenProject" value="false" />
         <option name="jdkVersion" value="" />
+        <option name="queryString" value="?chatId=83415911-4316-4655-b0cf-c34c1457e985" />
         <option name="sideCarIDEInfo">
           <SideCarIDEInfo>
             <option name="allFiles">
-              <set />
+              <set>
+                <option value="$PROJECT_DIR$/config/api.js" />
+                <option value="$PROJECT_DIR$/h5-mine/user/randomAvatar.js" />
+                <option value="$PROJECT_DIR$/utils/avatarUpload.js" />
+              </set>
             </option>
-            <option name="autoRun" value="false" />
-            <option name="editorUrl" value="http://127.0.0.1:41102/" />
+            <option name="autoRun" value="true" />
+            <option name="editorUrl" value="http://127.0.0.1:41100/" />
             <option name="openFiles">
-              <set />
+              <set>
+                <option value="$PROJECT_DIR$/h5-mine/user/randomAvatar.js" />
+              </set>
             </option>
             <option name="projectId" value="13d0381" />
             <option name="rootDirectory" value="$PROJECT_DIR$" />
             <option name="shell" value="/bin/bash" />
-            <option name="sideCarPort" value="42426" />
-            <option name="socketPort" value="41102" />
+            <option name="sideCarPort" value="42424" />
+            <option name="socketPort" value="41100" />
             <option name="todoWriteAsLoading" value="true" />
           </SideCarIDEInfo>
         </option>

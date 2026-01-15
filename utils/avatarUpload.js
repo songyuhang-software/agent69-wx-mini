@@ -272,9 +272,10 @@ function prepareAvatarData(avatarUrl) {
  * @param {Array<number>} excludeIds - 需要排除的头像ID列表
  * @returns {Promise<Object>} 返回头像信息 { avatarId, avatarUrl, success, message }
  */
-function getRandomAvatar(excludeIds = []) {
-  return new Promise((resolve, reject) => {
-    // 引入 API 配置
+async function getRandomAvatar(excludeIds = []) {
+  try {
+    // 引入通用请求方法和 API 配置
+    const { request } = require('./request.js');
     const API_CONFIG = require('../config/api.js');
     const RANDOM_AVATAR_API = API_CONFIG.userserviceUrl + API_CONFIG.endpoints.randomAvatar;
 
@@ -284,34 +285,27 @@ function getRandomAvatar(excludeIds = []) {
       url += '?excludeIds=' + excludeIds.join(',');
     }
 
-    wx.request({
+    // 使用通用请求方法，设置 needAuth: false 表示不需要鉴权
+    const data = await request({
       url: url,
       method: 'GET',
-      success: (res) => {
-        if (res.statusCode === 200 && res.data) {
-          const data = res.data;
-
-          if (!data.success) {
-            reject(new Error(data.message || '获取随机头像失败'));
-            return;
-          }
-
-          resolve({
-            avatarId: data.avatarId,
-            avatarUrl: data.avatarUrl,
-            success: true,
-            message: data.message
-          });
-        } else {
-          reject(new Error('获取随机头像失败: HTTP ' + res.statusCode));
-        }
-      },
-      fail: (error) => {
-        console.error('获取随机头像失败:', error);
-        reject(new Error(error.errMsg || '获取随机头像失败'));
-      }
+      needAuth: false
     });
-  });
+
+    if (!data.success) {
+      throw new Error(data.message || '获取随机头像失败');
+    }
+
+    return {
+      avatarId: data.avatarId,
+      avatarUrl: data.avatarUrl,
+      success: true,
+      message: data.message
+    };
+  } catch (error) {
+    console.error('获取随机头像失败:', error);
+    throw new Error(error.message || '获取随机头像失败');
+  }
 }
 
 /**
@@ -374,6 +368,7 @@ module.exports = {
   RandomAvatarManager,
   STORAGE_CONFIG
 };
+
 
 
 

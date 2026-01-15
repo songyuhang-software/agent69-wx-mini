@@ -131,16 +131,13 @@ Component({
       });
     },
 
-    // 邮箱操作（绑定/解绑）
-    onEmailAction() {
-      const hasEmail = this.data.userDetail.email;
-      const action = hasEmail ? '解绑' : '绑定';
+    // 邮箱组件成功事件
+    onEmailComponentSuccess(e) {
+      const { action } = e.detail;
+      console.log(`邮箱${action === 'bind' ? '绑定' : '解绑'}成功`);
 
-      wx.showToast({
-        title: `${action}邮箱功能待实现`,
-        icon: 'none'
-      });
-      // TODO: 实现邮箱绑定/解绑功能
+      // 刷新用户详情数据
+      this.loadUserDetail();
     },
 
     // 新增身份
@@ -317,6 +314,13 @@ Component({
     }
   }
 })
+
+
+
+
+
+
+
 
 
 

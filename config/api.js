@@ -9,6 +9,12 @@ const API_CONFIG = {
     wechatRegister: '/api/wechat/users/register',
     deleteAccount: '/api/users/delete',
 
+    // 邮箱相关
+    emailBind: '/api/users/email/bind',
+    emailUnbind: '/api/users/email/unbind',
+    emailSendCode: '/api/users/register/email/send-code',
+    emailVerifySendCode: '/api/users/email/verify/send-code',
+
     // 身份管理
     personas: '/api/personas',
     setDefaultPersona: '/api/personas/set-default',

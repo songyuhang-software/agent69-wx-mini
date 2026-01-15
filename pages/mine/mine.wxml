@@ -24,35 +24,30 @@
         <text class="bio-text" data-full-text="{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}">{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}</text>
       </view>
       <view class="user-footer-actions">
-        <button class="logout-link" bindtap="onLogout">退出登录</button>
+        <view class="logout-link" bindtap="onLogout">退出登录</view>
       </view>
     </view>
 
     <!-- 详情信息区域 -->
     <view class="detail-section">
       <text class="section-title">账户信息</text>
-      <view class="detail-card">
-        <text class="detail-icon">📧</text>
-        <view class="detail-content">
-          <text class="detail-label">邮箱</text>
-          <view class="detail-value">
-            <text>{{userDetail.email || '未设置'}}</text>
-            <button class="action-small-btn {{userDetail.email ? 'danger' : ''}}" catchtap="onEmailAction">
-              {{userDetail.email ? '解绑' : '绑定'}}
-            </button>
-          </view>
-        </view>
-      </view>
+      
+      <!-- 邮箱管理组件 -->
+      <email-component
+        currentEmail="{{userDetail.email}}"
+        action="{{userDetail.email ? 'unbind' : 'bind'}}"
+        bind:success="onEmailComponentSuccess"
+      ></email-component>
     </view>
 
     <!-- 身份管理区域 -->
     <view class="personas-section">
       <view class="personas-header">
         <text class="personas-title">身份管理</text>
-        <button class="add-persona-btn" bindtap="onAddPersona">
+        <view class="add-persona-btn" bindtap="onAddPersona">
           <text>+</text>
           <text>新增身份</text>
-        </button>
+        </view>
       </view>
 
       <view class="personas-list">
@@ -78,7 +73,7 @@
               </view>
             </view>
             <view class="persona-actions">
-              <button class="action-icon-btn edit" title="编辑当前身份" bindtap="onEditCurrentPersona">✏️</button>
+              <view class="action-icon-btn edit" title="编辑当前身份" bindtap="onEditCurrentPersona">✏️</view>
             </view>
           </view>
         </view>
@@ -102,9 +97,9 @@
                 </view>
               </view>
               <view class="persona-actions">
-                <button class="action-icon-btn set-default" title="设为默认身份" bindtap="onSetDefaultPersona" data-persona="{{item}}">⭐</button>
-                <button class="action-icon-btn edit" title="编辑" bindtap="onEditPersona" data-persona="{{item}}">✏️</button>
-                <button class="action-icon-btn delete" title="删除" bindtap="onDeletePersona" data-persona="{{item}}">🗑️</button>
+                <view class="action-icon-btn set-default" title="设为默认身份" bindtap="onSetDefaultPersona" data-persona="{{item}}">⭐</view>
+                <view class="action-icon-btn edit" title="编辑" bindtap="onEditPersona" data-persona="{{item}}">✏️</view>
+                <view class="action-icon-btn delete" title="删除" bindtap="onDeletePersona" data-persona="{{item}}">🗑️</view>
               </view>
             </view>
           </view>
@@ -117,17 +112,16 @@
 
     <!-- 账号操作区域 -->
     <view class="account-actions-section">
-      <button class="account-actions-toggle {{accountActionsExpanded ? 'active' : ''}}" id="accountActionsToggle" bindtap="onToggleAccountActions">
+      <view class="account-actions-toggle {{accountActionsExpanded ? 'active' : ''}}" id="accountActionsToggle" bindtap="onToggleAccountActions">
         <text class="toggle-text">账号与安全</text>
         <text class="toggle-icon">▼</text>
-      </button>
+      </view>
       <view class="account-actions-content {{accountActionsExpanded ? 'show' : ''}}" id="accountActionsContent" wx:if="{{accountActionsExpanded}}">
-        <button class="account-action-item delete-account-item" id="deleteAccountBtn" bindtap="onDeleteAccount">
+        <view class="account-action-item delete-account-item" id="deleteAccountBtn" bindtap="onDeleteAccount">
           <text class="action-label">注销账号</text>
           <text class="action-arrow">›</text>
-        </button>
+        </view>
       </view>
     </view>
   </view>
 </scroll-view>
-

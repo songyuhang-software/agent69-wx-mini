@@ -1,0 +1,75 @@
+<!--components/email/email.wxml-->
+<view wx:if="{{show}}" class="email-component">
+  <!-- 邮箱状态显示区域 -->
+  <view class="email-status">
+    <view class="email-info">
+      <text class="email-icon">📧</text>
+      <view class="email-details">
+        <text class="email-label">邮箱</text>
+        <text class="email-value">{{currentEmail || '未设置'}}</text>
+      </view>
+    </view>
+    <view class="email-actions">
+      <view
+        wx:if="{{!showOperation}}"
+        class="action-button {{currentEmail ? 'danger' : ''}}"
+        bindtap="onStartOperation"
+      >
+        {{currentEmail ? '解绑' : '绑定'}}
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作界面 -->
+  <view wx:if="{{showOperation}}" class="email-operation">
+    <view class="operation-header">
+      <text class="operation-title">{{action === 'bind' ? '绑定邮箱' : '解绑邮箱'}}</text>
+      <view class="operation-close" bindtap="onCancelOperation">✕</view>
+    </view>
+
+    <view class="operation-body">
+      <!-- 邮箱输入区域 -->
+      <view class="input-group">
+        <text class="input-label">邮箱地址</text>
+        <input
+          class="email-input {{action === 'bind' ? '' : 'readonly'}}"
+          type="text"
+          value="{{email}}"
+          placeholder="{{action === 'bind' ? '请输入邮箱地址' : ''}}"
+          disabled="{{action === 'unbind'}}"
+          bindinput="onEmailInput"
+        />
+        <view wx:if="{{action === 'bind'}}" class="email-validation">
+          <text wx:if="{{email && !isValidEmail}}" class="validation-text invalid">邮箱格式不正确</text>
+          <text wx:if="{{email && isValidEmail}}" class="validation-text valid">邮箱格式正确</text>
+        </view>
+      </view>
+
+      <!-- 验证码输入区域 -->
+      <view class="input-group">
+        <text class="input-label">验证码</text>
+        <view class="code-input-container">
+          <input
+            class="code-input"
+            type="text"
+            value="{{verificationCode}}"
+            placeholder="请输入验证码"
+            bindinput="onVerificationCodeInput"
+          />
+          <view
+            class="send-code-btn {{sendCodeBtnDisabled ? 'disabled' : ''}}"
+            bindtap="onSendVerificationCode"
+          >
+            {{sendCodeBtnText}}
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 操作按钮 -->
+    <view class="operation-footer">
+      <view class="cancel-btn" bindtap="onCancelOperation">取消</view>
+      <view class="confirm-btn" bindtap="onConfirm">确认</view>
+    </view>
+  </view>
+</view>

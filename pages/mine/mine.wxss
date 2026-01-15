@@ -1,15 +1,22 @@
 /* pages/mine/mine.wxss */
 
+/* 页面容器 */
+.page-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 /* 滚动区域 */
 .scrollarea {
-  height: 100vh;
+  flex: 1;
   box-sizing: border-box;
   background: #f5f7fa;
 }
 
 .modal-body {
   padding: 32rpx;
-  padding-bottom: 48rpx;
+  padding-bottom: 120rpx;
   box-sizing: border-box;
 }
 
@@ -856,6 +863,10 @@
   background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   border-radius: 50%;
 }
+
+
+
+
 
 
 

@@ -1,7 +1,8 @@
 <!--pages/mine/mine.wxml-->
-<navigation-bar title="👤 用户详情" back="{{false}}" color="black" background="#FFF"></navigation-bar>
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="modal-body">
+<view class="page-container">
+  <navigation-bar title="👤 用户详情" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+  <scroll-view class="scrollarea" scroll-y type="list">
+    <view class="modal-body">
     <!-- 用户信息区域 -->
     <view class="user-info-section">
       <view class="user-avatar-section">
@@ -162,8 +163,10 @@
         </view>
       </view>
     </view>
-  </view>
-</scroll-view>
+  </scroll-view>
+</view>
+
+
 
 
 

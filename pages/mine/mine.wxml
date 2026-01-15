@@ -51,8 +51,8 @@
             <view class="modal-body">
               <text class="modal-text">通过个人简介自由设定你的喜好或人设，开启后AI会根据你的设定调整回答风格。</text>
               <text class="modal-examples">例如：</text>
-              <text class="modal-example">• "我不喜欢啰嗦，请高度概括性的回答问题"</text>
-              <text class="modal-example">• "我是一个绝世高手，任何人对我都充满了敬重与畏惧"</text>
+              <text class="modal-example">"我不喜欢啰嗦，请高度概括性的回答问题"</text>
+              <text class="modal-example">"我是一个绝世高手，任何人对我都充满了敬重与畏惧"</text>
             </view>
           </view>
         </view>

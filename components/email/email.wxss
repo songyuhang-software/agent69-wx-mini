@@ -10,11 +10,11 @@
   background: linear-gradient(135deg, #ffffff 0%, #fefefe 100%);
   border: 1rpx solid #e9ecef;
   border-radius: 20rpx;
-  padding: 32rpx;
+  padding: 24rpx 32rpx; /* 缩减内边距 */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 24rpx;
+  margin-bottom: 20rpx; /* 缩减底部间距 */
   box-shadow:
     0 4rpx 16rpx rgba(0, 0, 0, 0.06),
     0 2rpx 6rpx rgba(0, 0, 0, 0.04),
@@ -22,17 +22,6 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
-}
-
-.email-status::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4rpx;
-  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-  border-radius: 20rpx 20rpx 0 0;
 }
 
 /* 邮箱信息 */
@@ -151,14 +140,14 @@
 .operation-header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 32rpx;
+  padding: 24rpx 32rpx; /* 缩减内边距，减小标题框高度 */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .operation-title {
-  font-size: 32rpx;
+  font-size: 28rpx; /* 缩小标题字体大小 */
   font-weight: 600;
   margin: 0;
 }
@@ -182,11 +171,11 @@
 
 /* 操作主体 */
 .operation-body {
-  padding: 40rpx;
+  padding: 32rpx 40rpx; /* 缩减内边距，让组件更紧凑 */
 }
 
 .input-group {
-  margin-bottom: 32rpx;
+  margin-bottom: 24rpx; /* 缩减输入组之间的间距 */
 }
 
 .input-label {
@@ -200,13 +189,15 @@
 .email-input,
 .code-input {
   width: 100%;
-  padding: 24rpx;
+  padding: 28rpx 24rpx;
   border: 2rpx solid #e0e0e0;
   border-radius: 12rpx;
   font-size: 28rpx;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
   background: white;
+  /* 增加高度使输入更舒适 */
+  min-height: 88rpx;
 }
 
 .email-input:focus,
@@ -227,6 +218,15 @@
   height: 32rpx;
   display: flex;
   align-items: center;
+}
+
+/* 让邮箱输入框更宽，优化邮箱输入体验 */
+.email-input {
+  /* 邮箱输入框特别优化 */
+  width: 100%;
+  font-size: 30rpx; /* 稍微大一点的字体 */
+  /* 修复flex布局高度问题 */
+  align-self: flex-start;
 }
 
 .validation-text {
@@ -258,22 +258,24 @@
 /* 验证码输入容器 */
 .code-input-container {
   display: flex;
-  gap: 20rpx;
+  gap: 24rpx;
+  /* 调整布局让输入框更宽 */
+  align-items: stretch;
 }
 
 .code-input {
-  flex: 1;
+  flex: 1.8; /* 进一步减小验证码输入框的比例，让按钮更突出 */
 }
 
 /* 发送验证码按钮 */
 .send-code-btn {
-  padding: 24rpx 32rpx;
+  padding: 12rpx 32rpx; /* 继续增加内边距，让按钮更宽 */
   background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   color: white;
   border: none;
   border-radius: 12rpx;
   cursor: pointer;
-  font-size: 26rpx;
+  font-size: 22rpx;
   white-space: nowrap;
   transition: all 0.3s ease;
   box-shadow: 0 4rpx 8rpx rgba(0, 123, 255, 0.2);
@@ -281,7 +283,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 160rpx;
+  min-width: 140rpx; /* 继续增加最小宽度，让按钮更突出 */
+  /* 缩小按钮高度，使其更协调 */
+  height: 56rpx;
+  flex-shrink: 0;
 }
 
 .send-code-btn:active {
@@ -306,17 +311,17 @@
 
 /* 操作底部 */
 .operation-footer {
-  padding: 32rpx 40rpx;
+  padding: 20rpx 32rpx; /* 进一步缩减内边距 */
   border-top: 1rpx solid #eee;
   display: flex;
-  gap: 20rpx;
+  gap: 16rpx; /* 缩减按钮间距 */
   justify-content: flex-end;
   background: #fafafa;
 }
 
 .cancel-btn,
 .confirm-btn {
-  padding: 20rpx 40rpx;
+  padding: 16rpx 32rpx; /* 缩减按钮内边距 */
   border: none;
   border-radius: 12rpx;
   cursor: pointer;
@@ -363,11 +368,28 @@
   }
 
   .code-input-container {
-    flex-direction: column;
+    flex-direction: row; /* 保持水平排列 */
     gap: 16rpx;
   }
 
   .send-code-btn {
-    width: 100%;
+    width: auto; /* 自动宽度 */
+    height: 60rpx; /* 小屏幕下稍微增加高度 */
+    font-size: 24rpx; /* 小屏幕下字体稍大 */
+    padding: 14rpx 28rpx; /* 继续增加内边距 */
+    min-width: 130rpx; /* 调整最小宽度 */
+  }
+
+  /* 小屏幕下优化输入框 */
+  .email-input,
+  .code-input {
+    font-size: 32rpx; /* 小屏幕下字体更大 */
+    padding: 32rpx 24rpx; /* 增加内边距 */
+    min-height: 96rpx;
+  }
+
+  /* 验证码输入框在小屏幕下调整比例 */
+  .code-input {
+    flex: 1.8; /* 进一步缩小输入框比例，配合更大的按钮 */
   }
 }

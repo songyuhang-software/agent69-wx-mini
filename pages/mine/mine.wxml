@@ -3,171 +3,166 @@
   <navigation-bar title="👤 用户详情" back="{{false}}" color="black" background="#FFF"></navigation-bar>
   <scroll-view class="scrollarea" scroll-y type="list">
     <view class="modal-body">
-    <!-- 用户信息区域 -->
-    <view class="user-info-section">
-      <view class="user-avatar-section">
-        <view class="user-avatar-large {{!userDetail.personaAvatarUrl ? 'default' : ''}}" id="mainUserAvatar" bindtap="onAvatarTap">
-          <image wx:if="{{userDetail.personaAvatarUrl}}" src="{{userDetail.personaAvatarUrl}}" mode="aspectFill" />
-          <text wx:else>默认</text>
-        </view>
-        <view class="user-basic-info">
-          <text class="user-name">{{userDetail.personaName || userDetail.username || '未设置昵称'}}</text>
-          <view class="username-line">
-            <text class="username">@{{userDetail.username || '未设置'}}</text>
-            <text wx:if="{{!userDetail.username}}" class="account-action-link" bindtap="onSupplementAccount">补全账号</text>
-            <text wx:else class="account-action-links">
-              <text class="account-action-link" bindtap="onChangePassword">修改密码</text>
-            </text>
+      <!-- 用户信息区域 -->
+      <view class="user-info-section">
+        <view class="user-avatar-section">
+          <view class="user-avatar-large {{!userDetail.personaAvatarUrl ? 'default' : ''}}" id="mainUserAvatar" bindtap="onAvatarTap">
+            <image wx:if="{{userDetail.personaAvatarUrl}}" src="{{userDetail.personaAvatarUrl}}" mode="aspectFill" />
+            <text wx:else>默认</text>
           </view>
-        </view>
-      </view>
-      <view class="user-bio">
-        <text class="bio-text" data-full-text="{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}">{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}</text>
-      </view>
-
-      <!-- 个人简介展示开关 -->
-      <view class="show-bio-toggle">
-        <view class="toggle-content">
-          <view class="toggle-label">
-            <view class="toggle-title-row">
-              <text class="toggle-title">向AI展示个人简介</text>
-              <view class="info-icon" bindtap="onShowBioInfo">?</view>
+          <view class="user-basic-info">
+            <text class="user-name">{{userDetail.personaName || userDetail.username || '未设置昵称'}}</text>
+            <view class="username-line">
+              <text class="username">@{{userDetail.username || '未设置'}}</text>
+              <text wx:if="{{!userDetail.username}}" class="account-action-link" bindtap="onSupplementAccount">补全账号</text>
+              <text wx:else class="account-action-links">
+                <text class="account-action-link" bindtap="onChangePassword">修改密码</text>
+              </text>
             </view>
-            <text class="toggle-description">开启后AI会了解你的个人设定</text>
           </view>
         </view>
-        <view class="toggle-switch {{userDetail.showBio ? 'active' : ''}}" bindtap="onToggleShowBio">
-          <view class="switch-button"></view>
+        <view class="user-bio">
+          <text class="bio-text" data-full-text="{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}">{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}</text>
         </view>
-      </view>
 
-      <!-- 功能说明弹窗 -->
-      <view class="info-modal {{showBioInfoModal ? 'show' : ''}}" wx:if="{{showBioInfoModal}}" bindtap="onCloseBioInfoModal">
-        <view class="modal-content" catchtap="">
-          <view class="modal-header">
-            <text class="modal-title">个人简介设置说明</text>
-            <view class="close-btn" bindtap="onCloseBioInfoModal">×</view>
-          </view>
-          <view class="modal-body">
-            <text class="modal-text">通过个人简介自由设定你的喜好或人设，开启后AI会根据你的设定调整回答风格。</text>
-            <text class="modal-examples">例如：</text>
-            <text class="modal-example">• "我不喜欢啰嗦，请高度概括性的回答问题"</text>
-            <text class="modal-example">• "我是一个绝世高手，任何人对我都充满了敬重与畏惧"</text>
-          </view>
-        </view>
-      </view>
-
-      <view class="user-footer-actions">
-      </view>
-    </view>
-
-    <!-- 详情信息区域 -->
-    <view class="detail-section">
-      <text class="section-title">账户信息</text>
-
-      <!-- 邮箱管理组件 -->
-      <email-component
-        currentEmail="{{userDetail.email}}"
-        action="{{userDetail.email ? 'unbind' : 'bind'}}"
-        bind:success="onEmailComponentSuccess"
-      ></email-component>
-    </view>
-
-    <!-- 身份管理区域 -->
-    <view class="personas-section">
-      <view class="personas-header">
-        <text class="personas-title">身份管理</text>
-        <view class="add-persona-btn" bindtap="onAddPersona">
-          <text>+</text>
-          <text>新增身份</text>
-        </view>
-      </view>
-
-      <view class="personas-list">
-        <!-- 当前身份 -->
-        <view class="persona-card current {{currentPersonaActive ? 'active' : ''}}" bindtap="onCurrentPersonaTap">
-          <view class="persona-header">
-            <view class="persona-info">
-              <view class="persona-avatar-small {{!userDetail.personaAvatarUrl ? 'default' : ''}}" id="currentPersonaAvatar">
-                <image wx:if="{{userDetail.personaAvatarUrl}}" src="{{userDetail.personaAvatarUrl}}" mode="aspectFill" />
-                <text wx:else>默认</text>
+        <!-- 个人简介展示开关 -->
+        <view class="show-bio-toggle">
+          <view class="toggle-content">
+            <view class="toggle-label">
+              <view class="toggle-title-row">
+                <text class="toggle-title">向AI展示个人简介</text>
+                <view class="info-icon" bindtap="onShowBioInfo">?</view>
               </view>
-              <view class="persona-details">
-                <view class="persona-name-row">
-                  <text class="persona-name">{{userDetail.personaName || '未设置昵称'}}</text>
-                  <view class="current-badge">
-                    <text class="star-icon">⭐</text>
-                    <text>当前默认</text>
-                  </view>
-                </view>
-                <text class="persona-bio">
-                  <text class="bio-text" data-full-text="{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}">{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}</text>
-                </text>
-              </view>
+              <text class="toggle-description">开启后AI会了解你的个人设定</text>
             </view>
-            <view class="persona-actions">
-              <view class="action-icon-btn edit" title="编辑当前身份" bindtap="onEditCurrentPersona">✏️</view>
+          </view>
+          <view class="toggle-switch {{userDetail.showBio ? 'active' : ''}}" bindtap="onToggleShowBio">
+            <view class="switch-button"></view>
+          </view>
+        </view>
+
+        <!-- 功能说明弹窗 -->
+        <view class="info-modal {{showBioInfoModal ? 'show' : ''}}" wx:if="{{showBioInfoModal}}" bindtap="onCloseBioInfoModal">
+          <view class="modal-content" catchtap="">
+            <view class="modal-header">
+              <text class="modal-title">个人简介设置说明</text>
+              <view class="close-btn" bindtap="onCloseBioInfoModal">×</view>
+            </view>
+            <view class="modal-body">
+              <text class="modal-text">通过个人简介自由设定你的喜好或人设，开启后AI会根据你的设定调整回答风格。</text>
+              <text class="modal-examples">例如：</text>
+              <text class="modal-example">• "我不喜欢啰嗦，请高度概括性的回答问题"</text>
+              <text class="modal-example">• "我是一个绝世高手，任何人对我都充满了敬重与畏惧"</text>
             </view>
           </view>
         </view>
 
-        <!-- 其他身份 -->
-        <block wx:if="{{userDetail.otherPersonas && userDetail.otherPersonas.length > 0}}">
-          <view
-            class="persona-card {{otherPersonasActive[index] ? 'active' : ''}}"
-            wx:for="{{userDetail.otherPersonas}}"
-            wx:key="personaId"
-            data-persona-id="{{item.personaId}}"
-            data-index="{{index}}"
-            bindtap="onPersonaCardTap"
-          >
+        <view class="user-footer-actions">
+        </view>
+      </view>
+
+      <!-- 详情信息区域 -->
+      <view class="detail-section">
+        <text class="section-title">账户信息</text>
+
+        <!-- 邮箱管理组件 -->
+        <email-component
+          currentEmail="{{userDetail.email}}"
+          action="{{userDetail.email ? 'unbind' : 'bind'}}"
+          bind:success="onEmailComponentSuccess"
+        ></email-component>
+      </view>
+
+      <!-- 身份管理区域 -->
+      <view class="personas-section">
+        <view class="personas-header">
+          <text class="personas-title">身份管理</text>
+          <view class="add-persona-btn" bindtap="onAddPersona">
+            <text>+</text>
+            <text>新增身份</text>
+          </view>
+        </view>
+
+        <view class="personas-list">
+          <!-- 当前身份 -->
+          <view class="persona-card current {{currentPersonaActive ? 'active' : ''}}" bindtap="onCurrentPersonaTap">
             <view class="persona-header">
               <view class="persona-info">
-                <view class="persona-avatar-small {{!item.avatarUrl ? 'default' : ''}}">
-                  <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}" mode="aspectFill" />
+                <view class="persona-avatar-small {{!userDetail.personaAvatarUrl ? 'default' : ''}}" id="currentPersonaAvatar">
+                  <image wx:if="{{userDetail.personaAvatarUrl}}" src="{{userDetail.personaAvatarUrl}}" mode="aspectFill" />
                   <text wx:else>默认</text>
                 </view>
                 <view class="persona-details">
                   <view class="persona-name-row">
-                    <text class="persona-name">{{item.name}}</text>
+                    <text class="persona-name">{{userDetail.personaName || '未设置昵称'}}</text>
+                    <view class="current-badge">
+                      <text class="star-icon">⭐</text>
+                      <text>当前默认</text>
+                    </view>
                   </view>
                   <text class="persona-bio">
-                    <text class="bio-text" data-full-text="{{item.bio || '这个人很懒,什么都没有留下...'}}">{{item.bio || '这个人很懒,什么都没有留下...'}}</text>
+                    <text class="bio-text" data-full-text="{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}">{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}</text>
                   </text>
                 </view>
               </view>
               <view class="persona-actions">
-                <view class="action-icon-btn set-default" title="设为默认身份" bindtap="onSetDefaultPersona" data-persona="{{item}}">⭐</view>
-                <view class="action-icon-btn edit" title="编辑" bindtap="onEditPersona" data-persona="{{item}}">✏️</view>
-                <view class="action-icon-btn delete" title="删除" bindtap="onDeletePersona" data-persona="{{item}}">🗑️</view>
+                <view class="action-icon-btn edit" title="编辑当前身份" bindtap="onEditCurrentPersona">✏️</view>
               </view>
             </view>
           </view>
-        </block>
-        <view wx:else class="empty-personas">
-          <text>暂无其他身份</text>
+
+          <!-- 其他身份 -->
+          <block wx:if="{{userDetail.otherPersonas && userDetail.otherPersonas.length > 0}}">
+            <view
+              class="persona-card {{otherPersonasActive[index] ? 'active' : ''}}"
+              wx:for="{{userDetail.otherPersonas}}"
+              wx:key="personaId"
+              data-persona-id="{{item.personaId}}"
+              data-index="{{index}}"
+              bindtap="onPersonaCardTap"
+            >
+              <view class="persona-header">
+                <view class="persona-info">
+                  <view class="persona-avatar-small {{!item.avatarUrl ? 'default' : ''}}">
+                    <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}" mode="aspectFill" />
+                    <text wx:else>默认</text>
+                  </view>
+                  <view class="persona-details">
+                    <view class="persona-name-row">
+                      <text class="persona-name">{{item.name}}</text>
+                    </view>
+                    <text class="persona-bio">
+                      <text class="bio-text" data-full-text="{{item.bio || '这个人很懒,什么都没有留下...'}}">{{item.bio || '这个人很懒,什么都没有留下...'}}</text>
+                    </text>
+                  </view>
+                </view>
+                <view class="persona-actions">
+                  <view class="action-icon-btn set-default" title="设为默认身份" bindtap="onSetDefaultPersona" data-persona="{{item}}">⭐</view>
+                  <view class="action-icon-btn edit" title="编辑" bindtap="onEditPersona" data-persona="{{item}}">✏️</view>
+                  <view class="action-icon-btn delete" title="删除" bindtap="onDeletePersona" data-persona="{{item}}">🗑️</view>
+                </view>
+              </view>
+            </view>
+          </block>
+          <view wx:else class="empty-personas">
+            <text>暂无其他身份</text>
+          </view>
         </view>
       </view>
-    </view>
 
-    <!-- 账号操作区域 -->
-    <view class="account-actions-section">
-      <view class="account-actions-toggle {{accountActionsExpanded ? 'active' : ''}}" id="accountActionsToggle" bindtap="onToggleAccountActions">
-        <text class="toggle-text">账号与安全</text>
-        <text class="toggle-icon">▼</text>
-      </view>
-      <view class="account-actions-content {{accountActionsExpanded ? 'show' : ''}}" id="accountActionsContent" wx:if="{{accountActionsExpanded}}">
-        <view class="account-action-item delete-account-item" id="deleteAccountBtn" bindtap="onDeleteAccount">
-          <text class="action-label">注销账号</text>
-          <text class="action-arrow">›</text>
+      <!-- 账号操作区域 -->
+      <view class="account-actions-section">
+        <view class="account-actions-toggle {{accountActionsExpanded ? 'active' : ''}}" id="accountActionsToggle" bindtap="onToggleAccountActions">
+          <text class="toggle-text">账号与安全</text>
+          <text class="toggle-icon">▼</text>
+        </view>
+        <view class="account-actions-content {{accountActionsExpanded ? 'show' : ''}}" id="accountActionsContent" wx:if="{{accountActionsExpanded}}">
+          <view class="account-action-item delete-account-item" id="deleteAccountBtn" bindtap="onDeleteAccount">
+            <text class="action-label">注销账号</text>
+            <text class="action-arrow">›</text>
+          </view>
         </view>
       </view>
     </view>
   </scroll-view>
 </view>
-
-
-
-
-
-

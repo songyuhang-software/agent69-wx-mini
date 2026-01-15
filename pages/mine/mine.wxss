@@ -341,7 +341,8 @@
   box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1), 0 2rpx 4rpx rgba(0, 0, 0, 0.06);
 }
 
-.persona-card:active {
+/* 点击时的高亮效果 */
+.persona-card.active {
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   border-color: #007bff;
   box-shadow: 0 8rpx 24rpx rgba(0, 123, 255, 0.15), 0 4rpx 8rpx rgba(0, 0, 0, 0.08);
@@ -354,7 +355,8 @@
   box-shadow: 0 4rpx 16rpx rgba(0, 123, 255, 0.15), 0 2rpx 6rpx rgba(0, 0, 0, 0.08);
 }
 
-.persona-card.current:active {
+/* 当前身份卡片的点击高亮效果 */
+.persona-card.current.active {
   background: linear-gradient(135deg, rgba(0, 123, 255, 0.05) 0%, rgba(0, 123, 255, 0.08) 100%);
   border-color: #0056b3;
   box-shadow: 0 12rpx 32rpx rgba(0, 123, 255, 0.2), 0 6rpx 12rpx rgba(0, 0, 0, 0.1);
@@ -616,6 +618,7 @@
 .delete-account-item:active .action-arrow {
   color: #dc3545;
 }
+
 
 
 

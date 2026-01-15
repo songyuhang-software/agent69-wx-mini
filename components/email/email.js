@@ -43,13 +43,30 @@ Component({
     // 邮箱是否有效
     isValidEmail: false,
     // 是否显示操作界面
-    showOperation: false
+    showOperation: false,
+    // 卡片是否激活（点击时的高亮状态）
+    isCardActive: false
   },
 
   /**
    * 组件的方法
    */
   methods: {
+    // 邮箱卡片点击事件
+    onCardTap() {
+      // 添加点击时的激活状态
+      this.setData({
+        isCardActive: true
+      });
+
+      // 400ms后移除激活状态
+      setTimeout(() => {
+        this.setData({
+          isCardActive: false
+        });
+      }, 400);
+    },
+
     // 邮箱输入
     onEmailInput(e) {
       const email = e.detail.value;

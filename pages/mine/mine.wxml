@@ -51,7 +51,7 @@
 
       <view class="personas-list">
         <!-- 当前身份 -->
-        <view class="persona-card current">
+        <view class="persona-card current {{currentPersonaActive ? 'active' : ''}}" bindtap="onCurrentPersonaTap">
           <view class="persona-header">
             <view class="persona-info">
               <view class="persona-avatar-small {{!userDetail.personaAvatarUrl ? 'default' : ''}}" id="currentPersonaAvatar">
@@ -79,7 +79,14 @@
 
         <!-- 其他身份 -->
         <block wx:if="{{userDetail.otherPersonas && userDetail.otherPersonas.length > 0}}">
-          <view class="persona-card" wx:for="{{userDetail.otherPersonas}}" wx:key="personaId" data-persona-id="{{item.personaId}}">
+          <view
+            class="persona-card {{otherPersonasActive[index] ? 'active' : ''}}"
+            wx:for="{{userDetail.otherPersonas}}"
+            wx:key="personaId"
+            data-persona-id="{{item.personaId}}"
+            data-index="{{index}}"
+            bindtap="onPersonaCardTap"
+          >
             <view class="persona-header">
               <view class="persona-info">
                 <view class="persona-avatar-small {{!item.avatarUrl ? 'default' : ''}}">
@@ -124,3 +131,5 @@
     </view>
   </view>
 </scroll-view>
+
+

@@ -1,7 +1,7 @@
 <!--components/email/email.wxml-->
 <view wx:if="{{show}}" class="email-component">
   <!-- 邮箱状态显示区域 -->
-  <view class="email-status">
+  <view class="email-status {{isCardActive ? 'active' : ''}}" bindtap="onCardTap">
     <view class="email-info">
       <text class="email-icon">📧</text>
       <view class="email-details">

@@ -13,7 +13,11 @@ Component({
       personaId: '',
       otherPersonas: []
     },
-    accountActionsExpanded: false
+    accountActionsExpanded: false,
+    // 当前身份卡片激活状态
+    currentPersonaActive: false,
+    // 其他身份卡片激活状态数组
+    otherPersonasActive: []
   },
 
   lifetimes: {
@@ -31,6 +35,52 @@ Component({
   },
 
   methods: {
+    // 当前身份卡片点击事件
+    onCurrentPersonaTap() {
+      // 添加点击时的激活状态
+      this.setData({
+        currentPersonaActive: true
+      });
+
+      // 400ms后移除激活状态
+      setTimeout(() => {
+        this.setData({
+          currentPersonaActive: false
+        });
+      }, 400);
+    },
+
+    // 其他身份卡片点击事件
+    onPersonaCardTap(e) {
+      const index = e.currentTarget.dataset.index;
+      const newOtherPersonasActive = [...this.data.otherPersonasActive];
+
+      // 重置所有状态
+      for (let i = 0; i < newOtherPersonasActive.length; i++) {
+        newOtherPersonasActive[i] = false;
+      }
+
+      // 设置当前点击的卡片为激活状态
+      if (index !== undefined && index < newOtherPersonasActive.length) {
+        newOtherPersonasActive[index] = true;
+      }
+
+      this.setData({
+        otherPersonasActive: newOtherPersonasActive
+      });
+
+      // 400ms后移除激活状态
+      setTimeout(() => {
+        const resetOtherPersonasActive = [...this.data.otherPersonasActive];
+        if (index !== undefined && index < resetOtherPersonasActive.length) {
+          resetOtherPersonasActive[index] = false;
+        }
+
+        this.setData({
+          otherPersonasActive: resetOtherPersonasActive
+        });
+      }, 400);
+    },
     // 加载用户详情
     async loadUserDetail() {
       try {
@@ -54,8 +104,12 @@ Component({
           otherPersonas: data.otherPersonas || []
         };
 
+        // 初始化其他身份卡片的激活状态数组
+        const otherPersonasActive = new Array(userDetail.otherPersonas.length).fill(false);
+
         this.setData({
-          userDetail
+          userDetail,
+          otherPersonasActive
         });
 
         wx.hideLoading();
@@ -281,6 +335,11 @@ Component({
     }
   }
 })
+
+
+
+
+
 
 
 

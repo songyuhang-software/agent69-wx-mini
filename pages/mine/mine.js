@@ -101,7 +101,7 @@ Component({
           personaName: data.personaName || '',
           personaAvatarUrl: data.personaAvatarUrl || '',
           personaBio: data.personaBio || '',
-          showBio: data.showBio || false,
+          showBio: data.showBio === true, // 严格判断，只有明确为 true 时才为 true
           username: data.username || '',
           email: data.email || '',
           personaId: data.personaId || '',
@@ -393,6 +393,7 @@ Component({
     }
   }
 })
+
 
 
 

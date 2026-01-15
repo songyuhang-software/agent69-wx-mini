@@ -24,7 +24,6 @@
         <text class="bio-text" data-full-text="{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}">{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}</text>
       </view>
       <view class="user-footer-actions">
-        <view class="logout-link" bindtap="onLogout">退出登录</view>
       </view>
     </view>
 

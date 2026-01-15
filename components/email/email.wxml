@@ -10,9 +10,9 @@
       </view>
     </view>
     <view class="email-actions">
-      <view
+      <view 
         wx:if="{{!showOperation}}"
-        class="action-button {{currentEmail ? 'danger' : ''}}"
+        class="action-button {{currentEmail ? 'danger' : ''}}" 
         bindtap="onStartOperation"
       >
         {{currentEmail ? '解绑' : '绑定'}}

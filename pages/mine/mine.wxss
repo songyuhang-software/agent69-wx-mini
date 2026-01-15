@@ -138,30 +138,7 @@
 
 /* 用户底部操作区域 */
 .user-footer-actions {
-  margin-top: 24rpx;
-  padding-top: 20rpx;
-  border-top: 1rpx solid #e9ecef;
-  text-align: center;
-}
-
-.logout-link {
-  background: none;
-  border: none;
-  color: #6c757d;
-  font-size: 26rpx;
-  font-weight: 400;
-  padding: 8rpx 16rpx;
-  border-radius: 8rpx;
-  transition: all 0.2s ease;
-}
-
-.logout-link::after {
-  border: none;
-}
-
-.logout-link:active {
-  background: #f8f9fa;
-  color: #495057;
+  /* 移除了退出登录功能后的样式调整 */
 }
 
 /* 详情卡片 - 提升层次感 */
@@ -639,6 +616,7 @@
 .delete-account-item:active .action-arrow {
   color: #dc3545;
 }
+
 
 
 

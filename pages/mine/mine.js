@@ -96,40 +96,7 @@ Component({
       // TODO: 跳转到修改密码页面或弹出弹窗
     },
 
-    // 退出登录
-    onLogout() {
-      wx.showModal({
-        title: '退出登录',
-        content: '确定要退出登录吗？',
-        success: (res) => {
-          if (res.confirm) {
-            // 调用后端登出接口
-            request({
-              url: `${API_CONFIG.userserviceUrl}/api/users/logout`,
-              method: 'POST',
-              needAuth: true
-            }).catch(error => {
-              console.error('调用后端登出接口失败:', error);
-            });
-
-            wx.showToast({
-              title: '已退出登录',
-              icon: 'success'
-            });
-
-            // 清除登录状态
-            wx.removeStorageSync('accessToken');
-
-            // 跳转到登录页
-            setTimeout(() => {
-              wx.reLaunch({
-                url: '/pages/login/login'
-              });
-            }, 1500);
-          }
-        }
-      });
-    },
+    // 移除了退出登录功能
 
     // 邮箱组件成功事件
     onEmailComponentSuccess(e) {
@@ -314,6 +281,7 @@ Component({
     }
   }
 })
+
 
 
 

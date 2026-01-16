@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/components/email/email.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/email/email.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/email/email.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/components/email/email.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/mine/mine.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/mine/mine.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.wxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/mine/mine.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.wxss" afterDir="false" />
@@ -70,16 +69,25 @@
         </option>
         <option name="isMavenProject" value="false" />
         <option name="jdkVersion" value="" />
-        <option name="queryString" value="?chatId=5e6e6510-a85a-4350-a7e5-c55c1c7a8de3" />
+        <option name="queryString" value="?chatId=48edf8b3-af16-4b9c-8555-215abde78566" />
         <option name="sideCarIDEInfo">
           <SideCarIDEInfo>
             <option name="allFiles">
               <set>
                 <option value="$PROJECT_DIR$/app.js" />
+                <option value="$PROJECT_DIR$/app.json" />
+                <option value="$PROJECT_DIR$/components/email/email.js" />
+                <option value="$PROJECT_DIR$/components/email/email.json" />
+                <option value="$PROJECT_DIR$/components/email/email.wxml" />
+                <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.js" />
+                <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxml" />
+                <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxss" />
                 <option value="$PROJECT_DIR$/config/api.js" />
                 <option value="$PROJECT_DIR$/h5-mine/user/randomAvatar.js" />
-                <option value="$PROJECT_DIR$/pages/edit-persona/edit-persona.js" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.js" />
+                <option value="$PROJECT_DIR$/pages/mine/mine.json" />
+                <option value="$PROJECT_DIR$/pages/mine/mine.wxml" />
+                <option value="$PROJECT_DIR$/pages/mine/mine.wxss" />
                 <option value="$PROJECT_DIR$/utils/avatarUpload.js" />
                 <option value="$PROJECT_DIR$/utils/request.js" />
                 <option value="$PROJECT_DIR$/utils/util.js" />
@@ -89,7 +97,7 @@
             <option name="editorUrl" value="http://127.0.0.1:41100/" />
             <option name="openFiles">
               <set>
-                <option value="$PROJECT_DIR$/utils/avatarUpload.js" />
+                <option value="$PROJECT_DIR$/config/api.js" />
               </set>
             </option>
             <option name="projectId" value="13d0381" />

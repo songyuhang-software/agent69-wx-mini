@@ -578,9 +578,10 @@ page {
 
 .persona-actions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 12rpx;
   flex-shrink: 0;
+  align-items: center;
 }
 
 .action-icon-btn {
@@ -871,6 +872,7 @@ page {
   background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   border-radius: 50%;
 }
+
 
 
 

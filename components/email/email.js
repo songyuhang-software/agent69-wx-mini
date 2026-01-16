@@ -332,7 +332,7 @@ Component({
             url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.emailAssociation}`,
             method: 'POST',
             data: {
-              emial: email,
+              email: email,
               verificationCode: verificationCode,
               weChatCode: weChatCode
             },

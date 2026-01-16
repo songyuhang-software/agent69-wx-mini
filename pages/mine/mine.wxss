@@ -2,25 +2,21 @@
 
 /* 页面根元素 */
 page {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  /* 修复布局，去除高度和 flex */
 }
 
 /* 页面容器 */
 .page-container {
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  /* 去掉高度和 flex 布局，避免 WebView 渲染兼容性问题 */
 }
 
 /* 滚动区域 */
 .scrollarea {
-  flex: 1;
+  height: calc(100vh - 100rpx);
   box-sizing: border-box;
   background: #f5f7fa;
-  overflow-y: hidden;
+  overflow-y: auto;
 }
 
 .modal-body {

@@ -128,7 +128,6 @@ Component({
         title: '头像点击',
         icon: 'none'
       });
-      // TODO: 实现头像上传功能
     },
 
     // 关联已有账号
@@ -139,14 +138,7 @@ Component({
       });
     },
 
-    // 修改密码
-    onChangePassword() {
-      wx.showToast({
-        title: '修改密码功能待实现',
-        icon: 'none'
-      });
-      // TODO: 跳转到修改密码页面或弹出弹窗
-    },
+    // 修改密码功能已移除
 
     // 移除了退出登录功能
 
@@ -369,6 +361,8 @@ Component({
     }
   }
 })
+
+
 
 
 

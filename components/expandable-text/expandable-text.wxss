@@ -32,6 +32,10 @@
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  background: none;
+  border: none;
+  outline: none;
   transition: color 0.2s ease;
 }
 

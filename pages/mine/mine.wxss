@@ -476,15 +476,15 @@ page {
   background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   color: white;
   border: none;
-  border-radius: 20rpx;
-  padding: 20rpx 36rpx;
-  font-size: 28rpx;
+  border-radius: 16rpx;
+  padding: 12rpx 24rpx;
+  font-size: 24rpx;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 12rpx;
+  gap: 8rpx;
   box-shadow: 0 4rpx 8rpx rgba(0, 123, 255, 0.2);
 }
 
@@ -814,6 +814,7 @@ page {
   background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   border-radius: 50%;
 }
+
 
 
 

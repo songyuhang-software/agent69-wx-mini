@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <navigation-bar title="Weixin" back="{{false}}" color="black" background="#FFF"></navigation-bar>
-<view class="main-content">
+<scroll-view class="scrollarea" scroll-y type="list">
   <view class="container">
     <view class="userinfo">
       <block wx:if="{{canIUseNicknameComp && !hasUserInfo}}">
@@ -25,4 +25,4 @@
       <text class="user-motto">{{motto}}</text>
     </view>
   </view>
-</view>
+</scroll-view>

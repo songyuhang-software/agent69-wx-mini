@@ -120,17 +120,22 @@ page {
 
 .input {
   width: 100%;
-  padding: 28rpx 28rpx;
+  height: 96rpx;
+  padding: 0 20rpx;
   border: 2rpx solid #d1d5db;
   border-radius: 16rpx;
   font-size: 32rpx;
   background: #ffffff;
   box-sizing: border-box;
   transition: all 0.3s ease;
-  min-height: 96rpx;
-  height: 96rpx;
-  text-align: left;
-  line-height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+  font-size: 32rpx;
 }
 
 .input:focus {
@@ -289,6 +294,15 @@ page {
     font-size: 22rpx;
   }
 }
+
+
+
+
+
+
+
+
+
 
 
 

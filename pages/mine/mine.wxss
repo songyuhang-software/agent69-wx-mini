@@ -168,6 +168,30 @@ page {
   display: block;
 }
 
+/* 展开/收起按钮样式 */
+.bio-toggle-btn {
+  color: #007bff;
+  font-size: 26rpx;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8rpx 0;
+  margin-top: 8rpx;
+  transition: all 0.2s ease;
+  text-align: left;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.bio-toggle-btn::after {
+  border: none;
+}
+
+.bio-toggle-btn:active {
+  color: #0056b3;
+  transform: scale(0.98);
+}
+
 /* 用户底部操作区域 */
 .user-footer-actions {
   /* 移除了退出登录功能后的样式调整 */
@@ -787,6 +811,7 @@ page {
   background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   border-radius: 50%;
 }
+
 
 
 

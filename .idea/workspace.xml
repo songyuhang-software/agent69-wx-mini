@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/mine/mine.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/mine/mine.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.wxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pages/mine/mine.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.wxss" afterDir="false" />
@@ -31,18 +30,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/songyuhang/agent69/agent69-wx-mini",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/songyuhang/agent69/agent69-wx-mini&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/pages/mine" />
@@ -75,7 +74,7 @@
         </option>
         <option name="isMavenProject" value="false" />
         <option name="jdkVersion" value="" />
-        <option name="queryString" value="?chatId=3d2ab273-64b1-44cd-832e-4690c7d39123" />
+        <option name="queryString" value="?chatId=6c19d092-fc96-4a78-877e-8332bed26085" />
         <option name="sideCarIDEInfo">
           <SideCarIDEInfo>
             <option name="allFiles">
@@ -89,6 +88,7 @@
                 <option value="$PROJECT_DIR$/components/email/email.js" />
                 <option value="$PROJECT_DIR$/components/email/email.json" />
                 <option value="$PROJECT_DIR$/components/email/email.wxml" />
+                <option value="$PROJECT_DIR$/components/email/email.wxss" />
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.js" />
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxml" />
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxss" />
@@ -100,7 +100,7 @@
                 <option value="$PROJECT_DIR$/pages/mine/mine.json" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.wxml" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.wxss" />
-                <option value="$PROJECT_DIR$/user-h5/userDetailModal.js" />
+                <option value="$PROJECT_DIR$/project.config.json" />
                 <option value="$PROJECT_DIR$/utils/avatarUpload.js" />
                 <option value="$PROJECT_DIR$/utils/request.js" />
                 <option value="$PROJECT_DIR$/utils/util.js" />
@@ -110,7 +110,7 @@
             <option name="editorUrl" value="http://127.0.0.1:41100/" />
             <option name="openFiles">
               <set>
-                <option value="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxss" />
+                <option value="$PROJECT_DIR$/pages/mine/mine.wxss" />
               </set>
             </option>
             <option name="projectId" value="13d0381" />
@@ -121,7 +121,7 @@
             <option name="todoWriteAsLoading" value="true" />
           </SideCarIDEInfo>
         </option>
-        <option name="workspaceFileType" value="js" />
+        <option name="workspaceFileType" value="Plain text" />
       </WebViewProjectConfig>
     </option>
   </component>

@@ -1,7 +1,105 @@
 <!-- pages/bind-account/bind-account.wxml -->
 <view class="container">
-  <view class="placeholder">
-    <text class="title">绑定已有Agent69账号</text>
-    <text class="subtitle">此功能待后续实现</text>
+  <view class="login-container">
+    <view class="login-header">
+      <text class="title">绑定Agent69账号</text>
+      <text class="subtitle">使用已有账号登录并绑定微信</text>
+    </view>
+
+    <!-- 选项卡 -->
+    <view class="login-tabs">
+      <view class="tab-button {{currentTab === 'username' ? 'active' : ''}}" data-tab="username" bindtap="switchTab">
+        <text>用户名登录</text>
+      </view>
+      <view class="tab-button {{currentTab === 'email' ? 'active' : ''}}" data-tab="email" bindtap="switchTab">
+        <text>邮箱登录</text>
+      </view>
+    </view>
+
+    <!-- 用户名密码登录 -->
+    <view class="tab-content {{currentTab === 'username' ? 'active' : ''}}">
+      <form bindsubmit="handleUsernameLogin">
+        <view class="form-group">
+          <text class="label">用户名</text>
+          <input
+            class="input"
+            type="text"
+            name="username"
+            placeholder="请输入用户名/邮箱"
+            value="{{usernameForm.username}}"
+            bindinput="onUsernameInput"
+          />
+        </view>
+        <view class="form-group">
+          <text class="label">密码</text>
+          <view class="password-input-wrapper">
+            <input
+              class="input password-input"
+              type="{{showPassword ? 'text' : 'password'}}"
+              name="password"
+              placeholder="请输入密码"
+              value="{{usernameForm.password}}"
+              bindinput="onPasswordInput"
+            />
+            <view class="toggle-password-btn" bindtap="togglePasswordVisibility">
+              <image wx:if="{{showPassword}}" class="eye-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23a0aec0' stroke-width='2'%3E%3Cpath d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'%3E%3C/path%3E%3Ccircle cx='12' cy='12' r='3'%3E%3C/circle%3E%3C/svg%3E" />
+              <image wx:else class="eye-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23a0aec0' stroke-width='2'%3E%3Cpath d='M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24'%3E%3C/path%3E%3Cline x1='1' y1='1' x2='23' y2='23'%3E%3C/line%3E%3C/svg%3E" />
+            </view>
+          </view>
+        </view>
+        <button class="login-button" formType="submit" disabled="{{usernameLoading}}">
+          {{usernameLoading ? '登录中...' : '登录并绑定'}}
+        </button>
+      </form>
+      <view class="error-message {{usernameError ? 'show' : ''}}" wx:if="{{usernameError}}">
+        {{usernameError}}
+      </view>
+    </view>
+
+    <!-- 邮箱登录 -->
+    <view class="tab-content {{currentTab === 'email' ? 'active' : ''}}">
+      <form bindsubmit="handleEmailLogin">
+        <view class="form-group">
+          <text class="label">邮箱地址</text>
+          <input
+            class="input"
+            type="text"
+            name="email"
+            placeholder="请输入您的邮箱"
+            value="{{emailForm.email}}"
+            bindinput="onEmailInput"
+          />
+        </view>
+        <view class="form-group">
+          <text class="label">验证码</text>
+          <view class="code-input-wrapper">
+            <input
+              class="input code-input"
+              type="text"
+              name="code"
+              placeholder="请输入验证码"
+              value="{{emailForm.code}}"
+              bindinput="onCodeInput"
+            />
+            <button
+              class="send-code-btn"
+              type="button"
+              disabled="{{!isEmailValid || countdown > 0}}"
+              bindtap="sendVerificationCode"
+            >
+              {{countdown > 0 ? countdown + 's' : '发送验证码'}}
+            </button>
+          </view>
+        </view>
+        <button class="login-button" formType="submit" disabled="{{emailLoading}}">
+          {{emailLoading ? '登录中...' : '登录并绑定'}}
+        </button>
+      </form>
+      <view class="error-message {{emailError ? 'show' : ''}}" wx:if="{{emailError}}">
+        {{emailError}}
+      </view>
+    </view>
+
   </view>
 </view>
+

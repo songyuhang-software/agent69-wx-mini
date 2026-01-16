@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="" />
+    <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/components/email/email.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/components/email/email.wxss" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,7 +72,7 @@
         </option>
         <option name="isMavenProject" value="false" />
         <option name="jdkVersion" value="" />
-        <option name="queryString" value="?chatId=5b66cfbf-25b7-4a26-9adf-4134c39dea71" />
+        <option name="queryString" value="?chatId=db5e3712-4048-40fb-880f-89beffc92af5" />
         <option name="sideCarIDEInfo">
           <SideCarIDEInfo>
             <option name="allFiles">
@@ -106,18 +108,18 @@
             <option name="editorUrl" value="http://127.0.0.1:41100/" />
             <option name="openFiles">
               <set>
-                <option value="$PROJECT_DIR$/pages/mine/mine.wxss" />
+                <option value="$PROJECT_DIR$/pages/mine/mine.js" />
               </set>
             </option>
             <option name="projectId" value="13d0381" />
             <option name="rootDirectory" value="$PROJECT_DIR$" />
             <option name="shell" value="/bin/bash" />
-            <option name="sideCarPort" value="42425" />
+            <option name="sideCarPort" value="42426" />
             <option name="socketPort" value="41100" />
             <option name="todoWriteAsLoading" value="true" />
           </SideCarIDEInfo>
         </option>
-        <option name="workspaceFileType" value="js" />
+        <option name="workspaceFileType" value="Plain text" />
       </WebViewProjectConfig>
     </option>
   </component>

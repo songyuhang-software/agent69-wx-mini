@@ -1,7 +1,7 @@
 <!--pages/mine/mine.wxml-->
 <view class="page-container">
   <navigation-bar title="👤 用户详情" back="{{false}}" color="black" background="#FFF"></navigation-bar>
-  <scroll-view class="scrollarea" scroll-y type="list" refresher-enabled="{{false}}" scroll-into-view="{{''}}" scroll-with-animation="{{false}}" bindscroll="onScroll">
+  <scroll-view class="scrollarea" scroll-y refresher-enabled="{{false}}" bindscroll="onScroll">
     <view class="modal-body">
       <!-- 用户信息区域 -->
       <view class="user-info-section">
@@ -175,6 +175,7 @@
     bind:success="onEditPersonaSuccess"
   ></edit-persona-modal>
 </view>
+
 
 
 

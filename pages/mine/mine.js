@@ -20,19 +20,15 @@ Component({
     // 其他身份卡片激活状态数组
     otherPersonasActive: [],
     // 显示个人简介说明弹窗
-    showBioInfoModal: false
+    showBioInfoModal: false,
+    // 编辑身份弹窗相关
+    showEditPersonaModal: false,
+    editPersonaMode: 'add', // 'add' 或 'edit'
+    editPersonaData: null
   },
 
   lifetimes: {
     attached() {
-      this.loadUserDetail();
-    }
-  },
-
-  pageLifetimes: {
-    // 页面显示时触发
-    show() {
-      // 当从其他页面返回时,重新加载用户详情
       this.loadUserDetail();
     }
   },
@@ -167,8 +163,10 @@ Component({
 
     // 新增身份
     onAddPersona() {
-      wx.navigateTo({
-        url: '/pages/edit-persona/edit-persona?mode=add'
+      this.setData({
+        showEditPersonaModal: true,
+        editPersonaMode: 'add',
+        editPersonaData: null
       });
     },
 
@@ -176,8 +174,16 @@ Component({
     onEditCurrentPersona() {
       const { userDetail } = this.data;
 
-      wx.navigateTo({
-        url: `/pages/edit-persona/edit-persona?mode=edit&personaId=${userDetail.personaId}&name=${encodeURIComponent(userDetail.personaName || '')}&bio=${encodeURIComponent(userDetail.personaBio || '')}&avatarUrl=${encodeURIComponent(userDetail.personaAvatarUrl || '')}&isCurrent=true`
+      this.setData({
+        showEditPersonaModal: true,
+        editPersonaMode: 'edit',
+        editPersonaData: {
+          personaId: userDetail.personaId,
+          name: userDetail.personaName,
+          bio: userDetail.personaBio,
+          avatarUrl: userDetail.personaAvatarUrl,
+          isCurrent: true
+        }
       });
     },
 
@@ -234,8 +240,16 @@ Component({
     onEditPersona(e) {
       const persona = e.currentTarget.dataset.persona;
 
-      wx.navigateTo({
-        url: `/pages/edit-persona/edit-persona?mode=edit&personaId=${persona.personaId}&name=${encodeURIComponent(persona.name || '')}&bio=${encodeURIComponent(persona.bio || '')}&avatarUrl=${encodeURIComponent(persona.avatarUrl || '')}&isCurrent=false`
+      this.setData({
+        showEditPersonaModal: true,
+        editPersonaMode: 'edit',
+        editPersonaData: {
+          personaId: persona.personaId,
+          name: persona.name,
+          bio: persona.bio,
+          avatarUrl: persona.avatarUrl,
+          isCurrent: false
+        }
       });
     },
 
@@ -390,8 +404,29 @@ Component({
       this.setData({
         showBioInfoModal: false
       });
+    },
+
+    // 关闭编辑身份弹窗
+    onCloseEditPersonaModal() {
+      this.setData({
+        showEditPersonaModal: false
+      });
+    },
+
+    // 编辑身份成功回调
+    onEditPersonaSuccess(e) {
+      const { mode } = e.detail;
+      console.log(`身份${mode === 'add' ? '创建' : '编辑'}成功`);
+
+      // 刷新用户详情数据
+      this.loadUserDetail();
     }
   }
 })
+
+
+
+
+
 
 

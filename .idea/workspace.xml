@@ -5,39 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/CREATE_NEW_ADAPTER.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/TEMPLATE_Adapter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/TEMPLATE_Init.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/imagePicker/ARCHITECTURE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/imagePicker/QUICKSTART.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/imagePicker/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/imagePicker/imagePickerAdapter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/imagePicker/imagePickerInit.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/tokenRefresh/QUICKSTART.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/tokenRefresh/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/tokenRefresh/tokenRefreshAdapter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/adapters/tokenRefresh/tokenRefreshInit.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/modal/ModalManager.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/modal/focusManagement.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/avatarComponent.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/avatarUpload.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/confirmModal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/forgotPasswordModal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/randomAvatar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/storageConfig.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/styles/account.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/styles/avatar.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/styles/email.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/styles/forgot-password.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/styles/persona.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/styles/userDetail.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/user/userDetailModal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/utils/axios.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/utils/hash.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/h5-mine/utils/toast.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/edit-persona/edit-persona.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/edit-persona/edit-persona.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/edit-persona/edit-persona.wxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/edit-persona/edit-persona.wxss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/mine/mine.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/mine/mine.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/mine/mine.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.wxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,13 +78,14 @@
         </option>
         <option name="isMavenProject" value="false" />
         <option name="jdkVersion" value="" />
-        <option name="queryString" value="?chatId=f687b570-f0b2-4dc8-8ab2-c1d69c6a2bf4" />
+        <option name="queryString" value="?chatId=ca9a21d6-8004-4531-89af-02f0568db63f" />
         <option name="sideCarIDEInfo">
           <SideCarIDEInfo>
             <option name="allFiles">
               <set>
                 <option value="$PROJECT_DIR$/app.js" />
                 <option value="$PROJECT_DIR$/app.json" />
+                <option value="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.json" />
                 <option value="$PROJECT_DIR$/components/email/email.js" />
                 <option value="$PROJECT_DIR$/components/email/email.json" />
                 <option value="$PROJECT_DIR$/components/email/email.wxml" />
@@ -112,7 +93,9 @@
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxml" />
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxss" />
                 <option value="$PROJECT_DIR$/config/api.js" />
-                <option value="$PROJECT_DIR$/h5-mine/user/randomAvatar.js" />
+                <option value="$PROJECT_DIR$/pages/bind-account/bind-account.js" />
+                <option value="$PROJECT_DIR$/pages/bind-account/bind-account.wxml" />
+                <option value="$PROJECT_DIR$/pages/bind-account/bind-account.wxss" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.js" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.json" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.wxml" />
@@ -126,7 +109,7 @@
             <option name="editorUrl" value="http://127.0.0.1:41100/" />
             <option name="openFiles">
               <set>
-                <option value="$PROJECT_DIR$/pages/mine/mine.wxss" />
+                <option value="$PROJECT_DIR$/app.json" />
               </set>
             </option>
             <option name="projectId" value="13d0381" />
@@ -137,7 +120,7 @@
             <option name="todoWriteAsLoading" value="true" />
           </SideCarIDEInfo>
         </option>
-        <option name="workspaceFileType" value="js" />
+        <option name="workspaceFileType" value="wxss" />
       </WebViewProjectConfig>
     </option>
   </component>

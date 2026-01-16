@@ -1,0 +1,66 @@
+<view class="edit-persona-modal {{visible ? 'show' : ''}}" wx:if="{{visible}}">
+  <view class="modal-mask" bindtap="onClose"></view>
+  <view class="modal-content">
+    <view class="modal-header">
+      <text class="modal-title">{{mode === 'add' ? '新增身份' : '编辑身份'}}</text>
+      <text class="close-btn" bindtap="onClose">×</text>
+    </view>
+    <view class="modal-body">
+      <!-- 头像选择 -->
+      <view class="form-group avatar-group">
+        <view class="form-label">头像</view>
+        <view class="avatar-section">
+          <view class="avatar-preview {{!formData.avatarUrl ? 'default' : ''}}" bindtap="onChooseAvatar">
+            <image wx:if="{{formData.avatarUrl}}" src="{{formData.avatarUrl}}" mode="aspectFill" />
+            <text wx:else class="avatar-placeholder">+</text>
+          </view>
+          <view class="avatar-actions">
+            <view class="avatar-btn" bindtap="onChooseAvatar">
+              <text>选择图片</text>
+            </view>
+            <view class="avatar-btn secondary" bindtap="onGetRandomAvatar">
+              <text>随机头像</text>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 昵称输入 -->
+      <view class="form-group">
+        <view class="form-label required">昵称</view>
+        <input
+          class="form-input {{errors.name ? 'error' : ''}}"
+          type="text"
+          placeholder="请输入昵称（最多20字）"
+          value="{{formData.name}}"
+          maxlength="20"
+          bindinput="onNameInput"
+        />
+        <text wx:if="{{errors.name}}" class="error-text">{{errors.name}}</text>
+      </view>
+
+      <!-- 个人简介输入 -->
+      <view class="form-group">
+        <view class="form-label">个人简介</view>
+        <textarea
+          class="form-textarea {{errors.bio ? 'error' : ''}}"
+          placeholder="请输入个人简介（最多200字）"
+          value="{{formData.bio}}"
+          maxlength="200"
+          bindinput="onBioInput"
+          auto-height
+        />
+        <view class="textarea-counter">{{formData.bio.length}}/200</view>
+        <text wx:if="{{errors.bio}}" class="error-text">{{errors.bio}}</text>
+      </view>
+    </view>
+
+    <view class="modal-footer">
+      <view class="btn btn-cancel" bindtap="onClose">取消</view>
+      <view class="btn btn-submit {{isSubmitting ? 'disabled' : ''}}" bindtap="onSubmit">
+        {{isSubmitting ? '提交中...' : '确定'}}
+      </view>
+    </view>
+  </view>
+</view>
+

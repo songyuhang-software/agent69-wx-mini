@@ -1,7 +1,9 @@
 {
   "usingComponents": {
     "navigation-bar": "/components/navigation-bar/navigation-bar",
-    "email-component": "/components/email/email"
+    "email-component": "/components/email/email",
+    "edit-persona-modal": "/components/edit-persona-modal/edit-persona-modal"
   },
   "component": true
 }
+

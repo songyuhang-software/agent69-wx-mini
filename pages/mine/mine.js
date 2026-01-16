@@ -24,63 +24,16 @@ Component({
     // 编辑身份弹窗相关
     showEditPersonaModal: false,
     editPersonaMode: 'add', // 'add' 或 'edit'
-    editPersonaData: null,
-    // 滚动位置管理
-    scrollPosition: 0,
-    isPageScrolling: false
+    editPersonaData: null
   },
 
   lifetimes: {
     attached() {
       this.loadUserDetail();
-    },
-
-    // 页面隐藏和显示时的处理
-    show() {
-      // 页面重新显示时，不强制滚动到顶部
-      // 保持用户当前的滚动位置
-    },
-
-    hide() {
-      // 页面隐藏时的处理
-    }
-  },
-
-  // 页面级的事件处理
-  pageLifetimes: {
-    show() {
-      // 页面显示时，恢复滚动位置（可选）
-      // 如果需要保持滚动位置，可以启用以下代码
-      // setTimeout(() => {
-      //   this.setData({
-      //     isPageScrolling: true
-      //   });
-      //   // 注意：在真机上，scroll-into-view 可能不如预期工作
-      //   // 所以这里选择不强制恢复滚动位置，让用户保持当前浏览位置
-      // }, 100);
-    },
-
-    hide() {
-      // 页面隐藏时清理状态
-      this.setData({
-        currentPersonaActive: false,
-        otherPersonasActive: this.data.otherPersonasActive.map(() => false)
-      });
     }
   },
 
   methods: {
-    // 滚动事件处理
-    onScroll(e) {
-      const scrollTop = e.detail.scrollTop;
-      // 记录滚动位置，但不强制重置页面
-      if (!this.data.isPageScrolling) {
-        this.setData({
-          scrollPosition: scrollTop
-        });
-      }
-    },
-
     // 当前身份卡片点击事件
     onCurrentPersonaTap() {
       // 添加点击时的激活状态
@@ -470,10 +423,6 @@ Component({
     }
   }
 })
-
-
-
-
 
 
 

@@ -132,13 +132,12 @@ Component({
       // TODO: 实现头像上传功能
     },
 
-    // 补全账号
-    onSupplementAccount() {
-      wx.showToast({
-        title: '补全账号功能待实现',
-        icon: 'none'
+    // 关联已有账号
+    onBindAccount() {
+      // 跳转到bind-account页面
+      wx.navigateTo({
+        url: '/pages/bind-account/bind-account'
       });
-      // TODO: 跳转到补全账号页面或弹出弹窗
     },
 
     // 修改密码

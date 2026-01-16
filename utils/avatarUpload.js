@@ -118,7 +118,16 @@ function uploadImageToStorage(filePath, callbacks = {}) {
         if (res.statusCode === 200) {
           try {
             const data = JSON.parse(res.data);
-            const imageUrl = data.url;
+            let imageUrl = data.url;
+
+            // 如果返回的是相对路径，拼接完整的CDN域名
+            if (imageUrl && !imageUrl.startsWith('http://') && !imageUrl.startsWith('https://')) {
+              // 移除开头的斜杠（如果有）
+              imageUrl = imageUrl.replace(/^\/+/, '');
+              // 拼接域名
+              imageUrl = STORAGE_CONFIG.domain + imageUrl;
+            }
+
             resolve(imageUrl);
           } catch (error) {
             reject(new Error('解析上传结果失败'));
@@ -368,6 +377,7 @@ module.exports = {
   RandomAvatarManager,
   STORAGE_CONFIG
 };
+
 
 
 

@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/avatarUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/avatarUpload.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +66,7 @@
         </option>
         <option name="isMavenProject" value="false" />
         <option name="jdkVersion" value="" />
-        <option name="queryString" value="?chatId=7812152b-e209-4141-87a7-8a8f98a512f4" />
+        <option name="queryString" value="?chatId=3d2ab273-64b1-44cd-832e-4690c7d39123" />
         <option name="sideCarIDEInfo">
           <SideCarIDEInfo>
             <option name="allFiles">
@@ -93,6 +91,7 @@
                 <option value="$PROJECT_DIR$/pages/mine/mine.json" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.wxml" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.wxss" />
+                <option value="$PROJECT_DIR$/user-h5/userDetailModal.js" />
                 <option value="$PROJECT_DIR$/utils/avatarUpload.js" />
                 <option value="$PROJECT_DIR$/utils/request.js" />
                 <option value="$PROJECT_DIR$/utils/util.js" />
@@ -113,7 +112,7 @@
             <option name="todoWriteAsLoading" value="true" />
           </SideCarIDEInfo>
         </option>
-        <option name="workspaceFileType" value="Plain text" />
+        <option name="workspaceFileType" value="js" />
       </WebViewProjectConfig>
     </option>
   </component>

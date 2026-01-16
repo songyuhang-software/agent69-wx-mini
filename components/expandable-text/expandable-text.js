@@ -7,7 +7,7 @@ Component({
     },
     rows: {
       type: Number,
-      value: 3
+      value: 2
     },
     expandText: {
       type: String,

@@ -1,17 +1,33 @@
 <!-- pages/auth-select/auth-select.wxml -->
 <view class="container">
-  <view class="title">欢迎使用Agent69</view>
-  <view class="subtitle">请选择登录方式</view>
+  <!-- 顶部品牌区域 -->
+  <view class="header">
+    <view class="logo">Agent69</view>
+    <view class="slogan">智能助手，随时随地</view>
+  </view>
 
-  <view class="auth-options">
-    <button class="auth-btn wechat-btn" bindtap="onWechatAuth">
-      <image class="icon" src="/images/wechat-icon.png" mode="aspectFit"></image>
-      <text>微信授权登录</text>
+  <!-- 中间装饰区域 -->
+  <view class="decoration">
+    <view class="circle circle-1"></view>
+    <view class="circle circle-2"></view>
+    <view class="circle circle-3"></view>
+  </view>
+
+  <!-- 底部操作区域 -->
+  <view class="bottom-section">
+    <view class="welcome-text">欢迎使用</view>
+
+    <!-- 微信授权登录按钮 -->
+    <button class="wechat-auth-btn" bindtap="onWechatAuth" hover-class="wechat-auth-btn-hover">
+      <image class="wechat-icon" src="/images/wechat-icon.png" mode="aspectFit"></image>
+      <text class="btn-text">微信授权登录</text>
     </button>
 
-    <button class="auth-btn bind-btn" bindtap="onBindAccount">
-      <image class="icon" src="/images/account-icon.png" mode="aspectFit"></image>
-      <text>绑定已有Agent69账号</text>
-    </button>
+    <!-- 已有账号链接 -->
+    <view class="bind-link-wrapper">
+      <text class="bind-text">已有agent69账号？</text>
+      <text class="bind-link" bindtap="onBindAccount">去关联</text>
+    </view>
   </view>
 </view>
+

@@ -155,7 +155,7 @@ page {
 
 .bio-text {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -818,6 +818,7 @@ page {
   background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   border-radius: 50%;
 }
+
 
 
 

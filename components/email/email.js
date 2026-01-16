@@ -341,7 +341,7 @@ Component({
 
           wx.hideLoading();
 
-          if (response.statusCode !== 200) {
+          if (response.statusCode < 200 || response.statusCode >= 300) {
             throw new Error(response.data?.message || '关联失败');
           }
 

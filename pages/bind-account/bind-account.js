@@ -133,7 +133,7 @@ Page({
         });
       });
 
-      if (loginResponse.statusCode !== 200 || !loginResponse.data.accessToken) {
+      if ((loginResponse.statusCode < 200 || loginResponse.statusCode >= 300) || !loginResponse.data.accessToken) {
         throw new Error(loginResponse.data?.error || loginResponse.data?.message || '登录失败');
       }
 
@@ -240,7 +240,7 @@ Page({
         });
       });
 
-      if (response.statusCode !== 200) {
+      if (response.statusCode < 200 || response.statusCode >= 300) {
         throw new Error(response.data?.error || response.data?.message || '发送失败');
       }
 
@@ -315,7 +315,7 @@ Page({
         });
       });
 
-      if (loginResponse.statusCode !== 200 || !loginResponse.data.accessToken) {
+      if ((loginResponse.statusCode < 200 || loginResponse.statusCode >= 300) || !loginResponse.data.accessToken) {
         throw new Error(loginResponse.data?.error || loginResponse.data?.message || '登录失败');
       }
 
@@ -373,6 +373,8 @@ Page({
     }
   }
 });
+
+
 
 
 

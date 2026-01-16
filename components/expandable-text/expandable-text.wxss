@@ -1,0 +1,40 @@
+/* components/expandable-text/expandable-text.wxss */
+.expandable-text {
+  position: relative;
+  width: 100%;
+}
+
+.content {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+  color: #333;
+  font-size: 28rpx;
+  word-wrap: break-word;
+  word-break: break-all;
+  transition: all 0.3s ease;
+}
+
+.content.expanded {
+  -webkit-line-clamp: unset;
+  display: block;
+}
+
+.expand-btn {
+  color: #007bff;
+  font-size: 26rpx;
+  font-weight: 500;
+  margin-top: 16rpx;
+  padding: 8rpx 0;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: color 0.2s ease;
+}
+
+.expand-btn:active {
+  color: #0056b3;
+}

@@ -23,11 +23,7 @@ Component({
     // 编辑身份弹窗相关
     showEditPersonaModal: false,
     editPersonaMode: 'add', // 'add' 或 'edit'
-    editPersonaData: null,
-    // 个人简介展开/收起状态
-    bioExpanded: false, // 用户信息区域的bio
-    currentBioExpanded: false, // 当前身份卡片的bio
-    otherPersonasBioExpanded: {} // 其他身份bio的展开状态 {personaId: boolean}
+    editPersonaData: null
   },
 
   lifetimes: {
@@ -83,6 +79,7 @@ Component({
         });
       }, 400);
     },
+
     // 加载用户详情
     async loadUserDetail() {
       try {
@@ -115,11 +112,6 @@ Component({
           otherPersonasActive
         });
 
-        // 延迟检查文本溢出，决定是否显示展开按钮
-        setTimeout(() => {
-          this.checkAndInitBioExpansion();
-        }, 100);
-
         wx.hideLoading();
       } catch (error) {
         console.error('加载用户详情失败:', error);
@@ -146,10 +138,6 @@ Component({
         url: '/pages/bind-account/bind-account'
       });
     },
-
-    // 修改密码功能已移除
-
-    // 移除了退出登录功能
 
     // 邮箱组件成功事件
     onEmailComponentSuccess(e) {
@@ -297,8 +285,6 @@ Component({
       });
     },
 
-    // 注销账号功能已移除
-
     // 切换showBio开关
     async onToggleShowBio() {
       const { userDetail } = this.data;
@@ -367,145 +353,6 @@ Component({
 
       // 刷新用户详情数据
       this.loadUserDetail();
-    },
-
-    // 检查并初始化个人简介展开/收起状态
-    checkAndInitBioExpansion() {
-      // 根据文本长度决定是否需要展开按钮
-      const newUserDetail = { ...this.data.userDetail };
-      const newOtherPersonasBioExpanded = { ...this.data.otherPersonasBioExpanded };
-
-      // 检查用户信息区域的bio是否需要展开按钮（超过35个字符）
-      if (this.data.userDetail.personaBio && this.data.userDetail.personaBio.length > 35) {
-        newUserDetail.bioExpanded = this.data.bioExpanded;
-        // 设置显示文本：收起时显示截断文本，展开时显示完整文本
-        newUserDetail.bioDisplayText = this.data.bioExpanded ?
-          this.data.userDetail.personaBio :
-          this.data.userDetail.personaBio.substring(0, 35) + '...';
-      } else {
-        newUserDetail.bioExpanded = undefined;
-        newUserDetail.bioDisplayText = this.data.userDetail.personaBio || '这个人很懒,什么都没有留下...';
-      }
-
-      // 检查当前身份卡片的bio是否需要展开按钮（超过35个字符）
-      if (this.data.userDetail.personaBio && this.data.userDetail.personaBio.length > 35) {
-        newUserDetail.currentBioExpanded = this.data.currentBioExpanded;
-        // 设置当前身份卡片的显示文本
-        newUserDetail.currentBioDisplayText = this.data.currentBioExpanded ?
-          this.data.userDetail.personaBio :
-          this.data.userDetail.personaBio.substring(0, 35) + '...';
-      } else {
-        newUserDetail.currentBioExpanded = undefined;
-        newUserDetail.currentBioDisplayText = this.data.userDetail.personaBio || '这个人很懒,什么都没有留下...';
-      }
-
-      // 检查其他身份的bio是否需要展开按钮
-      if (newUserDetail.otherPersonas && newUserDetail.otherPersonas.length > 0) {
-        newUserDetail.otherPersonas = newUserDetail.otherPersonas.map(persona => {
-          if (persona.bio && persona.bio.length > 35) {
-            newOtherPersonasBioExpanded[persona.personaId] =
-              newOtherPersonasBioExpanded[persona.personaId] || false;
-            return {
-              ...persona,
-              bioExpanded: newOtherPersonasBioExpanded[persona.personaId],
-              bioDisplayText: newOtherPersonasBioExpanded[persona.personaId] ?
-                persona.bio :
-                persona.bio.substring(0, 35) + '...'
-            };
-          } else {
-            return {
-              ...persona,
-              bioExpanded: undefined,
-              bioDisplayText: persona.bio || '这个人很懒,什么都没有留下...'
-            };
-          }
-        });
-      }
-
-      this.setData({
-        userDetail: newUserDetail,
-        otherPersonasBioExpanded: newOtherPersonasBioExpanded
-      });
-    },
-
-    // 切换用户信息区域的bio展开/收起
-    onToggleBio(e) {
-      const target = e.currentTarget.dataset.target;
-      let newBioExpanded, newCurrentBioExpanded;
-      const newUserDetail = { ...this.data.userDetail };
-
-      if (target === 'user') {
-        newBioExpanded = !this.data.bioExpanded;
-        newUserDetail.bioExpanded = newBioExpanded;
-        // 更新显示文本
-        newUserDetail.bioDisplayText = newBioExpanded ?
-          this.data.userDetail.personaBio :
-          this.data.userDetail.personaBio.substring(0, 35) + '...';
-        this.setData({
-          userDetail: newUserDetail,
-          bioExpanded: newBioExpanded
-        });
-      } else if (target === 'currentPersona') {
-        newCurrentBioExpanded = !this.data.currentBioExpanded;
-        newUserDetail.currentBioExpanded = newCurrentBioExpanded;
-        // 更新显示文本
-        newUserDetail.currentBioDisplayText = newCurrentBioExpanded ?
-          this.data.userDetail.personaBio :
-          this.data.userDetail.personaBio.substring(0, 35) + '...';
-        this.setData({
-          userDetail: newUserDetail,
-          currentBioExpanded: newCurrentBioExpanded
-        });
-      }
-    },
-
-    // 切换其他身份bio的展开/收起
-    onToggleOtherBio(e) {
-      const personaId = e.currentTarget.dataset.personaId;
-      const newOtherPersonasBioExpanded = { ...this.data.otherPersonasBioExpanded };
-
-      // 切换状态
-      const newExpandedState = !newOtherPersonasBioExpanded[personaId];
-      newOtherPersonasBioExpanded[personaId] = newExpandedState;
-
-      // 更新userDetail中对应的otherPersonas
-      const newUserDetail = { ...this.data.userDetail };
-      newUserDetail.otherPersonas = newUserDetail.otherPersonas.map(persona => {
-        if (persona.personaId === personaId) {
-          const expandedBio = newExpandedState ? persona.bio :
-            (persona.bio.length > 35 ? persona.bio.substring(0, 35) + '...' : persona.bio);
-          return {
-            ...persona,
-            bioExpanded: newExpandedState,
-            bioDisplayText: expandedBio
-          };
-        }
-        return persona;
-      });
-
-      this.setData({
-        userDetail: newUserDetail,
-        otherPersonasBioExpanded: newOtherPersonasBioExpanded
-      });
     }
   }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

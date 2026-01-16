@@ -19,12 +19,14 @@
           </view>
         </view>
         <view class="user-bio">
-          <text class="bio-text {{bioExpanded ? 'expanded' : ''}}" data-full-text="{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}">
-            {{userDetail.bioDisplayText || userDetail.personaBio || '这个人很懒,什么都没有留下...'}}
-          </text>
-          <view class="bio-toggle-btn" wx:if="{{userDetail.bioExpanded !== undefined}}" bindtap="onToggleBio" data-target="user">
-            {{userDetail.bioExpanded ? '收起' : '展开'}}
-          </view>
+          <expandable-text
+            content="{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}"
+            rows="3"
+            expand-text="展开"
+            collapse-text="收起"
+            expand-text-color="#007bff"
+            collapse-text-color="#007bff"
+          />
         </view>
 
         <!-- 个人简介展示开关 -->
@@ -102,14 +104,14 @@
                       <text>当前默认</text>
                     </view>
                   </view>
-                  <text class="persona-bio">
-                    <text class="bio-text {{userDetail.currentBioExpanded ? 'expanded' : ''}}" data-full-text="{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}">
-                      {{userDetail.currentBioDisplayText || userDetail.personaBio || '这个人很懒,什么都没有留下...'}}
-                    </text>
-                  </text>
-                  <view class="bio-toggle-btn" wx:if="{{userDetail.currentBioExpanded !== undefined}}" bindtap="onToggleBio" data-target="currentPersona">
-                    {{userDetail.currentBioExpanded ? '收起' : '展开'}}
-                  </view>
+                  <expandable-text
+                    content="{{userDetail.personaBio || '这个人很懒,什么都没有留下...'}}"
+                    rows="3"
+                    expand-text="展开"
+                    collapse-text="收起"
+                    expand-text-color="#007bff"
+                    collapse-text-color="#007bff"
+                  />
                 </view>
               </view>
               <view class="persona-actions">
@@ -138,14 +140,14 @@
                     <view class="persona-name-row">
                       <text class="persona-name">{{item.name}}</text>
                     </view>
-                    <text class="persona-bio">
-                      <text class="bio-text {{item.bioExpanded ? 'expanded' : ''}}" data-full-text="{{item.bio || '这个人很懒,什么都没有留下...'}}">
-                        {{item.bioDisplayText || item.bio || '这个人很懒,什么都没有留下...'}}
-                      </text>
-                    </text>
-                    <view class="bio-toggle-btn" wx:if="{{item.bioExpanded !== undefined}}" bindtap="onToggleOtherBio" data-persona-id="{{item.personaId}}">
-                      {{item.bioExpanded ? '收起' : '展开'}}
-                    </view>
+                    <expandable-text
+                      content="{{item.bio || '这个人很懒,什么都没有留下...'}}"
+                      rows="3"
+                      expand-text="展开"
+                      collapse-text="收起"
+                      expand-text-color="#007bff"
+                      collapse-text-color="#007bff"
+                    />
                   </view>
                 </view>
                 <view class="persona-actions">
@@ -174,6 +176,12 @@
     bind:success="onEditPersonaSuccess"
   ></edit-persona-modal>
 </view>
+
+
+
+
+
+
 
 
 

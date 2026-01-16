@@ -1,0 +1,7 @@
+<!-- components/expandable-text/expandable-text.wxml -->
+<view class="expandable-text">
+  <text class="content {{expanded ? 'expanded' : ''}}">{{content}}</text>
+  <view class="expand-btn" wx:if="{{showExpandBtn}}" bindtap="toggleExpand">
+    {{expanded ? collapseText : expandText}}
+  </view>
+</view>

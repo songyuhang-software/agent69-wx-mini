@@ -23,7 +23,9 @@
   <!-- 操作界面 -->
   <view wx:if="{{showOperation}}" class="email-operation">
     <view class="operation-header">
-      <text class="operation-title">{{action === 'bind' ? '绑定邮箱' : '解绑邮箱'}}</text>
+      <text class="operation-title">
+        {{isAssociationMode ? '关联邮箱' : (action === 'bind' ? '绑定邮箱' : '解绑邮箱')}}
+      </text>
       <view class="operation-close" bindtap="onCancelOperation">✕</view>
     </view>
 
@@ -69,7 +71,7 @@
     <!-- 操作按钮 -->
     <view class="operation-footer">
       <view class="cancel-btn" bindtap="onCancelOperation">取消</view>
-      <view class="confirm-btn" bindtap="onConfirm">确认</view>
+      <view class="confirm-btn" bindtap="onConfirm">{{isAssociationMode ? '关联' : '确认'}}</view>
     </view>
   </view>
 </view>

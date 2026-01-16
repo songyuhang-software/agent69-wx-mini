@@ -45,13 +45,41 @@ Component({
     // 是否显示操作界面
     showOperation: false,
     // 卡片是否激活（点击时的高亮状态）
-    isCardActive: false
+    isCardActive: false,
+    // 是否进入关联模式
+    isAssociationMode: false,
+    // 微信授权码
+    weChatCode: ''
   },
 
   /**
    * 组件的方法
    */
-  methods: {
+    methods: {
+    // 获取微信授权码
+    getWeChatCode() {
+      return new Promise((resolve, reject) => {
+        wx.login({
+          success: (res) => {
+            if (res.code) {
+              this.setData({
+                weChatCode: res.code
+              });
+              console.log('通过wx.login获取到授权码:', res.code);
+              resolve(res.code);
+            } else {
+              console.error('获取微信授权码失败');
+              reject(new Error('获取授权码失败'));
+            }
+          },
+          fail: (error) => {
+            console.error('wx.login失败:', error);
+            reject(error);
+          }
+        });
+      });
+    },
+
     // 邮箱卡片点击事件
     onCardTap() {
       // 添加点击时的激活状态
@@ -196,20 +224,18 @@ Component({
                 // 触发取消事件
                 this.triggerEvent('cancel');
               } else {
-                // 用户选择"是"，调用登录接口发送验证码
+                // 用户选择"是"，进入关联模式
+                console.log('用户选择关联，进入关联模式');
+                this.setData({
+                  isAssociationMode: true
+                });
                 try {
                   wx.showLoading({ title: '发送中...' });
-                  await new Promise((resolve, reject) => {
-                    wx.request({
-                      url: `https://agent69-api.preview.huawei-zeabur.cn/user-service/api/users/login/email/send-code`,
-                      method: 'POST',
-                      header: {
-                        'Content-Type': 'application/json'
-                      },
-                      data: { email },
-                      success: resolve,
-                      fail: reject
-                    });
+                  const response = await request({
+                    url: `${API_CONFIG.userserviceUrl}/api/users/login/email/send-code`,
+                    method: 'POST',
+                    data: { email },
+                    needAuth: false
                   });
                   wx.hideLoading();
 
@@ -283,7 +309,7 @@ Component({
 
     // 确认操作
     async onConfirm() {
-      const { email, verificationCode, action } = this.data;
+      const { email, verificationCode, action, isAssociationMode } = this.data;
 
       if (!verificationCode) {
         wx.showToast({
@@ -294,46 +320,99 @@ Component({
       }
 
       try {
-        wx.showLoading({ title: action === 'bind' ? '绑定中...' : '解绑中...' });
+        if (isAssociationMode) {
+          // 关联模式处理
+          wx.showLoading({ title: '关联中...' });
 
-        // 根据操作类型选择不同的API接口
-        const apiEndpoint = action === 'bind'
-          ? API_CONFIG.endpoints.emailBind
-          : API_CONFIG.endpoints.emailUnbind;
+          // 获取微信授权码
+          const weChatCode = await this.getWeChatCode();
 
-        const requestData = action === 'bind'
-          ? { email, verificationCode }
-          : { email: this.data.currentEmail, verificationCode };
+          // 调用关联接口
+          const response = await request({
+            url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.emailAssociation}`,
+            method: 'POST',
+            data: {
+              emial: email,
+              verificationCode: verificationCode,
+              weChatCode: weChatCode
+            },
+            needAuth: false
+          });
 
-        const result = await request({
-          url: `${API_CONFIG.userserviceUrl}${apiEndpoint}`,
-          method: 'POST',
-          data: requestData,
-          needAuth: true
-        });
+          wx.hideLoading();
 
-        wx.hideLoading();
+          if (response.statusCode !== 200) {
+            throw new Error(response.data?.message || '关联失败');
+          }
 
-        wx.showToast({
-          title: action === 'bind' ? '邮箱绑定成功!' : '邮箱解绑成功!',
-          icon: 'success'
-        });
+          const result = response.data;
 
-        // 检查返回的新 accessToken
-        if (result.c) {
-          wx.setStorageSync('accessToken', result.c);
-          console.log('Access token已更新');
+          wx.showToast({
+            title: '关联成功!',
+            icon: 'success'
+          });
+
+          // 保存返回的用户信息
+          if (result.accessToken) {
+            wx.setStorageSync('accessToken', result.accessToken);
+            console.log('Access token已更新');
+          }
+          if (result.refreshToken) {
+            wx.setStorageSync('refreshToken', result.refreshToken);
+          }
+          if (result.userId) {
+            wx.setStorageSync('userId', result.userId);
+          }
+
+          // 触发成功事件，让父组件刷新数据
+          this.triggerEvent('success', { action: 'association', email: email });
+
+          // 关闭操作界面
+          this.onCancelOperation();
+
+        } else {
+          // 正常的绑定/解绑操作
+          wx.showLoading({ title: action === 'bind' ? '绑定中...' : '解绑中...' });
+
+          // 根据操作类型选择不同的API接口
+          const apiEndpoint = action === 'bind'
+            ? API_CONFIG.endpoints.emailBind
+            : API_CONFIG.endpoints.emailUnbind;
+
+          const requestData = action === 'bind'
+            ? { email, verificationCode }
+            : { email: this.data.currentEmail, verificationCode };
+
+          const result = await request({
+            url: `${API_CONFIG.userserviceUrl}${apiEndpoint}`,
+            method: 'POST',
+            data: requestData,
+            needAuth: true
+          });
+
+          wx.hideLoading();
+
+          wx.showToast({
+            title: action === 'bind' ? '邮箱绑定成功!' : '邮箱解绑成功!',
+            icon: 'success'
+          });
+
+          // 检查返回的新 accessToken
+          if (result.c) {
+            wx.setStorageSync('accessToken', result.c);
+            console.log('Access token已更新');
+          }
+
+          // 触发成功事件，让父组件刷新数据
+          this.triggerEvent('success', { action, email: action === 'bind' ? email : '' });
+
+          // 关闭操作界面
+          this.onCancelOperation();
         }
-
-        // 触发成功事件，让父组件刷新数据
-        this.triggerEvent('success', { action, email: action === 'bind' ? email : '' });
-
-        // 关闭操作界面
-        this.onCancelOperation();
 
       } catch (error) {
         wx.hideLoading();
-        console.error(`${action === 'bind' ? '绑定' : '解绑'}失败:`, error);
+        console.error(`${isAssociationMode ? '关联' : action === 'bind' ? '绑定' : '解绑'}失败:`, error);
         wx.showToast({
           title: error.message || '操作失败',
           icon: 'none'
@@ -355,7 +434,9 @@ Component({
         sendCodeBtnText: '发送验证码',
         sendCodeBtnDisabled: false,
         countdown: 0,
-        showOperation: false
+        showOperation: false,
+        isAssociationMode: false,
+        weChatCode: ''
       });
     }
   },

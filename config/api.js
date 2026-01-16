@@ -12,8 +12,9 @@ const API_CONFIG = {
     // 邮箱相关
     emailBind: '/api/users/email/bind',
     emailUnbind: '/api/users/email/unbind',
-    emailSendCode: '/api/users/register/email/send-code',
+    emailSendCode: '/api/wechat/users/register/email/send-code',
     emailVerifySendCode: '/api/users/email/verify/send-code',
+    emailAssociation: '/api/wechat/users/email/bind',
 
     // 身份管理
     personas: '/api/personas',

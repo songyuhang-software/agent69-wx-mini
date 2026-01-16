@@ -14,7 +14,6 @@ Component({
       personaId: '',
       otherPersonas: []
     },
-    accountActionsExpanded: false,
     // 当前身份卡片激活状态
     currentPersonaActive: false,
     // 其他身份卡片激活状态数组
@@ -297,59 +296,7 @@ Component({
       });
     },
 
-    // 切换账号操作区域展开/收起
-    onToggleAccountActions() {
-      this.setData({
-        accountActionsExpanded: !this.data.accountActionsExpanded
-      });
-    },
-
-    // 注销账号
-    onDeleteAccount() {
-      wx.showModal({
-        title: '注销账号',
-        content: '注销账号将删除所有数据且不可恢复，确定要继续吗？',
-        confirmText: '确认注销',
-        confirmColor: '#dc3545',
-        success: async (res) => {
-          if (res.confirm) {
-            try {
-              wx.showLoading({ title: '注销中...' });
-
-              // 调用注销账号 API
-              const result = await request({
-                url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.deleteAccount}`,
-                method: 'DELETE',
-                needAuth: true
-              });
-
-              wx.hideLoading();
-              wx.showToast({
-                title: '账号已注销',
-                icon: 'success'
-              });
-
-              // 清除登录状态
-              wx.removeStorageSync('accessToken');
-
-              // 跳转到登录页
-              setTimeout(() => {
-                wx.reLaunch({
-                  url: '/pages/login/login'
-                });
-              }, 1500);
-            } catch (error) {
-              console.error('注销账号失败:', error);
-              wx.hideLoading();
-              wx.showToast({
-                title: error.message || '注销失败',
-                icon: 'none'
-              });
-            }
-          }
-        }
-      });
-    },
+    // 注销账号功能已移除
 
     // 切换showBio开关
     async onToggleShowBio() {
@@ -422,6 +369,9 @@ Component({
     }
   }
 })
+
+
+
 
 
 

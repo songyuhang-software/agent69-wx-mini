@@ -150,19 +150,6 @@
         </view>
       </view>
 
-      <!-- 账号操作区域 -->
-      <view class="account-actions-section">
-        <view class="account-actions-toggle {{accountActionsExpanded ? 'active' : ''}}" id="accountActionsToggle" bindtap="onToggleAccountActions">
-          <text class="toggle-text">账号与安全</text>
-          <text class="toggle-icon">▼</text>
-        </view>
-        <view class="account-actions-content {{accountActionsExpanded ? 'show' : ''}}" id="accountActionsContent" wx:if="{{accountActionsExpanded}}">
-          <view class="account-action-item delete-account-item" id="deleteAccountBtn" bindtap="onDeleteAccount">
-            <text class="action-label">注销账号</text>
-            <text class="action-arrow">›</text>
-          </view>
-        </view>
-      </view>
     </view>
   </scroll-view>
 
@@ -175,5 +162,6 @@
     bind:success="onEditPersonaSuccess"
   ></edit-persona-modal>
 </view>
+
 
 

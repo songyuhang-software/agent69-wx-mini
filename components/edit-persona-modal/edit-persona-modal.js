@@ -27,7 +27,8 @@ Component({
       name: '',
       bio: ''
     },
-    isSubmitting: false
+    isSubmitting: false,
+    isRandomAvatar: false  // 标记当前头像是否为随机头像
   },
 
   observers: {
@@ -44,7 +45,8 @@ Component({
             errors: {
               name: '',
               bio: ''
-            }
+            },
+            isRandomAvatar: false  // 编辑模式下默认不是随机头像
           });
         } else {
           // 新增模式，清空表单
@@ -57,7 +59,8 @@ Component({
             errors: {
               name: '',
               bio: ''
-            }
+            },
+            isRandomAvatar: false
           });
         }
       }
@@ -98,8 +101,10 @@ Component({
           }
         });
 
+        // 更新头像并标记为非随机头像
         this.setData({
-          'formData.avatarUrl': imageUrl
+          'formData.avatarUrl': imageUrl,
+          isRandomAvatar: false
         });
 
         wx.hideLoading();
@@ -133,8 +138,10 @@ Component({
         });
 
         if (result && result.avatarUrl) {
+          // 更新头像并标记为随机头像
           this.setData({
-            'formData.avatarUrl': result.avatarUrl
+            'formData.avatarUrl': result.avatarUrl,
+            isRandomAvatar: true
           });
           wx.showToast({
             title: '头像已更新',
@@ -151,6 +158,26 @@ Component({
           icon: 'none'
         });
       }
+    },
+
+    // 移除头像
+    onRemoveAvatar() {
+      wx.showModal({
+        title: '移除头像',
+        content: '确定要移除当前头像吗？',
+        success: (res) => {
+          if (res.confirm) {
+            this.setData({
+              'formData.avatarUrl': '',
+              isRandomAvatar: false
+            });
+            wx.showToast({
+              title: '头像已移除',
+              icon: 'success'
+            });
+          }
+        }
+      });
     },
 
     // 表单验证
@@ -259,6 +286,9 @@ Component({
     }
   }
 })
+
+
+
 
 
 

@@ -5,19 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/edit-persona/edit-persona.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/edit-persona/edit-persona.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/edit-persona/edit-persona.wxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/edit-persona/edit-persona.wxss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/mine/mine.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/mine/mine.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/mine/mine.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/mine/mine.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,14 +68,17 @@
         </option>
         <option name="isMavenProject" value="false" />
         <option name="jdkVersion" value="" />
-        <option name="queryString" value="?chatId=ca9a21d6-8004-4531-89af-02f0568db63f" />
+        <option name="queryString" value="?chatId=7812152b-e209-4141-87a7-8a8f98a512f4" />
         <option name="sideCarIDEInfo">
           <SideCarIDEInfo>
             <option name="allFiles">
               <set>
                 <option value="$PROJECT_DIR$/app.js" />
                 <option value="$PROJECT_DIR$/app.json" />
+                <option value="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.js" />
                 <option value="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.json" />
+                <option value="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxml" />
+                <option value="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxss" />
                 <option value="$PROJECT_DIR$/components/email/email.js" />
                 <option value="$PROJECT_DIR$/components/email/email.json" />
                 <option value="$PROJECT_DIR$/components/email/email.wxml" />
@@ -109,7 +102,7 @@
             <option name="editorUrl" value="http://127.0.0.1:41100/" />
             <option name="openFiles">
               <set>
-                <option value="$PROJECT_DIR$/app.json" />
+                <option value="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxss" />
               </set>
             </option>
             <option name="projectId" value="13d0381" />
@@ -120,7 +113,7 @@
             <option name="todoWriteAsLoading" value="true" />
           </SideCarIDEInfo>
         </option>
-        <option name="workspaceFileType" value="wxss" />
+        <option name="workspaceFileType" value="Plain text" />
       </WebViewProjectConfig>
     </option>
   </component>

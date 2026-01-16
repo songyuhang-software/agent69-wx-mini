@@ -6,23 +6,48 @@
       <text class="close-btn" bindtap="onClose">×</text>
     </view>
     <view class="modal-body">
-      <!-- 头像选择 -->
+      <!-- 头像选择区域 -->
       <view class="form-group avatar-group">
         <view class="form-label">头像</view>
-        <view class="avatar-section">
-          <view class="avatar-preview {{!formData.avatarUrl ? 'default' : ''}}" bindtap="onChooseAvatar">
-            <image wx:if="{{formData.avatarUrl}}" src="{{formData.avatarUrl}}" mode="aspectFill" />
-            <text wx:else class="avatar-placeholder">+</text>
+
+        <!-- 头像预览 -->
+        <view class="avatar-preview-container">
+          <view class="avatar-preview {{!formData.avatarUrl ? 'no-avatar' : 'has-avatar'}}" bindtap="onChooseAvatar">
+            <image wx:if="{{formData.avatarUrl}}" src="{{formData.avatarUrl}}" mode="aspectFill" class="avatar-image" />
+            <view wx:else class="avatar-placeholder">
+              <text class="avatar-icon">👤</text>
+              <text class="avatar-text">点击上传</text>
+            </view>
           </view>
-          <view class="avatar-actions">
-            <view class="avatar-btn" bindtap="onChooseAvatar">
-              <text>选择图片</text>
-            </view>
-            <view class="avatar-btn secondary" bindtap="onGetRandomAvatar">
-              <text>随机头像</text>
-            </view>
+
+          <!-- 换一个链接（仅在有头像且是随机头像时显示） -->
+          <view wx:if="{{formData.avatarUrl && isRandomAvatar}}" class="avatar-change-hint">
+            <text class="avatar-change-link" bindtap="onGetRandomAvatar">换一个？</text>
           </view>
         </view>
+
+        <!-- 操作按钮 -->
+        <view class="avatar-actions">
+          <!-- 随机头像按钮（仅在没有头像时显示） -->
+          <view wx:if="{{!formData.avatarUrl}}" class="avatar-btn random" bindtap="onGetRandomAvatar">
+            <text class="btn-icon">🎲</text>
+            <text class="btn-text">随机头像</text>
+          </view>
+
+          <!-- 上传/更换头像按钮 -->
+          <view class="avatar-btn primary" bindtap="onChooseAvatar">
+            <text class="btn-icon">📁</text>
+            <text class="btn-text">{{formData.avatarUrl ? (isRandomAvatar ? '手动上传' : '更换头像') : '上传头像'}}</text>
+          </view>
+
+          <!-- 移除按钮（仅在有头像时显示） -->
+          <view wx:if="{{formData.avatarUrl}}" class="avatar-btn danger" bindtap="onRemoveAvatar">
+            <text class="btn-icon">🗑️</text>
+            <text class="btn-text">移除</text>
+          </view>
+        </view>
+
+        <view class="avatar-help-text">支持 JPG、PNG、WebP 格式，文件大小不超过 5MB</view>
       </view>
 
       <!-- 昵称输入 -->
@@ -63,4 +88,5 @@
     </view>
   </view>
 </view>
+
 

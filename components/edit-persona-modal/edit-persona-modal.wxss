@@ -198,85 +198,163 @@
   margin-bottom: 32rpx;
 }
 
-.avatar-section {
+.avatar-preview-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 24rpx;
+  gap: 12rpx;
+  margin-bottom: 20rpx;
 }
 
 .avatar-preview {
-  width: 120rpx;
-  height: 120rpx;
+  width: 160rpx;
+  height: 160rpx;
   border-radius: 50%;
   overflow: hidden;
-  background: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 4rpx solid #e0e0e0;
   transition: all 0.3s ease;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  position: relative;
 }
 
-.avatar-preview:active {
-  transform: scale(0.95);
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.15);
+.avatar-preview.no-avatar {
+  border: 4rpx dashed #e0e0e0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  cursor: pointer;
 }
 
-.avatar-preview.default {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+.avatar-preview.no-avatar:active {
   border-color: #667eea;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  transform: scale(0.95);
 }
 
-.avatar-preview image {
+.avatar-preview.has-avatar {
+  border: 4rpx solid #667eea;
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.2);
+}
+
+.avatar-preview.has-avatar:active {
+  transform: scale(0.95);
+  box-shadow: 0 2rpx 8rpx rgba(102, 126, 234, 0.3);
+}
+
+.avatar-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 .avatar-placeholder {
-  font-size: 48rpx;
-  color: #fff;
-  font-weight: 300;
-}
-
-.avatar-actions {
-  flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+  color: #a0aec0;
+}
+
+.avatar-icon {
+  font-size: 48rpx;
+}
+
+.avatar-text {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #718096;
+}
+
+/* 换一个链接 */
+.avatar-change-hint {
+  margin-top: 8rpx;
+}
+
+.avatar-change-link {
+  color: #667eea;
+  font-size: 26rpx;
+  font-weight: 500;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.avatar-change-link:active {
+  color: #5a67d8;
+  opacity: 0.8;
+}
+
+/* 操作按钮区域 */
+.avatar-actions {
+  display: flex;
   gap: 12rpx;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .avatar-btn {
-  padding: 20rpx 28rpx;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: #fff;
+  flex: 1;
+  min-width: 140rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 20rpx 24rpx;
   border-radius: 12rpx;
-  text-align: center;
   font-size: 26rpx;
   font-weight: 500;
   transition: all 0.2s ease;
-  box-shadow: 0 4rpx 8rpx rgba(102, 126, 234, 0.2);
-}
-
-.avatar-btn:active {
-  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
-  transform: translateY(-2rpx);
-  box-shadow: 0 8rpx 16rpx rgba(102, 126, 234, 0.3);
-}
-
-.avatar-btn.secondary {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  color: #495057;
-  border: 2rpx solid #dee2e6;
   box-shadow: 0 2rpx 6rpx rgba(0, 0, 0, 0.1);
 }
 
-.avatar-btn.secondary:active {
-  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+.avatar-btn.primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
+.avatar-btn.primary:active {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
   transform: translateY(-2rpx);
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
+}
+
+.avatar-btn.random {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: #fff;
+}
+
+.avatar-btn.random:active {
+  background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+  transform: translateY(-2rpx);
+  box-shadow: 0 4rpx 12rpx rgba(72, 187, 120, 0.3);
+}
+
+.avatar-btn.danger {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: #fff;
+}
+
+.avatar-btn.danger:active {
+  background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
+  transform: translateY(-2rpx);
+  box-shadow: 0 4rpx 12rpx rgba(220, 53, 69, 0.3);
+}
+
+.btn-icon {
+  font-size: 28rpx;
+}
+
+.btn-text {
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+/* 帮助文本 */
+.avatar-help-text {
+  text-align: center;
+  font-size: 22rpx;
+  color: #a0aec0;
+  line-height: 1.4;
+  margin-top: 8rpx;
 }
 
 /* 弹窗底部 */
@@ -339,5 +417,6 @@
   transform: none;
   box-shadow: none;
 }
+
 
 

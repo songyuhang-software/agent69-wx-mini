@@ -33,42 +33,39 @@ Page({
   },
 
   onLoad(options) {
-    // 从页面参数中获取微信临时授权码
-    if (options.code) {
-      this.setData({
-        weChatCode: options.code
-      });
-      console.log('获取到微信授权码:', options.code);
-    } else {
-      // 如果没有授权码,尝试通过wx.login获取
-      this.getWeChatCode();
-    }
+    // 页面加载时获取新的微信授权码
+    this.getWeChatCode();
   },
 
   // 获取微信授权码
   getWeChatCode() {
-    wx.login({
-      success: (res) => {
-        if (res.code) {
-          this.setData({
-            weChatCode: res.code
-          });
-          console.log('通过wx.login获取到授权码:', res.code);
-        } else {
-          console.error('获取微信授权码失败');
+    return new Promise((resolve, reject) => {
+      wx.login({
+        success: (res) => {
+          if (res.code) {
+            this.setData({
+              weChatCode: res.code
+            });
+            console.log('通过wx.login获取到授权码:', res.code);
+            resolve(res.code);
+          } else {
+            console.error('获取微信授权码失败');
+            wx.showToast({
+              title: '获取授权失败',
+              icon: 'none'
+            });
+            reject(new Error('获取授权码失败'));
+          }
+        },
+        fail: (error) => {
+          console.error('wx.login失败:', error);
           wx.showToast({
             title: '获取授权失败',
             icon: 'none'
           });
+          reject(error);
         }
-      },
-      fail: (error) => {
-        console.error('wx.login失败:', error);
-        wx.showToast({
-          title: '获取授权失败',
-          icon: 'none'
-        });
-      }
+      });
     });
   },
 
@@ -143,9 +140,13 @@ Page({
       const targetAccessToken = loginResponse.data.accessToken;
       console.log('登录成功,获取到accessToken');
 
-      // 第二步: 调用账号绑定接口
+      // 第二步: 获取最新的微信授权码
+      console.log('获取最新的微信授权码...');
+      const weChatCode = await this.getWeChatCode();
+
+      // 第三步: 调用账号绑定接口
       console.log('开始绑定微信账号...');
-      const bindUrl = `${API_CONFIG.userserviceUrl}/api/wechat/users/account/merging?targetAccessToken=${targetAccessToken}&weChatCode=${this.data.weChatCode}`;
+      const bindUrl = `${API_CONFIG.userserviceUrl}/api/wechat/users/account/merging?targetAccessToken=${targetAccessToken}&weChatCode=${weChatCode}`;
 
       const bindResponse = await request({
         url: bindUrl,
@@ -321,9 +322,13 @@ Page({
       const targetAccessToken = loginResponse.data.accessToken;
       console.log('登录成功,获取到accessToken');
 
-      // 第二步: 调用账号绑定接口
+      // 第二步: 获取最新的微信授权码
+      console.log('获取最新的微信授权码...');
+      const weChatCode = await this.getWeChatCode();
+
+      // 第三步: 调用账号绑定接口
       console.log('开始绑定微信账号...');
-      const bindUrl = `${API_CONFIG.userserviceUrl}/api/wechat/users/account/merging?targetAccessToken=${targetAccessToken}&weChatCode=${this.data.weChatCode}`;
+      const bindUrl = `${API_CONFIG.userserviceUrl}/api/wechat/users/account/merging?targetAccessToken=${targetAccessToken}&weChatCode=${weChatCode}`;
 
       const bindResponse = await request({
         url: bindUrl,
@@ -368,6 +373,10 @@ Page({
     }
   }
 });
+
+
+
+
 
 
 

@@ -167,7 +167,7 @@ Component({
           ? { email }
           : { email: this.data.currentEmail };
 
-        await request({
+        const response = await request({
           url: `${API_CONFIG.userserviceUrl}${apiEndpoint}`,
           method: 'POST',
           data: requestData,
@@ -176,13 +176,69 @@ Component({
 
         wx.hideLoading();
 
-        wx.showToast({
-          title: '验证码已发送，请查收邮箱',
-          icon: 'success'
-        });
+        // 检查返回的消息内容
+        if (action === 'bind' && response.message === '该邮箱已存在agent69账号') {
+          // 弹窗询问用户
+          wx.showModal({
+            title: '确认关联',
+            content: '该邮箱已绑定agent69账号，是否关联？',
+            confirmText: '是',
+            cancelText: '否',
+            success: async (modalRes) => {
+              if (modalRes.cancel) {
+                // 用户选择"否"，退出绑定
+                console.log('用户选择不关联，退出绑定');
+                wx.showToast({
+                  title: '已取消绑定',
+                  icon: 'none'
+                });
+                this.onCancelOperation();
+                // 触发取消事件
+                this.triggerEvent('cancel');
+              } else {
+                // 用户选择"是"，调用登录接口发送验证码
+                try {
+                  wx.showLoading({ title: '发送中...' });
+                  await new Promise((resolve, reject) => {
+                    wx.request({
+                      url: `https://agent69-api.preview.huawei-zeabur.cn/user-service/api/users/login/email/send-code`,
+                      method: 'POST',
+                      header: {
+                        'Content-Type': 'application/json'
+                      },
+                      data: { email },
+                      success: resolve,
+                      fail: reject
+                    });
+                  });
+                  wx.hideLoading();
 
-        // 开始倒计时
-        this.startCountdown();
+                  wx.showToast({
+                    title: '验证码已发送，请查收邮箱',
+                    icon: 'success'
+                  });
+                  // 开始倒计时
+                  this.startCountdown();
+                } catch (error) {
+                  wx.hideLoading();
+                  console.error('发送验证码失败:', error);
+                  wx.showToast({
+                    title: error.message || '发送失败',
+                    icon: 'none'
+                  });
+                }
+              }
+            }
+          });
+        } else {
+          // 其他情况，正常显示发送成功
+          wx.showToast({
+            title: '验证码已发送，请查收邮箱',
+            icon: 'success'
+          });
+          // 开始倒计时
+          this.startCountdown();
+        }
 
       } catch (error) {
         wx.hideLoading();

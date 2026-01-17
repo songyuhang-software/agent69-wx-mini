@@ -17,7 +17,7 @@ page {
 /* 顶部品牌区域 */
 .header {
   width: 100%;
-  padding: 120rpx 0 60rpx;
+  padding: 320rpx 0 60rpx;
   text-align: center;
 }
 

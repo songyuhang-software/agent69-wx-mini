@@ -181,6 +181,9 @@
 /* 换一个链接 */
 .avatar-change-hint {
   margin-top: 8rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
 }
 
 .avatar-change-link {
@@ -200,13 +203,12 @@
 .avatar-actions {
   display: flex;
   flex-direction: column;
-  gap: 12rpx;
+  gap: 16rpx;
   width: 100%;
   margin-top: 4rpx;
 }
 
 .avatar-btn {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -222,34 +224,46 @@
 .avatar-btn.primary {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
+  width: 55%;
+  margin: 0 auto;
 }
 
 .avatar-btn.primary:active {
   background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
   transform: translateY(-2rpx);
   box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
+  width: 55%;
+  margin: 0 auto;
 }
 
 .avatar-btn.random {
   background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
   color: #fff;
+  width: 55%;
+  margin: 0 auto;
 }
 
 .avatar-btn.random:active {
   background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
   transform: translateY(-2rpx);
   box-shadow: 0 4rpx 12rpx rgba(72, 187, 120, 0.3);
+  width: 55%;
+  margin: 0 auto;
 }
 
 .avatar-btn.danger {
   background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
   color: #fff;
+  width: 55%;
+  margin: 0 auto;
 }
 
 .avatar-btn.danger:active {
   background: linear-gradient(135deg, #c82333 0%, #a71e2a 100%);
   transform: translateY(-2rpx);
   box-shadow: 0 4rpx 12rpx rgba(220, 53, 69, 0.3);
+  width: 55%;
+  margin: 0 auto;
 }
 
 .btn-icon {
@@ -270,6 +284,7 @@
   color: #a0aec0;
   line-height: 1.4;
   margin-top: 8rpx;
+  padding: 26rpx 10rpx;
 }
 
 /* 页面底部 */

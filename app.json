@@ -4,7 +4,8 @@
     "pages/mine/mine",
     "pages/logs/logs",
     "pages/auth-select/auth-select",
-    "pages/bind-account/bind-account"
+    "pages/bind-account/bind-account",
+    "pages/edit-persona/edit-persona"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -46,6 +47,7 @@
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"
 }
+
 
 
 

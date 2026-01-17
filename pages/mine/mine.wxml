@@ -168,16 +168,8 @@
       <view class="bottom-spacer"></view>
     </view>
   </scroll-view>
-
-  <!-- 编辑身份弹窗组件 -->
-  <edit-persona-modal
-    visible="{{showEditPersonaModal}}"
-    mode="{{editPersonaMode}}"
-    personaData="{{editPersonaData}}"
-    bind:close="onCloseEditPersonaModal"
-    bind:success="onEditPersonaSuccess"
-  ></edit-persona-modal>
 </view>
+
 
 
 

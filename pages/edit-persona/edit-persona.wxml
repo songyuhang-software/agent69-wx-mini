@@ -1,0 +1,86 @@
+<navigation-bar title="{{mode === 'add' ? '新增身份' : '编辑身份'}}" />
+
+<view class="edit-persona-page">
+  <view class="page-content">
+    <!-- 头像选择区域 -->
+    <view class="form-group avatar-group">
+      <view class="form-label">头像</view>
+
+      <!-- 头像预览 -->
+      <view class="avatar-preview-container">
+        <view class="avatar-preview {{!formData.avatarUrl ? 'no-avatar' : 'has-avatar'}}" bindtap="onChooseAvatar">
+          <image wx:if="{{formData.avatarUrl}}" src="{{formData.avatarUrl}}" mode="aspectFill" class="avatar-image" />
+          <view wx:else class="avatar-placeholder">
+            <text class="avatar-icon">👤</text>
+            <text class="avatar-text">点击上传</text>
+          </view>
+        </view>
+
+        <!-- 换一个链接（仅在有头像且是随机头像时显示） -->
+        <view wx:if="{{formData.avatarUrl && isRandomAvatar}}" class="avatar-change-hint">
+          <text class="avatar-change-link" bindtap="onGetRandomAvatar">换一个？</text>
+        </view>
+      </view>
+
+      <!-- 操作按钮 -->
+      <view class="avatar-actions">
+        <!-- 随机头像按钮（仅在没有头像时显示） -->
+        <view wx:if="{{!formData.avatarUrl}}" class="avatar-btn random" bindtap="onGetRandomAvatar">
+          <text class="btn-icon">🎲</text>
+          <text class="btn-text">随机头像</text>
+        </view>
+
+        <!-- 上传/更换头像按钮 -->
+        <view class="avatar-btn primary" bindtap="onChooseAvatar">
+          <text class="btn-icon">📁</text>
+          <text class="btn-text">{{formData.avatarUrl ? (isRandomAvatar ? '手动上传' : '更换头像') : '上传头像'}}</text>
+        </view>
+
+        <!-- 移除按钮（仅在有头像时显示） -->
+        <view wx:if="{{formData.avatarUrl}}" class="avatar-btn danger" bindtap="onRemoveAvatar">
+          <text class="btn-icon">🗑️</text>
+          <text class="btn-text">移除</text>
+        </view>
+      </view>
+
+      <view class="avatar-help-text">支持 JPG、PNG、WebP 格式，文件大小不超过 5MB</view>
+    </view>
+
+    <!-- 昵称输入 -->
+    <view class="form-group">
+      <view class="form-label required">昵称</view>
+      <input
+        class="form-input {{errors.name ? 'error' : ''}}"
+        type="text"
+        placeholder="请输入昵称（最多20字）"
+        value="{{formData.name}}"
+        maxlength="20"
+        bindinput="onNameInput"
+      />
+      <text wx:if="{{errors.name}}" class="error-text">{{errors.name}}</text>
+    </view>
+
+    <!-- 个人简介输入 -->
+    <view class="form-group">
+      <view class="form-label">个人简介</view>
+      <textarea
+        class="form-textarea {{errors.bio ? 'error' : ''}}"
+        placeholder="请输入个人简介（最多200字）"
+        value="{{formData.bio}}"
+        maxlength="200"
+        bindinput="onBioInput"
+        auto-height
+      />
+      <view class="textarea-counter">{{formData.bio.length}}/200</view>
+      <text wx:if="{{errors.bio}}" class="error-text">{{errors.bio}}</text>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="page-footer">
+    <view class="btn btn-cancel" bindtap="onCancel">取消</view>
+    <view class="btn btn-submit {{isSubmitting ? 'disabled' : ''}}" bindtap="onSubmit">
+      {{isSubmitting ? '提交中...' : '确定'}}
+    </view>
+  </view>
+</view>

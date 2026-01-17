@@ -164,6 +164,8 @@
         </view>
       </view>
 
+      <!-- 底部占位空白区域 -->
+      <view class="bottom-spacer"></view>
     </view>
   </scroll-view>
 
@@ -176,6 +178,7 @@
     bind:success="onEditPersonaSuccess"
   ></edit-persona-modal>
 </view>
+
 
 
 

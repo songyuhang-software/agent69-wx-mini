@@ -27,6 +27,12 @@ page {
   box-sizing: border-box;
 }
 
+/* 底部占位空白区域 */
+.bottom-spacer {
+  height: 80rpx;
+  width: 100%;
+}
+
 /* 用户信息区域 - 增强层次感 */
 .user-info-section {
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
@@ -811,6 +817,7 @@ page {
   background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   border-radius: 50%;
 }
+
 
 
 

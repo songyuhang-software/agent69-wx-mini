@@ -1,6 +1,6 @@
 <!--pages/mine/mine.wxml-->
 <view class="page-container">
-  <navigation-bar title="👤 用户详情" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+  <navigation-bar title="用户详情" back="{{false}}" color="black" background="#FFF"></navigation-bar>
   <scroll-view class="scrollarea" scroll-y type="list">
     <view class="modal-body">
       <!-- 用户信息区域 -->

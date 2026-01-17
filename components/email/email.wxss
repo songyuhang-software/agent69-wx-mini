@@ -55,13 +55,17 @@
   transition: all 0.25s ease;
 }
 
-/* 点击时邮箱图标的高亮效果 */
-.email-status:active .email-icon,
-.email-status.active .email-icon {
-  background: #1890ff;
-  border-color: #1890ff;
-  color: white;
+/* 点击时邮箱图标的高亮效果（短暂点击） */
+.email-status:active .email-icon {
+  background: #40a9ff;
+  border-color: #40a9ff;
   transform: scale(1.05);
+}
+
+/* 操作界面显示时图标保持蓝色背景（持续状态） */
+.email-status.active .email-icon {
+  background: #40a9ff;
+  border-color: #40a9ff;
 }
 
 .email-details {

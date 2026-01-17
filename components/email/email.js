@@ -82,6 +82,11 @@ Component({
 
     // 邮箱卡片点击事件
     onCardTap() {
+      // 如果正在显示操作界面，不执行点击效果
+      if (this.data.showOperation) {
+        return;
+      }
+
       // 添加点击时的激活状态
       this.setData({
         isCardActive: true
@@ -158,7 +163,8 @@ Component({
       }
 
       this.setData({
-        showOperation: true
+        showOperation: true,
+        isCardActive: true  // 进入操作界面时激活图标
       });
     },
 
@@ -436,7 +442,8 @@ Component({
         countdown: 0,
         showOperation: false,
         isAssociationMode: false,
-        weChatCode: ''
+        weChatCode: '',
+        isCardActive: false  // 退出操作界面时取消激活状态
       });
     }
   },

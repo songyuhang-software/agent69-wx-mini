@@ -29,7 +29,7 @@ page {
 
 /* 底部占位空白区域 */
 .bottom-spacer {
-  height: 80rpx;
+  height: 85rpx;
   width: 100%;
 }
 
@@ -485,6 +485,8 @@ page {
   background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   color: white;
   border: none;
+  white-space: nowrap;
+  flex-shrink: 0;
   border-radius: 16rpx;
   padding: 12rpx 24rpx;
   font-size: 24rpx;
@@ -586,6 +588,9 @@ page {
 .persona-details {
   flex: 1;
   min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
 }
 
 .persona-name-row {
@@ -611,6 +616,7 @@ page {
   padding: 4rpx 12rpx;
   border-radius: 8rpx;
   font-size: 20rpx;
+  white-space: nowrap;
   font-weight: 600;
   border: 1rpx solid rgba(25, 118, 210, 0.3);
   display: inline-flex;

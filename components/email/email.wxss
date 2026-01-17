@@ -146,7 +146,8 @@
 .operation-header {
   background: linear-gradient(135deg, #1890ff 0%, #096dd9 100%);
   color: white;
-  padding: 24rpx 28rpx;
+  height: 60rpx;          
+  padding: 0 28rpx;        
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -157,7 +158,7 @@
   font-size: 46rpx;
   font-weight: 600;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.0;
 }
 
 .operation-close {

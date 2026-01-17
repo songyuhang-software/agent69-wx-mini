@@ -36,7 +36,7 @@
   margin: 40rpx;
   max-width: 600rpx;
   width: calc(100% - 80rpx);
-  max-height: 85vh;
+  max-height: 80vh;
   overflow: hidden;
   box-shadow:
     0 20rpx 60rpx rgba(0, 0, 0, 0.3),
@@ -417,6 +417,51 @@
   transform: none;
   box-shadow: none;
 }
+
+/* 小屏幕适配 */
+@media (max-height: 667px) {
+  .modal-content {
+    max-height: 90vh;
+    margin: 20rpx;
+    width: calc(100% - 40rpx);
+  }
+
+  .modal-header {
+    padding: 24rpx 24rpx 20rpx 24rpx;
+  }
+
+  .modal-title {
+    font-size: 28rpx;
+  }
+
+  .modal-body {
+    padding: 24rpx;
+  }
+
+  .form-group {
+    margin-bottom: 24rpx;
+  }
+
+  .avatar-preview {
+    width: 140rpx;
+    height: 140rpx;
+  }
+
+  .form-textarea {
+    min-height: 120rpx;
+  }
+
+  .modal-footer {
+    padding: 20rpx 24rpx;
+  }
+
+  .btn {
+    height: 80rpx;
+    font-size: 26rpx;
+  }
+}
+
+
 
 
 

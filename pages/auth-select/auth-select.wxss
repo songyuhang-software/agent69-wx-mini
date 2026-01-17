@@ -81,6 +81,40 @@ page {
   padding: 0 60rpx 80rpx;
 }
 
+/* 登录中状态 */
+.loading-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40rpx 0;
+  margin-top: -225rpx;
+}
+
+.loading-icon {
+  width: 60rpx;
+  height: 60rpx;
+  border: 4rpx solid #e0e0e0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  margin-top: 24rpx;
+  font-size: 28rpx;
+  color: #7f8c8d;
+}
+
 .welcome-text {
   font-size: 32rpx;
   color: #2c3e50;
@@ -138,6 +172,9 @@ page {
   font-weight: 500;
   text-decoration: underline;
 }
+
+
+
 
 
 

@@ -15,18 +15,28 @@
 
   <!-- 底部操作区域 -->
   <view class="bottom-section">
-    <view class="welcome-text">欢迎使用</view>
+    <!-- 登录中状态 -->
+    <view wx:if="{{isLoading && !needAuth}}" class="loading-section">
+      <view class="loading-icon"></view>
+      <text class="loading-text">登录中...</text>
+    </view>
 
-    <!-- 微信授权登录按钮 -->
-    <button class="wechat-auth-btn" bindtap="onWechatAuth" hover-class="wechat-auth-btn-hover">
-      <text class="btn-text">微信授权登录</text>
-    </button>
+    <!-- 需要授权时显示的内容 -->
+    <view wx:if="{{!isLoading || needAuth}}">
+      <view class="welcome-text">欢迎使用</view>
 
-    <!-- 已有账号链接 -->
-    <view class="bind-link-wrapper">
-      <text class="bind-text">已有agent69账号?</text>
-      <text class="bind-link" bindtap="onBindAccount">去关联</text>
+      <!-- 微信授权登录按钮 -->
+      <button class="wechat-auth-btn" bindtap="onWechatAuth" hover-class="wechat-auth-btn-hover">
+        <text class="btn-text">微信授权登录</text>
+      </button>
+
+      <!-- 已有账号链接 -->
+      <view class="bind-link-wrapper">
+        <text class="bind-text">已有agent69账号?</text>
+        <text class="bind-link" bindtap="onBindAccount">去关联</text>
+      </view>
     </view>
   </view>
 </view>
+
 

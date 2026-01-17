@@ -3,7 +3,9 @@ const API_CONFIG = require('../../config/api.js');
 
 Page({
   data: {
-    weChatCode: '' // 保存微信临时授权码
+    weChatCode: '', // 保存微信临时授权码
+    isLoading: false, // 是否正在加载
+    needAuth: false // 是否需要授权
   },
 
   onLoad(options) {
@@ -13,6 +15,60 @@ Page({
         weChatCode: options.code
       });
     }
+
+    // 页面加载时自动执行登录检查
+    this.autoCheckLogin();
+  },
+
+  // 自动检查登录状态
+  autoCheckLogin() {
+    const that = this;
+
+    // 设置为登录中状态
+    that.setLoadingState(true);
+
+    // 调用 app.js 中的登录检查方法
+    const app = getApp();
+    app.checkLogin((result) => {
+      if (result.success) {
+        if (result.needWechatRegister === false) {
+          // 不需要注册,保存 token 并跳转到主页
+          wx.setStorageSync('accessToken', result.accessToken);
+          wx.reLaunch({
+            url: '/pages/index/index'
+          });
+        } else {
+          // 需要注册,显示授权选择界面
+          that.setLoadingState(false);
+          that.setNeedAuthState(true);
+          that.setData({
+            weChatCode: result.code
+          });
+        }
+      } else {
+        // 登录失败,显示授权选择界面
+        that.setLoadingState(false);
+        that.setNeedAuthState(true);
+        wx.showToast({
+          title: '登录检查失败',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
+  // 设置加载状态
+  setLoadingState(isLoading) {
+    this.setData({
+      isLoading: isLoading
+    });
+  },
+
+  // 设置需要授权状态
+  setNeedAuthState(needAuth) {
+    this.setData({
+      needAuth: needAuth
+    });
   },
 
   // 微信授权登录
@@ -104,5 +160,7 @@ Page({
     });
   }
 });
+
+
 
 

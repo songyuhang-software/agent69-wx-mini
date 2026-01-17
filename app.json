@@ -1,9 +1,9 @@
 {
   "pages": [
+    "pages/auth-select/auth-select",
     "pages/index/index",
     "pages/mine/mine",
     "pages/logs/logs",
-    "pages/auth-select/auth-select",
     "pages/bind-account/bind-account",
     "pages/edit-persona/edit-persona"
   ],
@@ -47,6 +47,7 @@
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"
 }
+
 
 
 

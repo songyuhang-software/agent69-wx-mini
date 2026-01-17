@@ -3,7 +3,12 @@ const API_CONFIG = require('./config/api.js');
 
 App({
   onLaunch: function () {
-    // 调用 wx.login() 获取临时授权码
+    // 在 app.js 中不再执行登录逻辑
+    // 登录逻辑将在 auth-select 页面执行
+  },
+
+  // 提供全局的登录检查方法
+  checkLogin: function(callback) {
     wx.login({
       success: res => {
         if (res.code) {
@@ -13,25 +18,33 @@ App({
             method: 'POST',
             success: response => {
               const data = response.data;
-              if (data.needWechatRegister === false) {
-                // 保存 accessToken 并跳转到主页
-                wx.setStorageSync('accessToken', data.accessToken);
-                wx.navigateTo({
-                  url: '/pages/index/index' // 假设主页的路径为 /pages/home/home
-                });
-              } else {
-                // 需要注册，跳转到授权选择页面
-                wx.redirectTo({
-                  url: `/pages/auth-select/auth-select?code=${res.code}`
+              if (callback) {
+                callback({
+                  success: true,
+                  needWechatRegister: data.needWechatRegister,
+                  accessToken: data.accessToken,
+                  code: res.code
                 });
               }
             },
             fail: error => {
               console.error('请求失败', error);
+              if (callback) {
+                callback({
+                  success: false,
+                  error: error
+                });
+              }
             }
           });
         } else {
           console.error('登录失败！' + res.errMsg);
+          if (callback) {
+            callback({
+              success: false,
+              error: res.errMsg
+            });
+          }
         }
       }
     });

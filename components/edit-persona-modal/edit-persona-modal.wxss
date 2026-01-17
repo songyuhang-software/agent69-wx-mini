@@ -155,6 +155,7 @@
 .form-textarea {
   width: 100%;
   min-height: 160rpx;
+  max-height: 300rpx;
   padding: 24rpx;
   border: 2rpx solid #e0e0e0;
   border-radius: 12rpx;
@@ -449,6 +450,7 @@
 
   .form-textarea {
     min-height: 120rpx;
+    max-height: 200rpx;
   }
 
   .modal-footer {
@@ -460,6 +462,8 @@
     font-size: 26rpx;
   }
 }
+
+
 
 
 

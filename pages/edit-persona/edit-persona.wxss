@@ -214,7 +214,7 @@
   align-items: center;
   justify-content: center;
   gap: 8rpx;
-  padding: 26rpx 32rpx;
+  padding: 23rpx 32rpx;
   border-radius: 12rpx;
   font-size: 28rpx;
   font-weight: 500;

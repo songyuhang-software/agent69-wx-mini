@@ -488,7 +488,7 @@ page {
   white-space: nowrap;
   flex-shrink: 0;
   border-radius: 16rpx;
-  padding: 12rpx 24rpx;
+  padding: 20rpx 40rpx;
   font-size: 24rpx;
   font-weight: 500;
   cursor: pointer;

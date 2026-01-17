@@ -88,7 +88,7 @@ page {
   align-items: center;
   justify-content: center;
   padding: 40rpx 0;
-  margin-top: -225rpx;
+  margin-top: -250rpx;
 }
 
 .loading-icon {
@@ -137,10 +137,36 @@ page {
   font-size: 32rpx;
   line-height: 96rpx;
   margin-bottom: 40rpx;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.wechat-auth-btn.loading {
+  background-color: #05a050;
 }
 
 .wechat-auth-btn::after {
   border: none;
+}
+
+/* 按钮加载图标 */
+.btn-loading-icon {
+  width: 32rpx;
+  height: 32rpx;
+  border: 3rpx solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: btn-rotate 0.8s linear infinite;
+  margin-right: 12rpx;
+}
+
+@keyframes btn-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .wechat-icon {
@@ -172,6 +198,8 @@ page {
   font-weight: 500;
   text-decoration: underline;
 }
+
+
 
 
 

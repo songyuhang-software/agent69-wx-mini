@@ -5,7 +5,8 @@ Page({
   data: {
     weChatCode: '', // 保存微信临时授权码
     isLoading: false, // 是否正在加载
-    needAuth: false // 是否需要授权
+    needAuth: false, // 是否需要授权
+    isAuthLoading: false // 微信授权按钮是否正在加载
   },
 
   onLoad(options) {
@@ -75,6 +76,16 @@ Page({
   onWechatAuth() {
     const that = this;
 
+    // 如果正在加载，不重复执行
+    if (that.data.isAuthLoading) {
+      return;
+    }
+
+    // 立即设置按钮为加载状态
+    that.setData({
+      isAuthLoading: true
+    });
+
     // 获取用户信息授权
     wx.getUserProfile({
       desc: '用于完善用户资料',
@@ -114,11 +125,15 @@ Page({
                   wx.setStorageSync('userId', data.userId);
                   wx.setStorageSync('username', data.username);
 
-                  // 跳转到主页
+                  // 跳转到主页（加载状态会在页面跳转时自然结束）
                   wx.reLaunch({
                     url: '/pages/index/index'
                   });
                 } else {
+                  // 取消加载状态
+                  that.setData({
+                    isAuthLoading: false
+                  });
                   wx.showToast({
                     title: '注册失败，请重试',
                     icon: 'none'
@@ -127,6 +142,10 @@ Page({
               },
               fail: (error) => {
                 console.error('注册失败:', error);
+                // 取消加载状态
+                that.setData({
+                  isAuthLoading: false
+                });
                 wx.showToast({
                   title: '网络请求失败',
                   icon: 'none'
@@ -136,6 +155,10 @@ Page({
           },
           fail: (loginError) => {
             console.error('获取授权码失败:', loginError);
+            // 取消加载状态
+            that.setData({
+              isAuthLoading: false
+            });
             wx.showToast({
               title: '获取授权码失败',
               icon: 'none'
@@ -145,6 +168,10 @@ Page({
       },
       fail: (error) => {
         console.error('获取用户信息失败:', error);
+        // 用户取消授权，取消加载状态
+        that.setData({
+          isAuthLoading: false
+        });
         wx.showToast({
           title: '需要授权才能继续',
           icon: 'none'
@@ -160,7 +187,3 @@ Page({
     });
   }
 });
-
-
-
-

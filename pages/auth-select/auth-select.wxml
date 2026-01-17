@@ -22,12 +22,17 @@
     </view>
 
     <!-- 需要授权时显示的内容 -->
-    <view wx:if="{{!isLoading || needAuth}}">
+    <view wx:if="{{needAuth}}">
       <view class="welcome-text">欢迎使用</view>
 
       <!-- 微信授权登录按钮 -->
-      <button class="wechat-auth-btn" bindtap="onWechatAuth" hover-class="wechat-auth-btn-hover">
-        <text class="btn-text">微信授权登录</text>
+      <button
+        class="wechat-auth-btn {{isAuthLoading ? 'loading' : ''}}"
+        bindtap="onWechatAuth"
+        hover-class="wechat-auth-btn-hover"
+        disabled="{{isAuthLoading}}">
+        <view wx:if="{{isAuthLoading}}" class="btn-loading-icon"></view>
+        <text class="btn-text">{{isAuthLoading ? '授权中...' : '微信授权登录'}}</text>
       </button>
 
       <!-- 已有账号链接 -->
@@ -38,5 +43,6 @@
     </view>
   </view>
 </view>
+
 
 

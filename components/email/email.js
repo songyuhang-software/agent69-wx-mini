@@ -347,11 +347,8 @@ Component({
 
           wx.hideLoading();
 
-          if (response.statusCode < 200 || response.statusCode >= 300) {
-            throw new Error(response.data?.message || '关联失败');
-          }
-
-          const result = response.data;
+          // request 函数已经返回了 res.data，所以 response 就是实际的数据
+          const result = response;
 
           wx.showToast({
             title: '关联成功!',

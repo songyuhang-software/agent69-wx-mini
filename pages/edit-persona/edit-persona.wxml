@@ -24,22 +24,22 @@
 
       <!-- 操作按钮 -->
       <view class="avatar-actions">
+        <!-- 上传/更换头像按钮（主要操作，始终显示） -->
+        <view class="avatar-btn primary" bindtap="onChooseAvatar">
+          <text class="btn-icon">📁</text>
+          <text class="btn-text">{{formData.avatarUrl ? (isRandomAvatar ? '手动上传' : '更换头像') : '上传头像'}}</text>
+        </view>
+
         <!-- 随机头像按钮（仅在没有头像时显示） -->
         <view wx:if="{{!formData.avatarUrl}}" class="avatar-btn random" bindtap="onGetRandomAvatar">
           <text class="btn-icon">🎲</text>
           <text class="btn-text">随机头像</text>
         </view>
 
-        <!-- 上传/更换头像按钮 -->
-        <view class="avatar-btn primary" bindtap="onChooseAvatar">
-          <text class="btn-icon">📁</text>
-          <text class="btn-text">{{formData.avatarUrl ? (isRandomAvatar ? '手动上传' : '更换头像') : '上传头像'}}</text>
-        </view>
-
-        <!-- 移除按钮（仅在有头像时显示） -->
+        <!-- 移除按钮（仅在有头像时显示，危险操作放最后） -->
         <view wx:if="{{formData.avatarUrl}}" class="avatar-btn danger" bindtap="onRemoveAvatar">
           <text class="btn-icon">🗑️</text>
-          <text class="btn-text">移除</text>
+          <text class="btn-text">移除头像</text>
         </view>
       </view>
 
@@ -84,4 +84,5 @@
     </view>
   </view>
 </view>
+
 

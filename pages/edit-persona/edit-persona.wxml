@@ -1,4 +1,4 @@
-<navigation-bar title="{{mode === 'add' ? '新增身份' : '编辑身份'}}" />
+<navigation-bar title="{{mode === 'add' ? '新增身份' : '编辑身份'}}" delta="0" bind:back="onNavigationBack" />
 
 <view class="edit-persona-page">
   <view class="page-content">
@@ -84,3 +84,4 @@
     </view>
   </view>
 </view>
+

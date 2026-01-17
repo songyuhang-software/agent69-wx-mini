@@ -17,7 +17,9 @@ Page({
     },
     isSubmitting: false,
     isRandomAvatar: false,
-    isCurrent: false // 是否是当前身份
+    isCurrent: false, // 是否是当前身份
+    originalFormData: null, // 保存原始数据用于对比
+    hasUnsavedChanges: false // 是否有未保存的修改
   },
 
   onLoad(options) {
@@ -34,16 +36,66 @@ Page({
       const avatarUrl = options.avatarUrl || '';
       const isCurrent = options.isCurrent === 'true';
 
+      const formData = {
+        name: decodeURIComponent(name),
+        bio: decodeURIComponent(bio),
+        avatarUrl: decodeURIComponent(avatarUrl)
+      };
+
       this.setData({
         personaId,
         isCurrent,
-        formData: {
-          name: decodeURIComponent(name),
-          bio: decodeURIComponent(bio),
-          avatarUrl: decodeURIComponent(avatarUrl)
-        }
+        formData,
+        originalFormData: JSON.parse(JSON.stringify(formData)) // 深拷贝原始数据
+      });
+    } else {
+      // 新增模式，保存初始空数据
+      this.setData({
+        originalFormData: JSON.parse(JSON.stringify(this.data.formData))
       });
     }
+  },
+
+
+  // 处理导航栏返回按钮点击
+  onNavigationBack() {
+    this.handleBackAction();
+  },
+
+  // 统一处理返回逻辑
+  handleBackAction() {
+    // 检查是否有未保存的修改
+    if (this.checkUnsavedChanges()) {
+      wx.showModal({
+        title: '提示',
+        content: '您有未保存的修改，确定要离开吗？',
+        confirmText: '确定离开',
+        cancelText: '继续编辑',
+        success: (res) => {
+          if (res.confirm) {
+            // 用户确认离开，直接返回
+            wx.navigateBack();
+          }
+        }
+      });
+    } else {
+      // 没有修改，直接返回
+      wx.navigateBack();
+    }
+  },
+
+  // 检查是否有未保存的修改
+  checkUnsavedChanges() {
+    const { formData, originalFormData } = this.data;
+    if (!originalFormData) return false;
+
+    const hasChanges =
+      formData.name !== originalFormData.name ||
+      formData.bio !== originalFormData.bio ||
+      formData.avatarUrl !== originalFormData.avatarUrl;
+
+    this.setData({ hasUnsavedChanges: hasChanges });
+    return hasChanges;
   },
 
   // 输入框变化事件
@@ -51,6 +103,8 @@ Page({
     this.setData({
       'formData.name': e.detail.value,
       'errors.name': ''
+    }, () => {
+      this.checkUnsavedChanges();
     });
   },
 
@@ -58,6 +112,8 @@ Page({
     this.setData({
       'formData.bio': e.detail.value,
       'errors.bio': ''
+    }, () => {
+      this.checkUnsavedChanges();
     });
   },
 
@@ -76,6 +132,8 @@ Page({
       this.setData({
         'formData.avatarUrl': imageUrl,
         isRandomAvatar: false
+      }, () => {
+        this.checkUnsavedChanges();
       });
 
       wx.hideLoading();
@@ -113,6 +171,8 @@ Page({
         this.setData({
           'formData.avatarUrl': result.avatarUrl,
           isRandomAvatar: true
+        }, () => {
+          this.checkUnsavedChanges();
         });
         wx.showToast({
           title: '头像已更新',
@@ -141,6 +201,8 @@ Page({
           this.setData({
             'formData.avatarUrl': '',
             isRandomAvatar: false
+          }, () => {
+            this.checkUnsavedChanges();
           });
           wx.showToast({
             title: '头像已移除',
@@ -181,7 +243,7 @@ Page({
 
   // 取消
   onCancel() {
-    wx.navigateBack();
+    this.handleBackAction();
   },
 
   // 提交表单

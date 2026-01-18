@@ -29,8 +29,7 @@
       <button
         class="wechat-auth-btn {{isAuthLoading ? 'loading' : ''}}"
         bindtap="onWechatAuth"
-        hover-class="wechat-auth-btn-hover"
-        disabled="{{isAuthLoading}}">
+        hover-class="wechat-auth-btn-hover">
         <view wx:if="{{isAuthLoading}}" class="btn-loading-icon"></view>
         <text class="btn-text">{{isAuthLoading ? '授权中...' : '微信授权登录'}}</text>
       </button>

@@ -1,6 +1,6 @@
 // config/api.js
 const API_CONFIG = {
-  userserviceUrl: 'https://agent69-api.preview.huawei-zeabur.cn/user-service',
+  userserviceUrl: 'https://api.agent69.cn/user-service',
 
   // API 端点
   endpoints: {
@@ -32,7 +32,7 @@ const API_CONFIG = {
     username: 'songyuhang',
     password: 'DCbg9f9MT2NrT9TlBIWKxNAT3dhyAX32',
     path: 'avatars',
-    domain: 'http://agent69-image.test.upcdn.net/',
+    domain: 'https://file.agent69.cn/',
     maxFileSize: 50 * 1024 * 1024,
     allowedTypes: ['image/jpeg', 'image/jpg', 'image/png', 'image/webp']
   }

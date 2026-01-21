@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="" />
+    <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,6 +56,17 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="com.ke.global.state.CodeLink_Configuration">
     <option name="webViewProjectConfig">
       <WebViewProjectConfig>
@@ -70,54 +83,58 @@
         </option>
         <option name="isMavenProject" value="false" />
         <option name="jdkVersion" value="" />
-        <option name="queryString" value="?chatId=db5e3712-4048-40fb-880f-89beffc92af5" />
+        <option name="queryString" value="?chatId=3b59e4a6-72d9-4aa3-b4f0-92068197c5ad" />
         <option name="sideCarIDEInfo">
           <SideCarIDEInfo>
             <option name="allFiles">
               <set>
                 <option value="$PROJECT_DIR$/app.js" />
                 <option value="$PROJECT_DIR$/app.json" />
-                <option value="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.js" />
-                <option value="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.json" />
-                <option value="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxml" />
-                <option value="$PROJECT_DIR$/components/edit-persona-modal/edit-persona-modal.wxss" />
                 <option value="$PROJECT_DIR$/components/email/email.js" />
                 <option value="$PROJECT_DIR$/components/email/email.json" />
                 <option value="$PROJECT_DIR$/components/email/email.wxml" />
                 <option value="$PROJECT_DIR$/components/email/email.wxss" />
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.js" />
+                <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.json" />
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxml" />
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxss" />
-                <option value="$PROJECT_DIR$/config/api.js" />
-                <option value="$PROJECT_DIR$/pages/bind-account/bind-account.js" />
+                <option value="$PROJECT_DIR$/pages/auth-select/auth-select.js" />
+                <option value="$PROJECT_DIR$/pages/auth-select/auth-select.wxml" />
+                <option value="$PROJECT_DIR$/pages/auth-select/auth-select.wxss" />
                 <option value="$PROJECT_DIR$/pages/bind-account/bind-account.wxml" />
                 <option value="$PROJECT_DIR$/pages/bind-account/bind-account.wxss" />
+                <option value="$PROJECT_DIR$/pages/edit-persona/edit-persona.js" />
+                <option value="$PROJECT_DIR$/pages/edit-persona/edit-persona.json" />
+                <option value="$PROJECT_DIR$/pages/edit-persona/edit-persona.wxml" />
+                <option value="$PROJECT_DIR$/pages/edit-persona/edit-persona.wxss" />
+                <option value="$PROJECT_DIR$/pages/index/index.wxml" />
+                <option value="$PROJECT_DIR$/pages/logs/logs.wxml" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.js" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.json" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.wxml" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.wxss" />
+                <option value="$PROJECT_DIR$/pages/mine/toast.js" />
                 <option value="$PROJECT_DIR$/project.config.json" />
-                <option value="$PROJECT_DIR$/utils/avatarUpload.js" />
+                <option value="$PROJECT_DIR$/project.private.config.json" />
                 <option value="$PROJECT_DIR$/utils/request.js" />
-                <option value="$PROJECT_DIR$/utils/util.js" />
               </set>
             </option>
             <option name="autoRun" value="true" />
-            <option name="editorUrl" value="http://127.0.0.1:41100/" />
+            <option name="editorUrl" value="http://127.0.0.1:41101/" />
             <option name="openFiles">
               <set>
-                <option value="$PROJECT_DIR$/pages/mine/mine.js" />
+                <option value="$PROJECT_DIR$/pages/auth-select/auth-select.wxml" />
               </set>
             </option>
             <option name="projectId" value="13d0381" />
             <option name="rootDirectory" value="$PROJECT_DIR$" />
             <option name="shell" value="/bin/bash" />
-            <option name="sideCarPort" value="42426" />
-            <option name="socketPort" value="41100" />
+            <option name="sideCarPort" value="42427" />
+            <option name="socketPort" value="41101" />
             <option name="todoWriteAsLoading" value="true" />
           </SideCarIDEInfo>
         </option>
-        <option name="workspaceFileType" value="Plain text" />
+        <option name="workspaceFileType" value="js" />
       </WebViewProjectConfig>
     </option>
   </component>

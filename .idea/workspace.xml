@@ -5,20 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/images/tabbar/fun-active.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/tabbar/fun.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/fun/fun.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/fun/fun.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/fun/fun.wxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pages/fun/fun.wxss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/resize_image.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/tabbar/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/images/tabbar/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/tabbar/home-active.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/tabbar/home.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/tabbar/mine-active.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/tabbar/mine-active.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/tabbar/mine.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/tabbar/mine.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/index/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/tabbar/fun-active.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/tabbar/fun-active.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +88,7 @@
         </option>
         <option name="isMavenProject" value="false" />
         <option name="jdkVersion" value="" />
-        <option name="queryString" value="?chatId=ed8a4e91-14d8-4699-8e56-811ce5622dd9" />
+        <option name="queryString" value="?chatId=49ef6275-338c-4d61-8663-d90f50ff5b92" />
         <option name="sideCarIDEInfo">
           <SideCarIDEInfo>
             <option name="allFiles">
@@ -109,35 +98,35 @@
                 <option value="$PROJECT_DIR$/components/email/email.json" />
                 <option value="$PROJECT_DIR$/components/email/email.wxml" />
                 <option value="$PROJECT_DIR$/components/email/email.wxss" />
-                <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.js" />
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.json" />
-                <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxml" />
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxss" />
                 <option value="$PROJECT_DIR$/images/tabbar/README.md" />
-                <option value="$PROJECT_DIR$/images/tabbar/home.png" />
+                <option value="$PROJECT_DIR$/images/tabbar/fun.png" />
                 <option value="$PROJECT_DIR$/images/tabbar/mine-active.png" />
                 <option value="$PROJECT_DIR$/images/tabbar/mine.png" />
                 <option value="$PROJECT_DIR$/pages/auth-select/auth-select.js" />
                 <option value="$PROJECT_DIR$/pages/bind-account/bind-account.wxml" />
                 <option value="$PROJECT_DIR$/pages/bind-account/bind-account.wxss" />
-                <option value="$PROJECT_DIR$/pages/edit-persona/edit-persona.js" />
-                <option value="$PROJECT_DIR$/pages/edit-persona/edit-persona.wxss" />
-                <option value="$PROJECT_DIR$/pages/logs/logs.wxml" />
+                <option value="$PROJECT_DIR$/pages/fun/fun.js" />
+                <option value="$PROJECT_DIR$/pages/fun/fun.json" />
+                <option value="$PROJECT_DIR$/pages/fun/fun.wxml" />
+                <option value="$PROJECT_DIR$/pages/fun/fun.wxss" />
+                <option value="$PROJECT_DIR$/pages/index/index.js" />
+                <option value="$PROJECT_DIR$/pages/index/index.json" />
+                <option value="$PROJECT_DIR$/pages/index/index.wxml" />
+                <option value="$PROJECT_DIR$/pages/index/index.wxss" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.js" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.json" />
-                <option value="$PROJECT_DIR$/pages/mine/mine.wxml" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.wxss" />
-                <option value="$PROJECT_DIR$/pages/mine/toast.js" />
                 <option value="$PROJECT_DIR$/project.config.json" />
                 <option value="$PROJECT_DIR$/project.private.config.json" />
-                <option value="$PROJECT_DIR$/sitemap.json" />
               </set>
             </option>
             <option name="autoRun" value="true" />
             <option name="editorUrl" value="http://127.0.0.1:41100/" />
             <option name="openFiles">
               <set>
-                <option value="$PROJECT_DIR$/images/tabbar/home.png" />
+                <option value="$PROJECT_DIR$/pages/index/index.js" />
               </set>
             </option>
             <option name="projectId" value="13d0381" />
@@ -148,7 +137,7 @@
             <option name="todoWriteAsLoading" value="true" />
           </SideCarIDEInfo>
         </option>
-        <option name="workspaceFileType" value="js" />
+        <option name="workspaceFileType" value="textmate" />
       </WebViewProjectConfig>
     </option>
   </component>

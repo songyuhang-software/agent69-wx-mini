@@ -1,4 +1,4 @@
-/**index.wxss**/
+/* fun.wxss */
 page {
   height: 100vh;
   display: flex;
@@ -53,4 +53,3 @@ page {
   color: #999;
   line-height: 1.6;
 }
-

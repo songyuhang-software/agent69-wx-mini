@@ -1,4 +1,4 @@
-// index.js
+// fun.js
 Component({
   data: {
 
@@ -7,4 +7,3 @@ Component({
 
   }
 })
-

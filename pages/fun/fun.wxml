@@ -1,0 +1,12 @@
+<!--fun.wxml-->
+<navigation-bar title="趣味互动" back="{{false}}" color="black" background="#FFF"></navigation-bar>
+<scroll-view class="scrollarea" scroll-y type="list">
+  <view class="container">
+    <view class="coming-soon">
+      <image class="icon" src="/images/tabbar/fun.png" mode="aspectFit"></image>
+      <text class="title">趣味互动</text>
+      <text class="subtitle">敬请期待</text>
+      <text class="description">更多有趣的互动功能正在开发中...</text>
+    </view>
+  </view>
+</scroll-view>

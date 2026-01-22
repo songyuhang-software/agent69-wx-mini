@@ -5,7 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/images/tabbar/fun-active.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/tabbar/fun.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/fun/fun.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/fun/fun.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/fun/fun.wxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/fun/fun.wxss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/tabbar/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/images/tabbar/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/tabbar/home-active.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/tabbar/home.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/tabbar/mine-active.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/tabbar/mine-active.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/tabbar/mine.png" beforeDir="false" afterPath="$PROJECT_DIR$/images/tabbar/mine.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.wxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +58,9 @@
       <recent name="$PROJECT_DIR$/pages/mine" />
       <recent name="$PROJECT_DIR$/utils" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/images/tabbar" />
+    </key>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
@@ -83,12 +99,11 @@
         </option>
         <option name="isMavenProject" value="false" />
         <option name="jdkVersion" value="" />
-        <option name="queryString" value="?chatId=3b59e4a6-72d9-4aa3-b4f0-92068197c5ad" />
+        <option name="queryString" value="?chatId=ed8a4e91-14d8-4699-8e56-811ce5622dd9" />
         <option name="sideCarIDEInfo">
           <SideCarIDEInfo>
             <option name="allFiles">
               <set>
-                <option value="$PROJECT_DIR$/app.js" />
                 <option value="$PROJECT_DIR$/app.json" />
                 <option value="$PROJECT_DIR$/components/email/email.js" />
                 <option value="$PROJECT_DIR$/components/email/email.json" />
@@ -98,16 +113,15 @@
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.json" />
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxml" />
                 <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxss" />
+                <option value="$PROJECT_DIR$/images/tabbar/README.md" />
+                <option value="$PROJECT_DIR$/images/tabbar/home.png" />
+                <option value="$PROJECT_DIR$/images/tabbar/mine-active.png" />
+                <option value="$PROJECT_DIR$/images/tabbar/mine.png" />
                 <option value="$PROJECT_DIR$/pages/auth-select/auth-select.js" />
-                <option value="$PROJECT_DIR$/pages/auth-select/auth-select.wxml" />
-                <option value="$PROJECT_DIR$/pages/auth-select/auth-select.wxss" />
                 <option value="$PROJECT_DIR$/pages/bind-account/bind-account.wxml" />
                 <option value="$PROJECT_DIR$/pages/bind-account/bind-account.wxss" />
                 <option value="$PROJECT_DIR$/pages/edit-persona/edit-persona.js" />
-                <option value="$PROJECT_DIR$/pages/edit-persona/edit-persona.json" />
-                <option value="$PROJECT_DIR$/pages/edit-persona/edit-persona.wxml" />
                 <option value="$PROJECT_DIR$/pages/edit-persona/edit-persona.wxss" />
-                <option value="$PROJECT_DIR$/pages/index/index.wxml" />
                 <option value="$PROJECT_DIR$/pages/logs/logs.wxml" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.js" />
                 <option value="$PROJECT_DIR$/pages/mine/mine.json" />
@@ -116,21 +130,21 @@
                 <option value="$PROJECT_DIR$/pages/mine/toast.js" />
                 <option value="$PROJECT_DIR$/project.config.json" />
                 <option value="$PROJECT_DIR$/project.private.config.json" />
-                <option value="$PROJECT_DIR$/utils/request.js" />
+                <option value="$PROJECT_DIR$/sitemap.json" />
               </set>
             </option>
             <option name="autoRun" value="true" />
-            <option name="editorUrl" value="http://127.0.0.1:41101/" />
+            <option name="editorUrl" value="http://127.0.0.1:41100/" />
             <option name="openFiles">
               <set>
-                <option value="$PROJECT_DIR$/pages/auth-select/auth-select.wxml" />
+                <option value="$PROJECT_DIR$/images/tabbar/home.png" />
               </set>
             </option>
             <option name="projectId" value="13d0381" />
             <option name="rootDirectory" value="$PROJECT_DIR$" />
             <option name="shell" value="/bin/bash" />
-            <option name="sideCarPort" value="42427" />
-            <option name="socketPort" value="41101" />
+            <option name="sideCarPort" value="42426" />
+            <option name="socketPort" value="41100" />
             <option name="todoWriteAsLoading" value="true" />
           </SideCarIDEInfo>
         </option>

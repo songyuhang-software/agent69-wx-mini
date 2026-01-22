@@ -2,6 +2,7 @@
   "pages": [
     "pages/auth-select/auth-select",
     "pages/index/index",
+    "pages/fun/fun",
     "pages/mine/mine",
     "pages/logs/logs",
     "pages/bind-account/bind-account",
@@ -12,8 +13,8 @@
     "navigationStyle": "custom"
   },
   "tabBar": {
-    "color": "#999999",
-    "selectedColor": "#07C160",
+    "color": "#A0C8E8",
+    "selectedColor": "#4A90E2",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
@@ -22,6 +23,12 @@
         "text": "首页",
         "iconPath": "images/tabbar/home.png",
         "selectedIconPath": "images/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/fun/fun",
+        "text": "趣味互动",
+        "iconPath": "images/tabbar/fun.png",
+        "selectedIconPath": "images/tabbar/fun-active.png"
       },
       {
         "pagePath": "pages/mine/mine",
@@ -47,6 +54,11 @@
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"
 }
+
+
+
+
+
 
 
 

@@ -86,7 +86,6 @@ page {
 .messages-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
 }
 
@@ -101,6 +100,11 @@ page {
   font-size: 28rpx;
   white-space: pre-wrap;
   animation: fadeIn 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: auto;
+  height: auto;
+  box-sizing: border-box;
 }
 
 @keyframes fadeIn {
@@ -136,6 +140,9 @@ page {
 /* 消息内容 */
 .message-content {
   display: block;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  width: 100%;
 }
 
 /* 时间戳 */
@@ -248,6 +255,11 @@ page {
   background: #ccc;
   opacity: 0.6;
 }
+
+
+
+
+
 
 
 

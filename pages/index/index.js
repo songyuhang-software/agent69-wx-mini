@@ -25,16 +25,44 @@ Component({
     // 滚动到指定位置
     scrollToView: '',
     // 消息 ID 计数器
-    messageIdCounter: 0
+    messageIdCounter: 0,
+    // 安全区域
+    safeAreaTop: 0,
+    safeAreaBottom: 0,
+    statusBarHeight: 0
   },
 
   lifetimes: {
     attached() {
+      this.getSafeArea();
       this.loadChatHistory();
     }
   },
 
   methods: {
+    /**
+     * 获取安全区域信息
+     */
+    getSafeArea() {
+      const systemInfo = wx.getSystemInfoSync();
+      console.log('系统信息:', systemInfo);
+
+      // 获取状态栏高度
+      const statusBarHeight = systemInfo.statusBarHeight || 0;
+
+      // 获取安全区域
+      const safeArea = systemInfo.safeArea || {};
+      const safeAreaTop = safeArea.top || statusBarHeight;
+      const safeAreaBottom = systemInfo.screenHeight - (safeArea.bottom || systemInfo.screenHeight);
+
+      console.log('安全区域 - 顶部:', safeAreaTop, '底部:', safeAreaBottom);
+
+      this.setData({
+        statusBarHeight,
+        safeAreaTop,
+        safeAreaBottom
+      });
+    },
     /**
      * 加载聊天历史记录
      */
@@ -325,6 +353,7 @@ Component({
     }
   }
 })
+
 
 
 

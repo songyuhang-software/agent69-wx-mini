@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
   <!-- 顶部标题栏 -->
-  <view class="header">
+  <view class="header" style="padding-top: {{safeAreaTop + 20}}px;">
     <text class="header-title">💡 灵感笔记</text>
   </view>
 
@@ -48,7 +48,7 @@
   </scroll-view>
 
   <!-- 输入区域 -->
-  <view class="input-area">
+  <view class="input-area" style="padding-bottom: {{safeAreaBottom + 12}}px;">
     <input
       class="input-field"
       type="text"
@@ -66,6 +66,8 @@
     </view>
   </view>
 </view>
+
+
 
 
 

@@ -14,12 +14,13 @@ page {
   background: #f5f5f5;
 }
 
-/* 顶部标题栏 - 安全区域适配 */
+/* 顶部标题栏 - 使用 JS 动态设置安全区域 */
 .header {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: calc(30rpx + constant(safe-area-inset-top)) 40rpx 40rpx 40rpx;
-  padding-top: calc(30rpx + env(safe-area-inset-top));
+  /* padding-top 通过 style 动态设置 */
+  padding-left: 40rpx;
+  padding-right: 40rpx;
   padding-bottom: 40rpx;
   display: flex;
   align-items: center;
@@ -31,6 +32,7 @@ page {
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 100;
 }
 
@@ -48,8 +50,8 @@ page {
   width: 100%;
   box-sizing: border-box;
   position: fixed;
-  top: calc(116rpx + constant(safe-area-inset-top));
-  top: calc(116rpx + env(safe-area-inset-top));
+  top: calc(136rpx + constant(safe-area-inset-top));
+  top: calc(136rpx + env(safe-area-inset-top));
   left: 0;
   z-index: 99;
 }
@@ -80,8 +82,8 @@ page {
   width: 100%;
   box-sizing: border-box;
   position: fixed;
-  top: calc(116rpx + constant(safe-area-inset-top));
-  top: calc(116rpx + env(safe-area-inset-top));
+  top: calc(136rpx + constant(safe-area-inset-top));
+  top: calc(136rpx + env(safe-area-inset-top));
   bottom: calc(116rpx + constant(safe-area-inset-bottom));
   bottom: calc(116rpx + env(safe-area-inset-bottom));
   left: 0;
@@ -222,12 +224,12 @@ page {
   font-size: 28rpx;
 }
 
-/* 输入区域 - 安全区域适配 */
+/* 输入区域 - 使用 JS 动态设置安全区域 */
 .input-area {
   display: flex;
   gap: 20rpx;
-  padding: 24rpx 40rpx calc(24rpx + constant(safe-area-inset-bottom)) 40rpx;
-  padding-bottom: calc(24rpx + env(safe-area-inset-bottom));
+  padding: 24rpx 40rpx;
+  /* padding-bottom 通过 style 动态设置 */
   background: white;
   border-top: 1rpx solid #e0e0e0;
   flex-shrink: 0;
@@ -342,6 +344,13 @@ page {
     transform: translateY(-2rpx) scale(1.1);
   }
 }
+
+
+
+
+
+
+
 
 
 

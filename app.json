@@ -10,7 +10,10 @@
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationStyle": "custom"
+    "navigationStyle": "custom",
+    "enablePassiveEvent": {
+      "scroll": true
+    }
   },
   "tabBar": {
     "color": "#A0C8E8",
@@ -54,6 +57,7 @@
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"
 }
+
 
 
 

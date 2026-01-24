@@ -30,15 +30,19 @@
         wx:for="{{messages}}"
         wx:key="id"
         id="msg-{{item.id}}"
-        class="message {{item.role}}-message {{item.isWelcome ? 'welcome-message' : ''}}"
+        class="message-wrapper {{item.role}}-wrapper"
       >
-        <text class="message-content">{{item.content}}</text>
-        <view class="timestamp">{{item.timestamp}}</view>
+        <view class="message {{item.role}}-message {{item.isWelcome ? 'welcome-message' : ''}}">
+          <text class="message-content">{{item.content}}</text>
+          <text class="timestamp">{{item.timestamp}}</text>
+        </view>
       </view>
 
       <!-- 加载中消息 -->
-      <view wx:if="{{isLoading}}" class="message assistant-message loading">
-        <text>AI正在思考中...</text>
+      <view wx:if="{{isLoading}}" class="message-wrapper assistant-wrapper">
+        <view class="message assistant-message loading">
+          <text>AI正在思考中...</text>
+        </view>
       </view>
     </view>
   </scroll-view>
@@ -63,5 +67,7 @@
     </button>
   </view>
 </view>
+
+
 
 

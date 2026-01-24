@@ -84,7 +84,7 @@ Component({
               const welcomeMessage = {
                 id: 'welcome',
                 role: 'assistant',
-                content: '您好,我是灵感笔记助手!💡 我可以帮助您随时随地记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
+                content: '您好,我是您的专属灵感笔记!\n💡我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
                 timestamp: this.formatTime(new Date()),
                 isWelcome: true
               };
@@ -113,7 +113,7 @@ Component({
           const welcomeMessage = {
             id: 'welcome',
             role: 'assistant',
-            content: '您好,我是灵感笔记助手!💡 我可以帮助您随时随地记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
+            content: '您好,我是您的专属灵感笔记!\n💡我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
             timestamp: this.formatTime(new Date()),
             isWelcome: true
           };

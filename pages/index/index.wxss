@@ -180,6 +180,8 @@ page {
               0 2rpx 6rpx rgba(0, 0, 0, 0.1);
   border: 1rpx solid rgba(255, 193, 7, 0.25);
   background: linear-gradient(135deg, #ffffff 0%, #fffbf0 100%);
+  width: auto !important;
+  max-width: 85% !important;
 }
 
 /* 加载中动画 */
@@ -246,32 +248,52 @@ page {
 }
 
 .send-button {
-  padding: 20rpx 24rpx;
+  width: 80rpx;
+  height: 80rpx;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
-  border-radius: 40rpx;
+  border-radius: 50%;
   font-size: 28rpx;
   font-weight: 600;
-  white-space: nowrap;
-  line-height: 1.2;
-  min-width: 100rpx;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3);
 }
 
-.send-button::after {
-  border: none;
+.arrow-icon {
+  font-size: 48rpx;
+  font-weight: bold;
+  line-height: 1;
+  transform: translateY(-2rpx);
 }
 
-.send-button:active {
-  transform: scale(0.95);
-  opacity: 0.9;
-}
-
-.send-button[disabled] {
-  background: #ccc;
+.send-button.disabled {
+  background: #e0e0e0;
   opacity: 0.6;
+  pointer-events: none;
+  box-shadow: none;
 }
+
+.send-button.disabled .arrow-icon {
+  color: #999;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: translateY(-2rpx) scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2rpx) scale(1.1);
+  }
+}
+
+
 
 
 

@@ -58,15 +58,15 @@
       bindconfirm="onSendMessage"
       confirm-type="send"
     />
-    <button
-      class="send-button"
-      disabled="{{isSending}}"
+    <view
+      class="send-button {{isSending || !inputValue ? 'disabled' : ''}}"
       bindtap="onSendMessage"
     >
-      {{isSending ? '发送中...' : '发送'}}
-    </button>
+      <view class="arrow-icon">↑</view>
+    </view>
   </view>
 </view>
+
 
 
 

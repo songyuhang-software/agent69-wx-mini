@@ -282,6 +282,50 @@ page {
   color: #999;
 }
 
+/* 发送中状态 */
+.send-button.sending {
+  pointer-events: none;
+  animation: sendingPulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.7);
+}
+
+.send-button.sending .arrow-icon {
+  animation: sendingRotate 1.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes sendingPulse {
+  0% {
+    box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3),
+                0 0 0 0 rgba(102, 126, 234, 0.7);
+  }
+  50% {
+    box-shadow: 0 4rpx 20rpx rgba(102, 126, 234, 0.5),
+                0 0 0 20rpx rgba(102, 126, 234, 0);
+  }
+  100% {
+    box-shadow: 0 4rpx 12rpx rgba(102, 126, 234, 0.3),
+                0 0 0 0 rgba(102, 126, 234, 0);
+  }
+}
+
+@keyframes sendingRotate {
+  0% {
+    transform: translateY(-2rpx) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-2rpx) rotate(90deg) scale(1.1);
+  }
+  50% {
+    transform: translateY(-2rpx) rotate(180deg) scale(1);
+  }
+  75% {
+    transform: translateY(-2rpx) rotate(270deg) scale(1.1);
+  }
+  100% {
+    transform: translateY(-2rpx) rotate(360deg) scale(1);
+  }
+}
+
 @keyframes pulse {
   0%, 100% {
     opacity: 0.5;
@@ -292,6 +336,7 @@ page {
     transform: translateY(-2rpx) scale(1.1);
   }
 }
+
 
 
 

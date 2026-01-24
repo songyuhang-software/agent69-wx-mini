@@ -59,13 +59,14 @@
       confirm-type="send"
     />
     <view
-      class="send-button {{isSending || !inputValue ? 'disabled' : ''}}"
+      class="send-button {{isSending ? 'sending' : (!inputValue ? 'disabled' : '')}}"
       bindtap="onSendMessage"
     >
       <view class="arrow-icon">↑</view>
     </view>
   </view>
 </view>
+
 
 
 

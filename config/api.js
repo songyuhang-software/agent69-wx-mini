@@ -1,6 +1,8 @@
 // config/api.js
 const API_CONFIG = {
   userserviceUrl: 'https://api.agent69.cn/user-service',
+  // LLM API 地址 
+  llmServiceUrl: 'https://api.agent69.cn/llm-service',
 
   // API 端点
   endpoints: {

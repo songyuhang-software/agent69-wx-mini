@@ -1,13 +1,67 @@
 <!--index.wxml-->
-<navigation-bar title="首页" back="{{false}}" color="black" background="#FFF"></navigation-bar>
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="container">
-    <view class="coming-soon">
-      <image class="icon" src="/images/tabbar/home.png" mode="aspectFit"></image>
-      <text class="title">首页</text>
-      <text class="subtitle">敬请期待</text>
-      <text class="description">更多精彩内容正在开发中...</text>
-    </view>
+<view class="container">
+  <!-- 顶部标题栏 -->
+  <view class="header">
+    <text class="header-title">💡 灵感笔记</text>
   </view>
-</scroll-view>
+
+  <!-- 状态提示 -->
+  <view wx:if="{{statusVisible}}" class="status {{statusType}}">
+    <text>{{statusMessage}}</text>
+  </view>
+
+  <!-- 聊天消息区域 -->
+  <scroll-view
+    class="chat-container"
+    scroll-y
+    scroll-into-view="{{scrollToView}}"
+    scroll-with-animation="{{true}}"
+    bindscrolltoupper="onScrollToUpper"
+    upper-threshold="50"
+  >
+    <view class="messages-wrapper">
+      <!-- 加载更多提示 -->
+      <view wx:if="{{isLoadingMore}}" class="loading-more">
+        <text>加载中...</text>
+      </view>
+
+      <!-- 消息列表 -->
+      <view
+        wx:for="{{messages}}"
+        wx:key="id"
+        id="msg-{{item.id}}"
+        class="message {{item.role}}-message {{item.isWelcome ? 'welcome-message' : ''}}"
+      >
+        <text class="message-content">{{item.content}}</text>
+        <view class="timestamp">{{item.timestamp}}</view>
+      </view>
+
+      <!-- 加载中消息 -->
+      <view wx:if="{{isLoading}}" class="message assistant-message loading">
+        <text>AI正在思考中...</text>
+      </view>
+    </view>
+  </scroll-view>
+
+  <!-- 输入区域 -->
+  <view class="input-area">
+    <input
+      class="input-field"
+      type="text"
+      value="{{inputValue}}"
+      placeholder="输入你的想法..."
+      bindinput="onInput"
+      bindconfirm="onSendMessage"
+      confirm-type="send"
+    />
+    <button
+      class="send-button"
+      disabled="{{isSending}}"
+      bindtap="onSendMessage"
+    >
+      {{isSending ? '发送中...' : '发送'}}
+    </button>
+  </view>
+</view>
+
 

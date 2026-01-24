@@ -226,7 +226,7 @@ page {
 .input-area {
   display: flex;
   gap: 20rpx;
-  padding: 24rpx 30rpx calc(24rpx + constant(safe-area-inset-bottom)) 30rpx;
+  padding: 24rpx 40rpx calc(24rpx + constant(safe-area-inset-bottom)) 40rpx;
   padding-bottom: calc(24rpx + env(safe-area-inset-bottom));
   background: white;
   border-top: 1rpx solid #e0e0e0;
@@ -342,6 +342,7 @@ page {
     transform: translateY(-2rpx) scale(1.1);
   }
 }
+
 
 
 

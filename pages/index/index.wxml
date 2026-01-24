@@ -1,18 +1,19 @@
 <!--index.wxml-->
 <view class="container">
   <!-- 顶部标题栏 -->
-  <view class="header" style="padding-top: {{safeAreaTop + 20}}px;">
+  <view class="header" style="padding-top: {{safeAreaTop + 8}}px;">
     <text class="header-title">💡 灵感笔记</text>
   </view>
 
   <!-- 状态提示 -->
-  <view wx:if="{{statusVisible}}" class="status {{statusType}}">
+  <view wx:if="{{statusVisible}}" class="status {{statusType}}" style="top: {{headerHeight}}px;">
     <text>{{statusMessage}}</text>
   </view>
 
   <!-- 聊天消息区域 -->
   <scroll-view
     class="chat-container"
+    style="top: {{headerHeight}}px; bottom: {{safeAreaBottom + 58}}px;"
     scroll-y
     scroll-into-view="{{scrollToView}}"
     scroll-with-animation="{{true}}"
@@ -66,6 +67,8 @@
     </view>
   </view>
 </view>
+
+
 
 
 

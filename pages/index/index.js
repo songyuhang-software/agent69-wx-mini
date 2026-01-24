@@ -29,7 +29,8 @@ Component({
     // 安全区域
     safeAreaTop: 0,
     safeAreaBottom: 0,
-    statusBarHeight: 0
+    statusBarHeight: 0,
+    headerHeight: 0
   },
 
   lifetimes: {
@@ -57,10 +58,14 @@ Component({
 
       console.log('安全区域 - 顶部:', safeAreaTop, '底部:', safeAreaBottom);
 
+      // 计算标题栏高度（安全区域 + 上边距8px + 标题高度约25px + 下边距10px）
+      const headerHeight = safeAreaTop + 8 + 25 + 10;
+
       this.setData({
         statusBarHeight,
         safeAreaTop,
-        safeAreaBottom
+        safeAreaBottom,
+        headerHeight
       });
     },
     /**
@@ -353,6 +358,8 @@ Component({
     }
   }
 })
+
+
 
 
 

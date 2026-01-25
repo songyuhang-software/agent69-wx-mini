@@ -168,6 +168,24 @@ page {
   min-width: 0;
 }
 
+/* 时间标签样式 - 用于显示消息之间的时间分割 */
+.time-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20rpx 0;
+}
+
+.time-label text {
+  background: rgba(0, 0, 0, 0.08);
+  color: #666;
+  font-size: 24rpx;
+  padding: 8rpx 20rpx;
+  border-radius: 20rpx;
+  line-height: 1;
+  font-weight: 400;
+}
+
 /* 时间戳 */
 .timestamp {
   display: block;

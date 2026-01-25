@@ -119,7 +119,12 @@ Component({
                 role: 'assistant',
                 content: '您好,我是您的专属灵感笔记!\n💡 我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
                 timestamp: this.formatTime(new Date()),
-                isWelcome: true
+                isWelcome: true,
+                suggestedQuestions: [
+                  '如何记录信息？',
+                  '如何查询信息？',
+                  '我能修改或删除已记录的信息吗？'
+                ]
               };
 
               this.setData({
@@ -148,7 +153,12 @@ Component({
             role: 'assistant',
             content: '您好,我是您的专属灵感笔记!\n💡 我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
             timestamp: this.formatTime(new Date()),
-            isWelcome: true
+            isWelcome: true,
+            suggestedQuestions: [
+              '如何记录信息？',
+              '如何查询信息？',
+              '我能修改或删除已记录的信息吗？'
+            ]
           };
 
           this.setData({
@@ -223,7 +233,9 @@ Component({
         });
 
         if (result.success && result.data) {
-          this.addAssistantMessage(result.data);
+          // 提取推荐追问
+          const suggestedQuestions = result.suggested_follow_questions || [];
+          this.addAssistantMessage(result.data, suggestedQuestions);
         } else {
           throw new Error(result.message || 'API 调用失败');
         }
@@ -261,7 +273,7 @@ Component({
     /**
      * 添加助手消息
      */
-    addAssistantMessage(content) {
+    addAssistantMessage(content, suggestedQuestions = []) {
       const messageId = `assistant-${Date.now()}-${this.data.messageIdCounter}`;
       this.setData({
         messageIdCounter: this.data.messageIdCounter + 1,
@@ -270,7 +282,8 @@ Component({
           role: 'assistant',
           content: this.formatMessageContent(content),
           timestamp: this.formatTime(new Date()),
-          isWelcome: false
+          isWelcome: false,
+          suggestedQuestions: suggestedQuestions || []
         }]
       });
       this.scrollToBottom();
@@ -349,6 +362,21 @@ Component({
     },
 
     /**
+     * 点击推荐追问
+     */
+    onClickSuggestedQuestion(e) {
+      const question = e.currentTarget.dataset.question;
+      if (!question) return;
+
+      // 设置输入框内容并发送
+      this.setData({
+        inputValue: question
+      }, () => {
+        this.onSendMessage();
+      });
+    },
+
+    /**
      * 隐藏状态提示
      */
     hideStatus() {
@@ -358,9 +386,3 @@ Component({
     }
   }
 })
-
-
-
-
-
-

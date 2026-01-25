@@ -97,17 +97,18 @@ page {
 .message-wrapper {
   width: 100%;
   display: flex;
+  flex-direction: column;
   margin-bottom: 16rpx;
   box-sizing: border-box;
   padding: 0 30rpx;
 }
 
 .user-wrapper {
-  justify-content: flex-end;
+  align-items: flex-end;
 }
 
 .assistant-wrapper {
-  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 /* 消息气泡 - 包裹内容 */
@@ -341,47 +342,43 @@ page {
   }
 }
 
+/* 推荐追问样式 */
+.suggested-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  margin-top: 16rpx;
+  width: 100%;
+  max-width: 70%;
+}
 
+.suggested-question-item {
+  background: transparent;
+  border: 1rpx solid rgba(0, 0, 0, 0.15);
+  border-radius: 16rpx;
+  padding: 16rpx 24rpx;
+  font-size: 24rpx;
+  color: #333;
+  line-height: 1.4;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+}
 
+.suggested-question-item:active {
+  background: rgba(0, 0, 0, 0.05);
+  transform: scale(0.98);
+}
 
+.question-text {
+  display: block;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* 用户消息不显示推荐追问 */
+.user-wrapper .suggested-questions {
+  display: none;
+}
 

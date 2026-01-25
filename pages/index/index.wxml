@@ -37,6 +37,20 @@
           <text class="message-content">{{item.content}}</text>
           <text class="timestamp">{{item.timestamp}}</text>
         </view>
+
+        <!-- 推荐追问 (仅显示在助手消息下方) -->
+        <view wx:if="{{item.role === 'assistant' && item.suggestedQuestions && item.suggestedQuestions.length > 0}}" class="suggested-questions">
+          <view
+            wx:for="{{item.suggestedQuestions}}"
+            wx:key="index"
+            wx:for-item="question"
+            class="suggested-question-item"
+            bindtap="onClickSuggestedQuestion"
+            data-question="{{question}}"
+          >
+            <text class="question-text">{{question}}</text>
+          </view>
+        </view>
       </view>
 
       <!-- 加载中消息 -->
@@ -67,13 +81,3 @@
     </view>
   </view>
 </view>
-
-
-
-
-
-
-
-
-
-

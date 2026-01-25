@@ -38,8 +38,8 @@
           <text class="timestamp">{{item.timestamp}}</text>
         </view>
 
-        <!-- 推荐追问 (仅显示在助手消息下方) -->
-        <view wx:if="{{item.role === 'assistant' && item.suggestedQuestions && item.suggestedQuestions.length > 0}}" class="suggested-questions">
+        <!-- 推荐追问 (仅显示在最新的助手消息下方) -->
+        <view wx:if="{{item.role === 'assistant' && item.suggestedQuestions && item.suggestedQuestions.length > 0 && item.isLatest}}" class="suggested-questions">
           <view
             wx:for="{{item.suggestedQuestions}}"
             wx:key="index"

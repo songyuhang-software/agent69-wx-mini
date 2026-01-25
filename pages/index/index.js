@@ -104,7 +104,8 @@ Component({
               role: msg.role,
               content: this.formatMessageContent(msg.content),
               timestamp: this.formatTime(msg.created_at),
-              isWelcome: false
+              isWelcome: false,
+              isLatest: false  // 历史消息默认不是最新的
             }));
 
             // 如果是加载更多,插入到消息列表开头
@@ -124,7 +125,8 @@ Component({
                   '如何记录信息？',
                   '如何查询信息？',
                   '我能修改或删除已记录的信息吗？'
-                ]
+                ],
+                isLatest: true  // 欢迎消息是最新的
               };
 
               this.setData({
@@ -158,7 +160,8 @@ Component({
               '如何记录信息？',
               '如何查询信息？',
               '我能修改或删除已记录的信息吗？'
-            ]
+            ],
+            isLatest: true  // 欢迎消息是最新的
           };
 
           this.setData({
@@ -206,6 +209,9 @@ Component({
       }
 
       if (this.data.isSending) return;
+
+      // 隐藏所有推荐追问
+      this.hideAllSuggestedQuestions();
 
       // 立即显示用户消息
       this.addUserMessage(input);
@@ -275,15 +281,23 @@ Component({
      */
     addAssistantMessage(content, suggestedQuestions = []) {
       const messageId = `assistant-${Date.now()}-${this.data.messageIdCounter}`;
+
+      // 将之前所有消息的 isLatest 设为 false
+      const updatedMessages = this.data.messages.map(msg => ({
+        ...msg,
+        isLatest: false
+      }));
+
       this.setData({
         messageIdCounter: this.data.messageIdCounter + 1,
-        messages: [...this.data.messages, {
+        messages: [...updatedMessages, {
           id: messageId,
           role: 'assistant',
           content: this.formatMessageContent(content),
           timestamp: this.formatTime(new Date()),
           isWelcome: false,
-          suggestedQuestions: suggestedQuestions || []
+          suggestedQuestions: suggestedQuestions || [],
+          isLatest: true  // 标记为最新消息
         }]
       });
       this.scrollToBottom();
@@ -368,7 +382,7 @@ Component({
       const question = e.currentTarget.dataset.question;
       if (!question) return;
 
-      // 设置输入框内容并发送
+      // 设置输入框内容并发送（onSendMessage 会隐藏推荐追问）
       this.setData({
         inputValue: question
       }, () => {
@@ -382,6 +396,20 @@ Component({
     hideStatus() {
       this.setData({
         statusVisible: false
+      });
+    },
+
+    /**
+     * 隐藏所有推荐追问
+     */
+    hideAllSuggestedQuestions() {
+      const updatedMessages = this.data.messages.map(msg => ({
+        ...msg,
+        isLatest: false
+      }));
+
+      this.setData({
+        messages: updatedMessages
       });
     }
   }

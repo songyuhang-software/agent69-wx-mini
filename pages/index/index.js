@@ -97,51 +97,54 @@ Component({
         });
 
         if (result.success && result.data) {
+          // 后端返回的是从新到旧的顺序,需要反转
+          const newMessages = result.data.length > 0
+            ? result.data.reverse().map((msg, index) => ({
+                id: `history-${this.data.currentPage}-${index}`,
+                role: msg.role,
+                content: this.formatMessageContent(msg.content),
+                rawTimestamp: new Date(msg.created_at),
+                isWelcome: false,
+                isLatest: false  // 历史消息默认不是最新的
+              }))
+            : [];
+
+          // 如果没有更多数据了
           if (result.data.length === 0) {
             this.setData({ hasMore: false });
+          }
+
+          // 如果是加载更多,插入到消息列表开头
+          if (this.data.currentPage > 1) {
+            const allMessages = [...newMessages, ...this.data.messages];
+            this.setData({
+              messages: addTimeLabels(allMessages)
+            });
           } else {
-            // 后端返回的是从新到旧的顺序,需要反转
-            const newMessages = result.data.reverse().map((msg, index) => ({
-              id: `history-${this.data.currentPage}-${index}`,
-              role: msg.role,
-              content: this.formatMessageContent(msg.content),
-              rawTimestamp: new Date(msg.created_at),
-              isWelcome: false,
-              isLatest: false  // 历史消息默认不是最新的
-            }));
+            // 首次加载,添加欢迎消息
+            const welcomeMessage = {
+              id: 'welcome',
+              role: 'assistant',
+              content: '您好,我是您的专属灵感笔记!\n💡 我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
+              rawTimestamp: new Date(),
+              isWelcome: true,
+              suggestedQuestions: [
+                '如何记录信息？',
+                '如何查询信息？',
+                '我能修改或删除已记录的信息吗？'
+              ],
+              isLatest: true  // 欢迎消息是最新的
+            };
 
-            // 如果是加载更多,插入到消息列表开头
-            if (this.data.currentPage > 1) {
-              const allMessages = [...newMessages, ...this.data.messages];
-              this.setData({
-                messages: addTimeLabels(allMessages)
-              });
-            } else {
-              // 首次加载,添加欢迎消息
-              const welcomeMessage = {
-                id: 'welcome',
-                role: 'assistant',
-                content: '您好,我是您的专属智能笔记!\n💡 我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
-                rawTimestamp: new Date(),
-                isWelcome: true,
-                suggestedQuestions: [
-                  '如何记录信息？',
-                  '如何查询信息？',
-                  '我能修改或删除已记录的信息吗？'
-                ],
-                isLatest: true  // 欢迎消息是最新的
-              };
+            const allMessages = [...newMessages, welcomeMessage];
+            this.setData({
+              messages: addTimeLabels(allMessages)
+            });
 
-              const allMessages = [...newMessages, welcomeMessage];
-              this.setData({
-                messages: addTimeLabels(allMessages)
-              });
-
-              // 滚动到底部
-              setTimeout(() => {
-                this.scrollToBottom();
-              }, 100);
-            }
+            // 滚动到底部
+            setTimeout(() => {
+              this.scrollToBottom();
+            }, 100);
           }
 
           this.hideStatus();

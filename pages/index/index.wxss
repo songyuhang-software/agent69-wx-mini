@@ -116,7 +116,7 @@ page {
   padding: 16rpx 24rpx;
   border-radius: 20rpx;
   max-width: 70%;
-  line-height: 1.4;
+  line-height: 1.6;
   font-size: 28rpx;
   animation: fadeIn 0.3s ease;
   box-sizing: border-box;
@@ -124,7 +124,7 @@ page {
   flex-direction: column;
   width: auto;
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 @keyframes fadeIn {

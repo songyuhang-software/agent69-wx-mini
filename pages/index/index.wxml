@@ -40,7 +40,8 @@
         <!-- 消息内容 -->
         <view wx:else class="message-wrapper {{item.role}}-wrapper">
           <view class="message {{item.role}}-message {{item.isWelcome ? 'welcome-message' : ''}}">
-            <text class="message-content">{{item.content}}</text>
+            <rich-text wx:if="{{typeof item.content === 'object'}}" class="message-content" nodes="{{item.content}}"></rich-text>
+            <text wx:else class="message-content">{{item.content}}</text>
           </view>
 
           <!-- 推荐追问 (仅显示在最新的助手消息下方) -->

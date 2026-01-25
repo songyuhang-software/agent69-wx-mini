@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="" />
+    <list default="true" id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/utils/markdown.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.wxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/index.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/index/index.wxss" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,18 +32,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/songyuhang/agent69/agent69-wx-mini&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "main",
+    "javascript.preferred.runtime.type.id": "node",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/songyuhang/agent69/agent69-wx-mini",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/pages/mine" />
@@ -47,6 +57,13 @@
       <recent name="$PROJECT_DIR$/images/tabbar" />
     </key>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-WS-253.30387.83" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
       <changelist id="3bd1f3b4-3ba5-464c-b41b-d13f86774651" name="更改" comment="" />
@@ -54,8 +71,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1768230243002</updated>
+      <workItem from="1769348207649" duration="992000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -84,47 +105,20 @@
         </option>
         <option name="isMavenProject" value="false" />
         <option name="jdkVersion" value="" />
-        <option name="queryString" value="?chatId=4a2f302f-832d-4afc-bf7b-fc9923a06e12" />
+        <option name="queryString" value="?chatId=e34019e5-6d4e-4ec2-9f95-304747533bf5" />
         <option name="sideCarIDEInfo">
           <SideCarIDEInfo>
             <option name="allFiles">
               <set>
-                <option value="$PROJECT_DIR$/app.json" />
-                <option value="$PROJECT_DIR$/components/email/email.js" />
-                <option value="$PROJECT_DIR$/components/email/email.json" />
-                <option value="$PROJECT_DIR$/components/email/email.wxml" />
-                <option value="$PROJECT_DIR$/components/email/email.wxss" />
-                <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.json" />
-                <option value="$PROJECT_DIR$/components/navigation-bar/navigation-bar.wxss" />
-                <option value="$PROJECT_DIR$/images/tabbar/README.md" />
-                <option value="$PROJECT_DIR$/images/tabbar/fun-active.png" />
-                <option value="$PROJECT_DIR$/images/tabbar/fun.png" />
-                <option value="$PROJECT_DIR$/images/tabbar/home-active.png" />
-                <option value="$PROJECT_DIR$/images/tabbar/home.png" />
-                <option value="$PROJECT_DIR$/images/tabbar/mine-active.png" />
-                <option value="$PROJECT_DIR$/images/tabbar/mine.png" />
-                <option value="$PROJECT_DIR$/pages/auth-select/auth-select.js" />
-                <option value="$PROJECT_DIR$/pages/bind-account/bind-account.wxml" />
-                <option value="$PROJECT_DIR$/pages/bind-account/bind-account.wxss" />
-                <option value="$PROJECT_DIR$/pages/fun/fun.js" />
-                <option value="$PROJECT_DIR$/pages/fun/fun.json" />
-                <option value="$PROJECT_DIR$/pages/fun/fun.wxml" />
-                <option value="$PROJECT_DIR$/pages/fun/fun.wxss" />
-                <option value="$PROJECT_DIR$/pages/index/index.json" />
                 <option value="$PROJECT_DIR$/pages/index/index.wxml" />
                 <option value="$PROJECT_DIR$/pages/index/index.wxss" />
-                <option value="$PROJECT_DIR$/pages/mine/mine.js" />
-                <option value="$PROJECT_DIR$/pages/mine/mine.json" />
-                <option value="$PROJECT_DIR$/pages/mine/mine.wxss" />
-                <option value="$PROJECT_DIR$/project.config.json" />
-                <option value="$PROJECT_DIR$/project.private.config.json" />
               </set>
             </option>
             <option name="autoRun" value="true" />
             <option name="editorUrl" value="http://127.0.0.1:41100/" />
             <option name="openFiles">
               <set>
-                <option value="$PROJECT_DIR$/images/tabbar/fun-active.png" />
+                <option value="$PROJECT_DIR$/pages/index/index.wxss" />
               </set>
             </option>
             <option name="projectId" value="13d0381" />
@@ -135,7 +129,7 @@
             <option name="todoWriteAsLoading" value="true" />
           </SideCarIDEInfo>
         </option>
-        <option name="workspaceFileType" value="png" />
+        <option name="workspaceFileType" value="Plain text" />
       </WebViewProjectConfig>
     </option>
   </component>

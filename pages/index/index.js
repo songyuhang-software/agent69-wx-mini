@@ -2,6 +2,7 @@
 const { request } = require('../../utils/request.js');
 const API_CONFIG = require('../../config/api.js');
 const { formatTime, addTimeLabels } = require('../../utils/timeFormatter.js');
+const { parseMarkdown, hasMarkdown } = require('../../utils/markdown.js');
 
 Component({
   data: {
@@ -328,8 +329,18 @@ Component({
      * 格式化消息内容
      */
     formatMessageContent(content) {
-      // 小程序中直接返回文本,样式通过 CSS 处理
-      return content;
+      if (!content || typeof content !== 'string') {
+        return content;
+      }
+
+      // 检查是否包含Markdown格式
+      if (hasMarkdown(content)) {
+        // 返回解析后的Rich Text节点数组
+        return parseMarkdown(content);
+      } else {
+        // 如果没有Markdown格式，返回普通文本
+        return content;
+      }
     },
 
     /**

@@ -22,7 +22,7 @@ Component({
     statusType: 'loading', // loading, success, error
     // 分页参数
     currentPage: 1,
-    pageSize: 100,
+    pageSize: 5,
     hasMore: true,
     // 滚动到指定位置
     scrollToView: '',
@@ -121,7 +121,7 @@ Component({
               const welcomeMessage = {
                 id: 'welcome',
                 role: 'assistant',
-                content: '您好,我是您的专属灵感笔记!\n💡 我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
+                content: '您好,我是您的专属智能笔记!\n💡 我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
                 rawTimestamp: new Date(),
                 isWelcome: true,
                 suggestedQuestions: [
@@ -157,7 +157,7 @@ Component({
           const welcomeMessage = {
             id: 'welcome',
             role: 'assistant',
-            content: '您好,我是您的专属灵感笔记!\n💡 我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
+            content: '您好,我是您的专属智能笔记!\n💡 我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
             rawTimestamp: new Date(),
             isWelcome: true,
             suggestedQuestions: [

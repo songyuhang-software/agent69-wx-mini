@@ -276,7 +276,7 @@ Component({
       const allMessages = [...this.data.messages, newMessage];
       this.setData({
         messageIdCounter: this.data.messageIdCounter + 1,
-        messages: this.addTimeLabels(allMessages)
+        messages: addTimeLabels(allMessages)
       });
       this.scrollToBottom();
     },
@@ -306,7 +306,7 @@ Component({
       const allMessages = [...updatedMessages, newMessage];
       this.setData({
         messageIdCounter: this.data.messageIdCounter + 1,
-        messages: this.addTimeLabels(allMessages)
+        messages: addTimeLabels(allMessages)
       });
       this.scrollToBottom();
     },
@@ -329,88 +329,6 @@ Component({
     formatMessageContent(content) {
       // 小程序中直接返回文本,样式通过 CSS 处理
       return content;
-    },
-
-    /**
-     * 添加智能时间标签
-     * 只在消息时间跨度超过5分钟时显示时间标签
-     */
-    addTimeLabels(messages) {
-      if (!messages || messages.length === 0) return [];
-
-      const result = [];
-      const TIME_THRESHOLD = 5 * 60 * 1000; // 5分钟
-
-      for (let i = 0; i < messages.length; i++) {
-        const currentMsg = messages[i];
-        const prevMsg = i > 0 ? messages[i - 1] : null;
-
-        // 判断是否需要显示时间标签
-        let shouldShowTime = false;
-        if (i === 0) {
-          // 第一条消息总是显示时间
-          shouldShowTime = true;
-        } else if (prevMsg && currentMsg.rawTimestamp && prevMsg.rawTimestamp) {
-          // 如果与上一条消息的时间差超过5分钟,显示时间
-          const timeDiff = new Date(currentMsg.rawTimestamp) - new Date(prevMsg.rawTimestamp);
-          shouldShowTime = timeDiff >= TIME_THRESHOLD;
-        }
-
-        // 如果需要显示时间,插入时间标签
-        if (shouldShowTime && currentMsg.rawTimestamp) {
-          result.push({
-            id: `time-${currentMsg.id}`,
-            type: 'time-label',
-            timeText: this.formatTime(currentMsg.rawTimestamp)
-          });
-        }
-
-        // 添加消息本身
-        result.push(currentMsg);
-      }
-
-      return result;
-    },
-
-    /**
-     * 格式化时间
-     */
-    formatTime(dateString) {
-      const date = new Date(dateString);
-      const now = new Date();
-      const diff = now - date;
-
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      const timeStr = `${hours}:${minutes}`;
-
-      // 如果是今天
-      if (diff < 24 * 60 * 60 * 1000 && date.getDate() === now.getDate()) {
-        return timeStr;
-      }
-
-      // 如果是昨天
-      const yesterday = new Date(now);
-      yesterday.setDate(yesterday.getDate() - 1);
-      if (date.getDate() === yesterday.getDate() &&
-          date.getMonth() === yesterday.getMonth() &&
-          date.getFullYear() === yesterday.getFullYear()) {
-        return `昨天 ${timeStr}`;
-      }
-
-      // 如果是本周内（7天内）
-      const weekAgo = new Date(now);
-      weekAgo.setDate(weekAgo.getDate() - 7);
-      if (date > weekAgo) {
-        const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
-        const weekDay = weekDays[date.getDay()];
-        return `${weekDay} ${timeStr}`;
-      }
-
-      // 其他日期
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return `${month}-${day} ${timeStr}`;
     },
 
     /**
@@ -469,4 +387,5 @@ Component({
       });
     }
   }
+})
 })

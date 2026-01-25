@@ -31,24 +31,30 @@
         wx:for="{{messages}}"
         wx:key="id"
         id="msg-{{item.id}}"
-        class="message-wrapper {{item.role}}-wrapper"
       >
-        <view class="message {{item.role}}-message {{item.isWelcome ? 'welcome-message' : ''}}">
-          <text class="message-content">{{item.content}}</text>
-          <text class="timestamp">{{item.timestamp}}</text>
+        <!-- 时间标签 -->
+        <view wx:if="{{item.type === 'time-label'}}" class="time-label">
+          <text>{{item.timeText}}</text>
         </view>
 
-        <!-- 推荐追问 (仅显示在最新的助手消息下方) -->
-        <view wx:if="{{item.role === 'assistant' && item.suggestedQuestions && item.suggestedQuestions.length > 0 && item.isLatest}}" class="suggested-questions">
-          <view
-            wx:for="{{item.suggestedQuestions}}"
-            wx:key="index"
-            wx:for-item="question"
-            class="suggested-question-item"
-            bindtap="onClickSuggestedQuestion"
-            data-question="{{question}}"
-          >
-            <text class="question-text">{{question}}</text>
+        <!-- 消息内容 -->
+        <view wx:else class="message-wrapper {{item.role}}-wrapper">
+          <view class="message {{item.role}}-message {{item.isWelcome ? 'welcome-message' : ''}}">
+            <text class="message-content">{{item.content}}</text>
+          </view>
+
+          <!-- 推荐追问 (仅显示在最新的助手消息下方) -->
+          <view wx:if="{{item.role === 'assistant' && item.suggestedQuestions && item.suggestedQuestions.length > 0 && item.isLatest}}" class="suggested-questions">
+            <view
+              wx:for="{{item.suggestedQuestions}}"
+              wx:key="index"
+              wx:for-item="question"
+              class="suggested-question-item"
+              bindtap="onClickSuggestedQuestion"
+              data-question="{{question}}"
+            >
+              <text class="question-text">{{question}}</text>
+            </view>
           </view>
         </view>
       </view>

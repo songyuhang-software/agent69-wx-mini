@@ -103,15 +103,16 @@ Component({
               id: `history-${this.data.currentPage}-${index}`,
               role: msg.role,
               content: this.formatMessageContent(msg.content),
-              timestamp: this.formatTime(msg.created_at),
+              rawTimestamp: new Date(msg.created_at),
               isWelcome: false,
               isLatest: false  // 历史消息默认不是最新的
             }));
 
             // 如果是加载更多,插入到消息列表开头
             if (this.data.currentPage > 1) {
+              const allMessages = [...newMessages, ...this.data.messages];
               this.setData({
-                messages: [...newMessages, ...this.data.messages]
+                messages: this.addTimeLabels(allMessages)
               });
             } else {
               // 首次加载,添加欢迎消息
@@ -119,7 +120,7 @@ Component({
                 id: 'welcome',
                 role: 'assistant',
                 content: '您好,我是您的专属灵感笔记!\n💡 我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
-                timestamp: this.formatTime(new Date()),
+                rawTimestamp: new Date(),
                 isWelcome: true,
                 suggestedQuestions: [
                   '如何记录信息？',
@@ -129,8 +130,9 @@ Component({
                 isLatest: true  // 欢迎消息是最新的
               };
 
+              const allMessages = [...newMessages, welcomeMessage];
               this.setData({
-                messages: [...newMessages, welcomeMessage]
+                messages: this.addTimeLabels(allMessages)
               });
 
               // 滚动到底部
@@ -154,7 +156,7 @@ Component({
             id: 'welcome',
             role: 'assistant',
             content: '您好,我是您的专属灵感笔记!\n💡 我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
-            timestamp: this.formatTime(new Date()),
+            rawTimestamp: new Date(),
             isWelcome: true,
             suggestedQuestions: [
               '如何记录信息？',
@@ -165,7 +167,7 @@ Component({
           };
 
           this.setData({
-            messages: [welcomeMessage]
+            messages: this.addTimeLabels([welcomeMessage])
           });
         }
       } finally {
@@ -263,15 +265,18 @@ Component({
      */
     addUserMessage(content) {
       const messageId = `user-${Date.now()}-${this.data.messageIdCounter}`;
+      const newMessage = {
+        id: messageId,
+        role: 'user',
+        content: this.formatMessageContent(content),
+        rawTimestamp: new Date(),
+        isWelcome: false
+      };
+
+      const allMessages = [...this.data.messages, newMessage];
       this.setData({
         messageIdCounter: this.data.messageIdCounter + 1,
-        messages: [...this.data.messages, {
-          id: messageId,
-          role: 'user',
-          content: this.formatMessageContent(content),
-          timestamp: this.formatTime(new Date()),
-          isWelcome: false
-        }]
+        messages: this.addTimeLabels(allMessages)
       });
       this.scrollToBottom();
     },
@@ -288,17 +293,20 @@ Component({
         isLatest: false
       }));
 
+      const newMessage = {
+        id: messageId,
+        role: 'assistant',
+        content: this.formatMessageContent(content),
+        rawTimestamp: new Date(),
+        isWelcome: false,
+        suggestedQuestions: suggestedQuestions || [],
+        isLatest: true  // 标记为最新消息
+      };
+
+      const allMessages = [...updatedMessages, newMessage];
       this.setData({
         messageIdCounter: this.data.messageIdCounter + 1,
-        messages: [...updatedMessages, {
-          id: messageId,
-          role: 'assistant',
-          content: this.formatMessageContent(content),
-          timestamp: this.formatTime(new Date()),
-          isWelcome: false,
-          suggestedQuestions: suggestedQuestions || [],
-          isLatest: true  // 标记为最新消息
-        }]
+        messages: this.addTimeLabels(allMessages)
       });
       this.scrollToBottom();
     },
@@ -324,6 +332,47 @@ Component({
     },
 
     /**
+     * 添加智能时间标签
+     * 只在消息时间跨度超过5分钟时显示时间标签
+     */
+    addTimeLabels(messages) {
+      if (!messages || messages.length === 0) return [];
+
+      const result = [];
+      const TIME_THRESHOLD = 5 * 60 * 1000; // 5分钟
+
+      for (let i = 0; i < messages.length; i++) {
+        const currentMsg = messages[i];
+        const prevMsg = i > 0 ? messages[i - 1] : null;
+
+        // 判断是否需要显示时间标签
+        let shouldShowTime = false;
+        if (i === 0) {
+          // 第一条消息总是显示时间
+          shouldShowTime = true;
+        } else if (prevMsg && currentMsg.rawTimestamp && prevMsg.rawTimestamp) {
+          // 如果与上一条消息的时间差超过5分钟,显示时间
+          const timeDiff = new Date(currentMsg.rawTimestamp) - new Date(prevMsg.rawTimestamp);
+          shouldShowTime = timeDiff >= TIME_THRESHOLD;
+        }
+
+        // 如果需要显示时间,插入时间标签
+        if (shouldShowTime && currentMsg.rawTimestamp) {
+          result.push({
+            id: `time-${currentMsg.id}`,
+            type: 'time-label',
+            timeText: this.formatTime(currentMsg.rawTimestamp)
+          });
+        }
+
+        // 添加消息本身
+        result.push(currentMsg);
+      }
+
+      return result;
+    },
+
+    /**
      * 格式化时间
      */
     formatTime(dateString) {
@@ -331,11 +380,13 @@ Component({
       const now = new Date();
       const diff = now - date;
 
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const timeStr = `${hours}:${minutes}`;
+
       // 如果是今天
       if (diff < 24 * 60 * 60 * 1000 && date.getDate() === now.getDate()) {
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        return `${hours}:${minutes}`;
+        return timeStr;
       }
 
       // 如果是昨天
@@ -344,17 +395,22 @@ Component({
       if (date.getDate() === yesterday.getDate() &&
           date.getMonth() === yesterday.getMonth() &&
           date.getFullYear() === yesterday.getFullYear()) {
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-        return `昨天 ${hours}:${minutes}`;
+        return `昨天 ${timeStr}`;
+      }
+
+      // 如果是本周内（7天内）
+      const weekAgo = new Date(now);
+      weekAgo.setDate(weekAgo.getDate() - 7);
+      if (date > weekAgo) {
+        const weekDays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+        const weekDay = weekDays[date.getDay()];
+        return `${weekDay} ${timeStr}`;
       }
 
       // 其他日期
       const month = String(date.getMonth() + 1).padStart(2, '0');
       const day = String(date.getDate()).padStart(2, '0');
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      return `${month}-${day} ${hours}:${minutes}`;
+      return `${month}-${day} ${timeStr}`;
     },
 
     /**

@@ -1,6 +1,7 @@
 // index.js
 const { request } = require('../../utils/request.js');
 const API_CONFIG = require('../../config/api.js');
+const { formatTime, addTimeLabels } = require('../../utils/timeFormatter.js');
 
 Component({
   data: {
@@ -112,7 +113,7 @@ Component({
             if (this.data.currentPage > 1) {
               const allMessages = [...newMessages, ...this.data.messages];
               this.setData({
-                messages: this.addTimeLabels(allMessages)
+                messages: addTimeLabels(allMessages)
               });
             } else {
               // 首次加载,添加欢迎消息
@@ -132,7 +133,7 @@ Component({
 
               const allMessages = [...newMessages, welcomeMessage];
               this.setData({
-                messages: this.addTimeLabels(allMessages)
+                messages: addTimeLabels(allMessages)
               });
 
               // 滚动到底部
@@ -167,7 +168,7 @@ Component({
           };
 
           this.setData({
-            messages: this.addTimeLabels([welcomeMessage])
+            messages: addTimeLabels([welcomeMessage])
           });
         }
       } finally {
@@ -387,5 +388,4 @@ Component({
       });
     }
   }
-})
 })

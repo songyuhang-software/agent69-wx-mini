@@ -22,7 +22,7 @@ Component({
     statusType: 'loading', // loading, success, error
     // 分页参数
     currentPage: 1,
-    pageSize: 5,
+    pageSize: 30,
     hasMore: true,
     // 滚动到指定位置
     scrollToView: '',

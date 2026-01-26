@@ -5,20 +5,20 @@
 
 class MarkdownParser {
   constructor() {
-    this.nodes = [];
+    this.html = '';
   }
 
   /**
-   * 解析Markdown文本为Rich Text节点数组
+   * 解析Markdown文本为HTML字符串
    * @param {string} markdown Markdown文本
-   * @returns {Array} Rich Text节点数组
+   * @returns {string} HTML字符串
    */
   parse(markdown) {
     if (!markdown || typeof markdown !== 'string') {
-      return [];
+      return '';
     }
 
-    this.nodes = [];
+    this.html = '';
     const lines = markdown.split('\n');
     let i = 0;
 
@@ -32,7 +32,7 @@ class MarkdownParser {
       }
 
       // 代码块
-      if (line.trim().startsWith('')) {
+      if (line.trim().startsWith('```')) {
         i = this.parseCodeBlock(lines, i);
         continue;
       }
@@ -63,7 +63,7 @@ class MarkdownParser {
 
       // 水平分割线
       if (line.trim() === '---' || line.trim() === '***') {
-        this.addNode('view', {}, { style: 'border-top: 1px solid #ddd; margin: 16rpx 0;' });
+        this.html += '<div style="border-top: 1px solid #ddd; margin: 16rpx 0;"></div>';
         i++;
         continue;
       }
@@ -72,7 +72,7 @@ class MarkdownParser {
       i = this.parseParagraph(lines, i);
     }
 
-    return this.nodes;
+    return this.html;
   }
 
   /**
@@ -84,28 +84,15 @@ class MarkdownParser {
     let i = startIndex + 1;
 
     while (i < lines.length) {
-      if (lines[i].trim().startsWith('')) {
+      if (lines[i].trim().startsWith('```')) {
         break;
       }
       content += lines[i] + '\n';
       i++;
     }
 
-    // 添加代码块容器
-    this.addNode('view', {
-      class: 'markdown-code-block'
-    }, {}, [
-      {
-        name: 'view',
-        children: [{
-          type: 'text',
-          text: content.trim()
-        }],
-        attrs: {
-          class: 'markdown-code-content'
-        }
-      }
-    ]);
+    // 添加代码块HTML
+    this.html += `<div class="markdown-code-block"><pre class="markdown-code-content">${this.escapeHtml(content.trim())}</pre></div>`;
 
     return i + 1;
   }
@@ -119,14 +106,9 @@ class MarkdownParser {
 
     if (match) {
       const level = match[1].length;
-      const text = match[2];
+      const text = this.parseInlineText(match[2]);
 
-      this.addNode('view', {
-        class: `markdown-heading-${level}`
-      }, {}, [{
-        type: 'text',
-        text: text
-      }]);
+      this.html += `<div class="markdown-heading-${level}">${text}</div>`;
     }
 
     return startIndex + 1;
@@ -136,8 +118,9 @@ class MarkdownParser {
    * 解析有序列表
    */
   parseOrderedList(lines, startIndex) {
-    const listItems = [];
+    let listHtml = '<div class="markdown-ordered-list">';
     let i = startIndex;
+    let itemNumber = 1;
 
     while (i < lines.length) {
       const line = lines[i];
@@ -145,25 +128,16 @@ class MarkdownParser {
 
       if (match) {
         const text = this.parseInlineText(match[2]);
-        listItems.push(text);
+        listHtml += `<div class="markdown-list-item markdown-ordered-item" data-number="${itemNumber}">${text}</div>`;
+        itemNumber++;
         i++;
       } else {
         break;
       }
     }
 
-    this.addNode('view', {
-      class: 'markdown-ordered-list'
-    }, {}, listItems.map(item => ({
-      name: 'view',
-      children: [{
-        type: 'text',
-        text: item
-      }],
-      attrs: {
-        class: 'markdown-list-item'
-      }
-    })));
+    listHtml += '</div>';
+    this.html += listHtml;
 
     return i;
   }
@@ -172,7 +146,7 @@ class MarkdownParser {
    * 解析无序列表
    */
   parseUnorderedList(lines, startIndex) {
-    const listItems = [];
+    let listHtml = '<div class="markdown-unordered-list">';
     let i = startIndex;
 
     while (i < lines.length) {
@@ -181,25 +155,15 @@ class MarkdownParser {
 
       if (match) {
         const text = this.parseInlineText(match[1]);
-        listItems.push(text);
+        listHtml += `<div class="markdown-list-item markdown-unordered-item">${text}</div>`;
         i++;
       } else {
         break;
       }
     }
 
-    this.addNode('view', {
-      class: 'markdown-unordered-list'
-    }, {}, listItems.map(item => ({
-      name: 'view',
-      children: [{
-        type: 'text',
-        text: item
-      }],
-      attrs: {
-        class: 'markdown-list-item'
-      }
-    })));
+    listHtml += '</div>';
+    this.html += listHtml;
 
     return i;
   }
@@ -208,27 +172,20 @@ class MarkdownParser {
    * 解析引用
    */
   parseBlockquote(lines, startIndex) {
-    const content = [];
+    let quoteHtml = '<div class="markdown-blockquote"><div class="markdown-blockquote-content">';
     let i = startIndex;
 
     while (i < lines.length && lines[i].startsWith('> ')) {
       const text = lines[i].slice(2);
-      content.push(this.parseInlineText(text));
+      quoteHtml += this.parseInlineText(text);
+      if (i < lines.length - 1 && lines[i + 1].startsWith('> ')) {
+        quoteHtml += '<br/>';
+      }
       i++;
     }
 
-    this.addNode('view', {
-      class: 'markdown-blockquote'
-    }, {}, [{
-      name: 'view',
-      children: content.map(text => ({
-        type: 'text',
-        text: text
-      })),
-      attrs: {
-        class: 'markdown-blockquote-content'
-      }
-    }]);
+    quoteHtml += '</div></div>';
+    this.html += quoteHtml;
 
     return i;
   }
@@ -237,7 +194,7 @@ class MarkdownParser {
    * 解析段落
    */
   parseParagraph(lines, startIndex) {
-    const content = [];
+    let paragraphHtml = '<div class="markdown-paragraph">';
     let i = startIndex;
 
     while (i < lines.length) {
@@ -245,22 +202,21 @@ class MarkdownParser {
 
       // 如果遇到空行或特殊格式，结束段落
       if (!line.trim() || line.startsWith('#') || line.startsWith('- ') ||
-          line.startsWith('* ') || line.startsWith('> ') || line.trim().startsWith('') ||
+          line.startsWith('* ') || line.startsWith('> ') || line.trim().startsWith('```') ||
           /^\d+\.\s/.test(line) || line.trim() === '---' || line.trim() === '***') {
         break;
       }
 
-      content.push(this.parseInlineText(line));
+      paragraphHtml += this.parseInlineText(line);
+      if (i < lines.length - 1) {
+        paragraphHtml += '<br/>';
+      }
       i++;
     }
 
-    if (content.length > 0) {
-      this.addNode('view', {
-        class: 'markdown-paragraph'
-      }, {}, content.map(text => ({
-        type: 'text',
-        text: text
-      })));
+    paragraphHtml += '</div>';
+    if (paragraphHtml !== '<div class="markdown-paragraph"></div>') {
+      this.html += paragraphHtml;
     }
 
     return i;
@@ -270,11 +226,11 @@ class MarkdownParser {
    * 解析行内文本（支持粗体、斜体、代码等）
    */
   parseInlineText(text) {
-    let result = text;
+    let result = this.escapeHtml(text);
 
-    // 处理行内代码 `code`
+    // 处理行内代码 `code` - 先处理，避免被其他规则影响
     result = result.replace(/`([^`]+)`/g, (match, code) => {
-      return `<code>${code}</code>`;
+      return `<code class="markdown-inline-code">${code}</code>`;
     });
 
     // 处理粗体 **text**
@@ -282,8 +238,8 @@ class MarkdownParser {
       return `<strong>${bold}</strong>`;
     });
 
-    // 处理斜体 *text*
-    result = result.replace(/\*([^*]+)\*/g, (match, italic) => {
+    // 处理斜体 *text* - 注意避免匹配到粗体的星号
+    result = result.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, (match, italic) => {
       return `<em>${italic}</em>`;
     });
 
@@ -294,36 +250,31 @@ class MarkdownParser {
 
     // 处理链接 [text](url)
     result = result.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, linkText, url) => {
-      return `<a href="${url}">${linkText}</a>`;
+      return `<a href="${this.escapeHtml(url)}">${linkText}</a>`;
     });
 
     return result;
   }
 
   /**
-   * 添加节点到结果数组
+   * 转义HTML特殊字符
    */
-  addNode(name, attrs = {}, style = {}, children = []) {
-    const node = {
-      name: name,
-      attrs: {
-        ...attrs,
-        ...style
-      }
+  escapeHtml(text) {
+    const htmlEscapes = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
     };
-
-    if (children.length > 0) {
-      node.children = children;
-    }
-
-    this.nodes.push(node);
+    return text.replace(/[&<>"']/g, char => htmlEscapes[char]);
   }
 }
 
 /**
- * 解析Markdown文本为Rich Text节点数组
+ * 解析Markdown文本为HTML字符串
  * @param {string} markdown Markdown文本
- * @returns {Array} Rich Text节点数组
+ * @returns {string} HTML字符串
  */
 function parseMarkdown(markdown) {
   const parser = new MarkdownParser();
@@ -348,7 +299,7 @@ function hasMarkdown(text) {
     /^[-*]\s/m,             // 无序列表
     /^\d+\.\s/m,            // 有序列表
     /^>\s/m,                // 引用
-    //,                  // 代码块
+    /```/,                  // 代码块
     /~~(.+?)~~/g,           // 删除线
     /\[([^\]]+)\]\(([^)]+)\)/g  // 链接
   ];
@@ -361,3 +312,7 @@ module.exports = {
   hasMarkdown,
   MarkdownParser
 };
+
+
+
+

@@ -1,94 +1,26 @@
 <!--index.wxml-->
-<view class="container">
-  <!-- 顶部标题栏 -->
-  <view class="header" style="padding-top: {{safeAreaTop + 8}}px;">
-    <text class="header-title">智能笔记</text>
-  </view>
-
-  <!-- 状态提示 -->
-  <view wx:if="{{statusVisible}}" class="status {{statusType}}" style="top: {{headerHeight}}px;">
-    <text>{{statusMessage}}</text>
-  </view>
-
-  <!-- 聊天消息区域 -->
-  <scroll-view
-    class="chat-container"
-    style="top: {{headerHeight}}px; bottom: {{safeAreaBottom + 58}}px;"
-    scroll-y
-    scroll-into-view="{{scrollToView}}"
-    scroll-with-animation="{{true}}"
-    bindscrolltoupper="onScrollToUpper"
-    upper-threshold="50"
-    bindtouchstart="onTouchStart"
-    bindtouchmove="onTouchMove"
-    bindtouchend="onTouchEnd"
-  >
-    <view class="messages-wrapper">
-      <!-- 加载更多提示 -->
-      <view wx:if="{{isLoadingMore}}" class="loading-more">
-        <text>加载中...</text>
-      </view>
-
-      <!-- 消息列表 -->
-      <view
-        wx:for="{{messages}}"
-        wx:key="id"
-        id="msg-{{item.id}}"
-      >
-        <!-- 时间标签 -->
-        <view wx:if="{{item.type === 'time-label'}}" class="time-label">
-          <text>{{item.timeText}}</text>
-        </view>
-
-        <!-- 消息内容 -->
-        <view wx:else class="message-wrapper {{item.role}}-wrapper">
-          <view class="message {{item.role}}-message {{item.isWelcome ? 'welcome-message' : ''}}" style="font-size: {{fontScale * 32}}rpx;">
-            <rich-text wx:if="{{item.role === 'assistant'}}" class="message-content" nodes="{{item.content}}"></rich-text>
-            <text wx:else class="message-content">{{item.content}}</text>
-          </view>
-
-          <!-- 推荐追问 (仅显示在最新的助手消息下方) -->
-          <view wx:if="{{item.role === 'assistant' && item.suggestedQuestions && item.suggestedQuestions.length > 0 && item.isLatest}}" class="suggested-questions">
-            <view
-              wx:for="{{item.suggestedQuestions}}"
-              wx:key="index"
-              wx:for-item="question"
-              class="suggested-question-item"
-              style="font-size: {{fontScale * 28}}rpx;"
-              bindtap="onClickSuggestedQuestion"
-              data-question="{{question}}"
-            >
-              <text class="question-text">{{question}}</text>
-            </view>
-          </view>
-        </view>
-      </view>
-
-      <!-- 加载中消息 -->
-      <view wx:if="{{isLoading}}" class="message-wrapper assistant-wrapper">
-        <view class="message assistant-message loading">
-          <text>AI正在思考中...</text>
-        </view>
-      </view>
+<view class="menu-container">
+  <view class="title">AI助手功能</view>
+  <view class="grid">
+    <view class="card" bindtap="goToUserNotes">
+      <view class="icon">💡</view>
+      <text class="label">智能笔记</text>
     </view>
-  </scroll-view>
-
-  <!-- 输入区域 -->
-  <view class="input-area" style="padding-bottom: {{safeAreaBottom + 12}}px;">
-    <input
-      class="input-field"
-      type="text"
-      value="{{inputValue}}"
-      placeholder="输入你的想法..."
-      bindinput="onInput"
-      bindconfirm="onSendMessage"
-      confirm-type="send"
-    />
-    <view
-      class="send-button {{isSending ? 'sending' : (!inputValue ? 'disabled' : '')}}"
-      bindtap="onSendMessage"
-    >
-      <view class="arrow-icon">↑</view>
+    <view class="card disabled">
+      <view class="icon">⏳</view>
+      <text class="label">请期待</text>
+    </view>
+    <view class="card disabled">
+      <view class="icon">⏳</view>
+      <text class="label">请期待</text>
+    </view>
+    <view class="card disabled">
+      <view class="icon">⏳</view>
+      <text class="label">请期待</text>
+    </view>
+    <view class="card disabled">
+      <view class="icon">⏳</view>
+      <text class="label">请期待</text>
     </view>
   </view>
 </view>

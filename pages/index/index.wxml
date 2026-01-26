@@ -13,27 +13,17 @@
   <view class="content-section">
     <view class="section-title">探索功能</view>
     <view class="grid">
-    <view class="card" bindtap="goToUserNotes">
-      <view class="icon">📝</view>
-      <text class="label">智能笔记</text>
+      <view 
+        wx:for="{{visibleCards}}" 
+        wx:key="id"
+        class="card {{item.disabled ? 'disabled' : ''}}" 
+        bindtap="handleCardTap"
+        data-action="{{item.action}}"
+      >
+        <view class="icon">{{item.icon}}</view>
+        <text class="label">{{item.label}}</text>
+      </view>
     </view>
-    <view class="card disabled">
-      <view class="icon">⏳</view>
-      <text class="label">请期待</text>
-    </view>
-    <view class="card disabled">
-      <view class="icon">⏳</view>
-      <text class="label">请期待</text>
-    </view>
-    <view class="card disabled">
-      <view class="icon">⏳</view>
-      <text class="label">请期待</text>
-    </view>
-    <view class="card disabled">
-      <view class="icon">⏳</view>
-      <text class="label">请期待</text>
-    </view>
-  </view>
   </view>
 </view>
 

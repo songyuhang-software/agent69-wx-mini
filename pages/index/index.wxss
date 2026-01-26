@@ -62,7 +62,6 @@ page {
   padding: 0 40rpx 40rpx;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin-top: -20rpx;
 }
 
@@ -91,6 +90,7 @@ page {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  align-content: flex-start;
 }
 
 .card {
@@ -121,12 +121,12 @@ page {
   transition: opacity 0.3s ease;
 }
 
-.card:active {
+.card:active:not(.disabled) {
   transform: translateY(-8rpx);
   box-shadow: 0 8rpx 28rpx rgba(74, 144, 226, 0.2);
 }
 
-.card:active::before {
+.card:active:not(.disabled)::before {
   opacity: 1;
 }
 

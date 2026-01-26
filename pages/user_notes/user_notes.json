@@ -1,7 +1,6 @@
 {
   "navigationStyle": "custom",
   "usingComponents": {
-    "navigation-bar": "/components/navigation-bar/navigation-bar",
-    "towxml": "/components/towxml/towxml"
+    "navigation-bar": "/components/navigation-bar/navigation-bar"
   }
 }

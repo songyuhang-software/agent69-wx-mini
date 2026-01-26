@@ -1,6 +1,6 @@
 /**index.wxss**/
 page {
-  background: linear-gradient(180deg, #f0f7ff 0%, #f5f5f5 100%);
+  background: linear-gradient(180deg, #E8F4FF 0%, #F0F7FF 50%, #F5F5F5 100%);
   min-height: 100vh;
 }
 
@@ -14,9 +14,9 @@ page {
 .header-section {
   padding: 60rpx 40rpx 40rpx;
   text-align: center;
-  background: linear-gradient(135deg, #4A90E2 0%, #667eea 50%, #764ba2 100%);
+  background: linear-gradient(135deg, #A4D3FF 0%, #7BB3FF 30%, #4A90E2 70%, #2B5FE5 100%);
   border-radius: 0 0 40rpx 40rpx;
-  box-shadow: 0 8rpx 24rpx rgba(102, 126, 234, 0.2);
+  box-shadow: 0 8rpx 24rpx rgba(164, 211, 255, 0.3);
   margin-bottom: 40rpx;
 }
 
@@ -82,7 +82,7 @@ page {
   transform: translateY(-50%);
   width: 6rpx;
   height: 28rpx;
-  background: linear-gradient(180deg, #4A90E2 0%, #5BA3F5 100%);
+  background: linear-gradient(180deg, #A4D3FF 0%, #2B5FE5 100%);
   border-radius: 3rpx;
 }
 
@@ -116,7 +116,7 @@ page {
   left: 0;
   right: 0;
   height: 6rpx;
-  background: linear-gradient(90deg, #4A90E2 0%, #5BA3F5 100%);
+  background: linear-gradient(90deg, #A4D3FF 0%, #2B5FE5 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -161,6 +161,10 @@ page {
   color: #999;
   font-weight: 400;
 }
+
+
+
+
 
 
 

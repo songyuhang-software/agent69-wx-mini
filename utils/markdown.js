@@ -229,22 +229,22 @@ class MarkdownParser {
     let result = this.escapeHtml(text);
 
     // 处理行内代码 `code` - 先处理，避免被其他规则影响
-    result = result.replace(/`([^`]+)`/g, (match, code) => {
+    result = result.replace(/`([^`]+?)`/g, (match, code) => {
       return `<code class="markdown-inline-code">${code}</code>`;
     });
 
     // 处理粗体 **text**
-    result = result.replace(/\*\*([^*]+)\*\*/g, (match, bold) => {
+    result = result.replace(/\*\*([^*]+?)\*\*/g, (match, bold) => {
       return `<strong>${bold}</strong>`;
     });
 
     // 处理斜体 *text* - 注意避免匹配到粗体的星号
-    result = result.replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, (match, italic) => {
+    result = result.replace(/(?<!\*)\*([^*]+?)\*(?!\*)/g, (match, italic) => {
       return `<em>${italic}</em>`;
     });
 
     // 处理删除线 ~~text~~
-    result = result.replace(/~~([^~]+)~~/g, (match, strike) => {
+    result = result.replace(/~~([^~]+?)~~/g, (match, strike) => {
       return `<del>${strike}</del>`;
     });
 
@@ -312,6 +312,9 @@ module.exports = {
   hasMarkdown,
   MarkdownParser
 };
+
+
+
 
 
 

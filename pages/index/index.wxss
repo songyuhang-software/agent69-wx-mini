@@ -91,14 +91,13 @@ page {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: 24rpx;
 }
 
 .card {
   background-color: white;
   border-radius: 24rpx;
   padding: 50rpx 40rpx;
-  width: calc(50% - 12rpx);
+  width: calc((100% - 24rpx) / 2);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -107,6 +106,7 @@ page {
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
+  margin-bottom: 24rpx;
 }
 
 .card::before {

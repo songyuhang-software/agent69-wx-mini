@@ -35,7 +35,9 @@ Component({
     headerHeight: 0,
     // 字体缩放
     fontScale: 1, // 字体缩放比例，默认为 1（100%）
-    initialDistance: 0 // 双指初始距离
+    initialDistance: 0, // 双指初始距离
+    initialFontScale: 1, // 开始缩放时的字体比例
+    hasScaled: false // 是否发生了缩放
   },
 
   lifetimes: {
@@ -437,7 +439,11 @@ Component({
     onTouchStart(e) {
       if (e.touches.length === 2) {
         const distance = this.getDistance(e.touches[0], e.touches[1]);
-        this.setData({ initialDistance: distance });
+        this.setData({
+          initialDistance: distance,
+          initialFontScale: this.data.fontScale,
+          hasScaled: false
+        });
       }
     },
 
@@ -453,6 +459,11 @@ Component({
         let newFontScale = this.data.fontScale * scale;
         newFontScale = Math.max(0.8, Math.min(1.5, newFontScale));
 
+        // 判断是否真正发生了缩放（变化超过 1%）
+        if (Math.abs(newFontScale - this.data.initialFontScale) > 0.01) {
+          this.setData({ hasScaled: true });
+        }
+
         this.setData({
           fontScale: newFontScale,
           initialDistance: currentDistance
@@ -464,14 +475,22 @@ Component({
      * 双指触摸结束
      */
     onTouchEnd(e) {
-      if (e.touches.length < 2) {
-        // 保存字体缩放比例
-        this.saveFontScale(this.data.fontScale);
-        this.setData({ initialDistance: 0 });
+      if (e.touches.length < 2 && this.data.initialDistance > 0) {
+        // 只有真正发生了缩放才显示提示和保存
+        if (this.data.hasScaled) {
+          // 保存字体缩放比例
+          this.saveFontScale(this.data.fontScale);
 
-        // 显示提示
-        const percentage = Math.round(this.data.fontScale * 100);
-        this.showStatus(`字体大小已调整为 ${percentage}%`, 'success');
+          // 显示提示
+          const percentage = Math.round(this.data.fontScale * 100);
+          this.showStatus(`字体大小: ${percentage}%`, 'success');
+        }
+
+        this.setData({
+          initialDistance: 0,
+          initialFontScale: 1,
+          hasScaled: false
+        });
       }
     },
 
@@ -485,6 +504,8 @@ Component({
     }
   }
 })
+
+
 
 
 

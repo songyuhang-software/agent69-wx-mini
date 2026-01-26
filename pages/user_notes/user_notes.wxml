@@ -67,7 +67,7 @@
       <!-- 加载中消息 -->
       <view wx:if="{{isLoading}}" class="message-wrapper assistant-wrapper">
         <view class="message assistant-message loading">
-          <text>AI正在思考中...</text>
+          <text>{{loadingText}}</text>
         </view>
       </view>
     </view>

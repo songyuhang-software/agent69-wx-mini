@@ -16,6 +16,8 @@ Page({
     isLoading: false,
     // 是否正在加载更多历史记录
     isLoadingMore: false,
+    // 加载提示文本
+    loadingText: '加载中...',
     // 状态提示
     statusVisible: false,
     statusMessage: '',
@@ -231,7 +233,8 @@ Page({
     this.setData({
       inputValue: '',
       isSending: true,
-      isLoading: true
+      isLoading: true,
+      loadingText: 'AI正在思考中...'
     });
 
     try {
@@ -501,4 +504,6 @@ Page({
     return Math.sqrt(x * x + y * y);
   }
 })
+
+
 

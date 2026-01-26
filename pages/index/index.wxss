@@ -14,9 +14,9 @@ page {
 .header-section {
   padding: 60rpx 40rpx 40rpx;
   text-align: center;
-  background: linear-gradient(135deg, #4A90E2 0%, #5BA3F5 100%);
+  background: linear-gradient(135deg, #4A90E2 0%, #667eea 50%, #764ba2 100%);
   border-radius: 0 0 40rpx 40rpx;
-  box-shadow: 0 8rpx 24rpx rgba(74, 144, 226, 0.15);
+  box-shadow: 0 8rpx 24rpx rgba(102, 126, 234, 0.2);
   margin-bottom: 40rpx;
 }
 
@@ -161,6 +161,7 @@ page {
   color: #999;
   font-weight: 400;
 }
+
 
 
 

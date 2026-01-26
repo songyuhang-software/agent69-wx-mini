@@ -117,7 +117,7 @@ page {
   border-radius: 20rpx;
   max-width: 70%;
   line-height: 1.6;
-  font-size: 28rpx;
+  font-size: 32rpx;
   animation: fadeIn 0.3s ease;
   box-sizing: border-box;
   display: inline-flex;
@@ -179,7 +179,7 @@ page {
 .time-label text {
   background: rgba(0, 0, 0, 0.08);
   color: #666;
-  font-size: 24rpx;
+  font-size: 26rpx;
   padding: 8rpx 20rpx;
   border-radius: 20rpx;
   line-height: 1;
@@ -189,7 +189,7 @@ page {
 /* 时间戳 */
 .timestamp {
   display: block;
-  font-size: 20rpx;
+  font-size: 22rpx;
   margin-top: 8rpx;
   opacity: 0.7;
   word-wrap: break-word;
@@ -246,7 +246,7 @@ page {
   text-align: center;
   padding: 20rpx;
   color: #666;
-  font-size: 28rpx;
+  font-size: 30rpx;
 }
 
 /* 输入区域 - 使用 JS 动态设置安全区域 */
@@ -271,7 +271,7 @@ page {
   padding: 20rpx 30rpx;
   border: 1rpx solid #e0e0e0;
   border-radius: 40rpx;
-  font-size: 30rpx;
+  font-size: 32rpx;
   background: #f8f8f8;
 }
 
@@ -385,7 +385,7 @@ page {
   border: 1rpx solid rgba(0, 0, 0, 0.15);
   border-radius: 16rpx;
   padding: 12rpx 24rpx;
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #333;
   line-height: 1.5;
   transition: all 0.2s ease;
@@ -424,7 +424,7 @@ page {
 
 .message-content .markdown-code-content {
   font-family: 'Courier New', Consolas, Monaco, monospace;
-  font-size: 24rpx;
+  font-size: 26rpx;
   line-height: 1.5;
   color: #333;
   white-space: pre;
@@ -545,7 +545,7 @@ page {
   padding: 2rpx 8rpx;
   border-radius: 4rpx;
   font-family: 'Courier New', Consolas, Monaco, monospace;
-  font-size: 24rpx;
+  font-size: 28rpx;
   color: #d63384;
 }
 

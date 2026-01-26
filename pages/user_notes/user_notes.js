@@ -2,6 +2,7 @@
 const { request } = require('../../utils/request.js');
 const API_CONFIG = require('../../config/api.js');
 const { formatTime, addTimeLabels } = require('../../utils/timeFormatter.js');
+const { parseMarkdown, hasMarkdown } = require('../../utils/markdown.js');
 
 Page({
   data: {
@@ -342,8 +343,14 @@ Page({
       return content;
     }
 
-    // 直接返回原始内容，towxml组件会处理Markdown解析
-    return content;
+    // 检查是否包含Markdown格式
+    if (hasMarkdown(content)) {
+      // 返回解析后的Rich Text节点数组
+      return parseMarkdown(content);
+    } else {
+      // 如果没有Markdown格式，返回普通文本
+      return content;
+    }
   },
 
   /**
@@ -497,8 +504,6 @@ Page({
     return Math.sqrt(x * x + y * y);
   }
 })
-
-
 
 
 

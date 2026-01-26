@@ -19,6 +19,9 @@
     scroll-with-animation="{{true}}"
     bindscrolltoupper="onScrollToUpper"
     upper-threshold="50"
+    bindtouchstart="onTouchStart"
+    bindtouchmove="onTouchMove"
+    bindtouchend="onTouchEnd"
   >
     <view class="messages-wrapper">
       <!-- 加载更多提示 -->
@@ -39,7 +42,7 @@
 
         <!-- 消息内容 -->
         <view wx:else class="message-wrapper {{item.role}}-wrapper">
-          <view class="message {{item.role}}-message {{item.isWelcome ? 'welcome-message' : ''}}">
+          <view class="message {{item.role}}-message {{item.isWelcome ? 'welcome-message' : ''}}" style="font-size: {{fontScale * 32}}rpx;">
             <rich-text wx:if="{{item.role === 'assistant'}}" class="message-content" nodes="{{item.content}}"></rich-text>
             <text wx:else class="message-content">{{item.content}}</text>
           </view>
@@ -51,6 +54,7 @@
               wx:key="index"
               wx:for-item="question"
               class="suggested-question-item"
+              style="font-size: {{fontScale * 28}}rpx;"
               bindtap="onClickSuggestedQuestion"
               data-question="{{question}}"
             >

@@ -32,12 +32,16 @@ Component({
     safeAreaTop: 0,
     safeAreaBottom: 0,
     statusBarHeight: 0,
-    headerHeight: 0
+    headerHeight: 0,
+    // 字体缩放
+    fontScale: 1, // 字体缩放比例，默认为 1（100%）
+    initialDistance: 0 // 双指初始距离
   },
 
   lifetimes: {
     attached() {
       this.getSafeArea();
+      this.loadFontScale();
       this.loadChatHistory();
     }
   },
@@ -125,7 +129,7 @@ Component({
             const welcomeMessage = {
               id: 'welcome',
               role: 'assistant',
-              content: '您好,我是您的专属智能笔记!\n💡 我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
+              content: '您好,我是您的专属智能笔记!\n\n💡 我可以帮助您记录脑海中一闪而过的灵感,也可以用来记录日常事件。\n\n🔒 温馨提示:为保护您的隐私,我无法记录手机号、密码等敏感信息。',
               rawTimestamp: new Date(),
               isWelcome: true,
               suggestedQuestions: [
@@ -400,6 +404,87 @@ Component({
       this.setData({
         messages: updatedMessages
       });
+    },
+
+    /**
+     * 加载字体缩放比例
+     */
+    loadFontScale() {
+      try {
+        const fontScale = wx.getStorageSync('fontScale');
+        if (fontScale) {
+          this.setData({ fontScale: parseFloat(fontScale) });
+        }
+      } catch (error) {
+        console.error('加载字体缩放比例失败:', error);
+      }
+    },
+
+    /**
+     * 保存字体缩放比例
+     */
+    saveFontScale(scale) {
+      try {
+        wx.setStorageSync('fontScale', scale.toString());
+      } catch (error) {
+        console.error('保存字体缩放比例失败:', error);
+      }
+    },
+
+    /**
+     * 双指触摸开始
+     */
+    onTouchStart(e) {
+      if (e.touches.length === 2) {
+        const distance = this.getDistance(e.touches[0], e.touches[1]);
+        this.setData({ initialDistance: distance });
+      }
+    },
+
+    /**
+     * 双指触摸移动
+     */
+    onTouchMove(e) {
+      if (e.touches.length === 2 && this.data.initialDistance > 0) {
+        const currentDistance = this.getDistance(e.touches[0], e.touches[1]);
+        const scale = currentDistance / this.data.initialDistance;
+
+        // 计算新的字体缩放比例，限制在 0.8 到 1.5 之间
+        let newFontScale = this.data.fontScale * scale;
+        newFontScale = Math.max(0.8, Math.min(1.5, newFontScale));
+
+        this.setData({
+          fontScale: newFontScale,
+          initialDistance: currentDistance
+        });
+      }
+    },
+
+    /**
+     * 双指触摸结束
+     */
+    onTouchEnd(e) {
+      if (e.touches.length < 2) {
+        // 保存字体缩放比例
+        this.saveFontScale(this.data.fontScale);
+        this.setData({ initialDistance: 0 });
+
+        // 显示提示
+        const percentage = Math.round(this.data.fontScale * 100);
+        this.showStatus(`字体大小已调整为 ${percentage}%`, 'success');
+      }
+    },
+
+    /**
+     * 计算两点之间的距离
+     */
+    getDistance(touch1, touch2) {
+      const x = touch1.pageX - touch2.pageX;
+      const y = touch1.pageY - touch2.pageY;
+      return Math.sqrt(x * x + y * y);
     }
   }
 })
+
+
+

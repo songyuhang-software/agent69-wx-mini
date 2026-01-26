@@ -117,7 +117,7 @@ page {
   border-radius: 20rpx;
   max-width: 70%;
   line-height: 1.6;
-  font-size: 32rpx;
+  /* font-size 通过 style 动态设置 (fontScale * 32rpx) */
   animation: fadeIn 0.3s ease;
   box-sizing: border-box;
   display: inline-flex;
@@ -385,7 +385,7 @@ page {
   border: 1rpx solid rgba(0, 0, 0, 0.15);
   border-radius: 16rpx;
   padding: 12rpx 24rpx;
-  font-size: 28rpx;
+  /* font-size 通过 style 动态设置 (fontScale * 28rpx) */
   color: #333;
   line-height: 1.5;
   transition: all 0.2s ease;

@@ -157,6 +157,7 @@ page {
   background: #667eea;
   color: white;
   border-bottom-right-radius: 6rpx;
+  width: 100%;
 }
 
 /* AI 消息 */

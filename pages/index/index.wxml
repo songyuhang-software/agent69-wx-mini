@@ -19,6 +19,7 @@
         class="card {{item.disabled ? 'disabled' : ''}}" 
         bindtap="handleCardTap"
         data-action="{{item.action}}"
+        data-disabled="{{item.disabled}}"
       >
         <view class="icon">{{item.icon}}</view>
         <text class="label">{{item.label}}</text>
@@ -26,6 +27,23 @@
     </view>
   </view>
 </view>
+
+<!-- 功能开发中弹窗 -->
+<view class="modal-overlay" wx:if="{{showModal}}" bindtap="hideModal">
+  <view class="modal-content" catchtap="">
+    <view class="modal-header">
+      <view class="modal-icon">🚧</view>
+    </view>
+    <view class="modal-body">
+      <text class="modal-title">功能开发中</text>
+      <text class="modal-desc">该功能正在紧张开发中，敬请期待！</text>
+    </view>
+    <view class="modal-footer">
+      <button class="modal-btn" bindtap="hideModal">知道了</button>
+    </view>
+  </view>
+</view>
+
 
 
 

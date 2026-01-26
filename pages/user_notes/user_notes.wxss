@@ -157,7 +157,8 @@ page {
   background: #667eea;
   color: white;
   border-bottom-right-radius: 6rpx;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
 }
 
 /* AI 消息 */
@@ -175,10 +176,11 @@ page {
 /* 消息内容文字 */
 .message-content {
   display: block;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
   word-break: break-word;
   white-space: pre-wrap;
   overflow-wrap: break-word;
+  align-items: stretch; /* 替换flex-start，让子元素拉伸至父容器宽度 */
   max-width: 100%;
   min-width: 0;
 }

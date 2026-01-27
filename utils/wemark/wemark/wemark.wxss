@@ -208,6 +208,10 @@
 	padding: 15rpx;
 	border-right: 1px solid #e0e0e0;
 	word-wrap: break-word;
+	display: flex; /* 添加弹性布局 */
+	justify-content: center; /* 水平居中 */
+	align-items: center; /* 垂直居中 */
+	line-height: 1.4; /* 改善行高 */
 }
 
 /* 表头行第一列特殊处理（保持灰色背景） */
@@ -230,6 +234,10 @@
 	padding: 15rpx;
 	border-right: 1px solid #e0e0e0;
 	font-weight: bold !important; /* 添加粗体 */
+	display: flex; /* 添加弹性布局 */
+	justify-content: center; /* 水平居中 */
+	align-items: center; /* 垂直居中 */
+	line-height: 1.4; /* 改善行高 */
 }
 
 /* 所有非第一列的数据单元格 */
@@ -241,6 +249,10 @@
 	text-align: center; /* 与表头内容栏保持一致 */
 	font-weight: bold !important; /* 添加粗体 */
 	word-wrap: break-word;
+	display: flex; /* 添加弹性布局 */
+	justify-content: center; /* 水平居中 */
+	align-items: center; /* 垂直居中 */
+	line-height: 1.4; /* 改善行高 */
 }
 
 /* 最后一列无右边框 */
@@ -248,6 +260,9 @@
 .wemark_table_data_row .wemark_table_cell_table_td:last-child{
 	border-right: none;
 }
+
+
+
 
 
 

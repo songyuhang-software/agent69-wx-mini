@@ -278,9 +278,10 @@ page {
   width: 100%;
   box-sizing: border-box;
   position: fixed;
-  bottom: 0;
+  bottom: 20rpx;
   left: 0;
   z-index: 100;
+  border-radius: 0;
 }
 
 .input-field {

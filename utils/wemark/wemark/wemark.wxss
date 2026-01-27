@@ -218,6 +218,7 @@
 /* 数据行第一列特殊处理（保持灰色背景） */
 .wemark_table_data_row .wemark_table_cell_table_td:first-child{
 	background-color: #f0f0f0 !important;
+	font-weight: bold !important; /* 保持粗体 */
 }
 
 /* 所有非第一列的表头单元格 */
@@ -228,6 +229,7 @@
 	word-wrap: break-word;
 	padding: 15rpx;
 	border-right: 1px solid #e0e0e0;
+	font-weight: bold !important; /* 添加粗体 */
 }
 
 /* 所有非第一列的数据单元格 */
@@ -236,6 +238,8 @@
 	background-color: #ffffff !important;
 	padding: 15rpx;
 	border-right: 1px solid #e0e0e0;
+	text-align: center; /* 与表头内容栏保持一致 */
+	font-weight: bold !important; /* 添加粗体 */
 	word-wrap: break-word;
 }
 
@@ -244,6 +248,10 @@
 .wemark_table_data_row .wemark_table_cell_table_td:last-child{
 	border-right: none;
 }
+
+
+
+
 
 
 

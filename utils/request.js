@@ -140,6 +140,7 @@ const executeRequest = ({ url, method, data, header, needAuth, token }) => {
     // 构建请求头
     const requestHeader = {
       'Content-Type': 'application/json',
+      'terminal': 'wechat-mini',
       ...header
     };
 

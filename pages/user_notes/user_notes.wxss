@@ -95,7 +95,8 @@ page {
   width: 100%;
   box-sizing: border-box;
   position: fixed;
-  /* top 和 bottom 通过 style 动态设置 */
+  /* top 通过 style 动态设置 */
+  bottom: calc(140rpx + env(safe-area-inset-bottom));
   left: 0;
   right: 0;
 }
@@ -266,14 +267,15 @@ page {
   font-size: 30rpx;
 }
 
-/* 输入区域外层容器 - 使用 JS 动态设置安全区域 */
+/* 输入区域外层容器 - 使用 padding-bottom 和 safe-area-inset-bottom */
 .input-area-wrapper {
   position: fixed;
-  /* bottom 通过 style 动态设置 */
+  bottom: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 0 30rpx;
+  padding: 20rpx 30rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
   box-sizing: border-box;
 }
 

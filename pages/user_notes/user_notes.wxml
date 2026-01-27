@@ -13,7 +13,7 @@
   <!-- 聊天消息区域 -->
   <scroll-view
     class="chat-container"
-    style="top: {{headerHeight}}px; bottom: {{safeAreaBottom + 120}}px;"
+    style="top: {{headerHeight}}px;"
     scroll-y
     scroll-into-view="{{scrollToView}}"
     scroll-with-animation="{{true}}"
@@ -74,7 +74,7 @@
   </scroll-view>
 
   <!-- 输入区域 -->
-  <view class="input-area-wrapper" style="bottom: {{safeAreaBottom + 20}}px;">
+  <view class="input-area-wrapper">
     <view class="input-container">
       <view class="voice-button {{isRecording ? 'recording' : ''}}" bindtap="onVoiceButtonTap" bindlongpress="onVoiceStart" bindtouchend="onVoiceEnd">
         <view class="voice-icon">

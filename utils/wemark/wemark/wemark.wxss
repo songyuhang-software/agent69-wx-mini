@@ -183,14 +183,7 @@
 
 .wemark_table_header_row{
 	display: flex;
-	background-color: #f0f0f0;
 	border-bottom: 1px solid #e0e0e0;
-}
-
-.wemark_table_header_row .wemark_table_cell_table_th:not(:first-child){
-	flex: 1;
-	text-align: center;
-	word-wrap: break-word;
 }
 
 .wemark_table_data_row{
@@ -202,47 +195,68 @@
 	border-bottom: none;
 }
 
-/* 所有行的第一列（标题列）统一样式 */
+/* 最高优先级：统一所有第一列单元格的宽度为90rpx */
 .wemark_table_vertical .wemark_table_cell_table_th:first-child,
 .wemark_table_vertical .wemark_table_cell_table_td:first-child{
-	flex: 0 0 auto;
-	width: 90rpx;
-	min-width: 90rpx;
-	max-width: 90rpx;
-	background-color: #f0f0f0; /* 浅灰色背景，表头行也适用 */
-	font-weight: bold;
+	flex: 0 0 auto !important;
+	width: 90rpx !important;
+	min-width: 90rpx !important;
+	max-width: 90rpx !important;
+	background-color: #f0f0f0 !important;
+	font-weight: bold !important;
+	text-align: center !important;
+	padding: 15rpx;
+	border-right: 1px solid #e0e0e0;
 	word-wrap: break-word;
-	text-align: center;
 }
 
-/* 数据行背景色 */
+/* 表头行第一列特殊处理（保持灰色背景） */
+.wemark_table_header_row .wemark_table_cell_table_th:first-child{
+	background-color: #f0f0f0 !important;
+}
+
+/* 数据行第一列特殊处理（保持灰色背景） */
 .wemark_table_data_row .wemark_table_cell_table_td:first-child{
-	background-color: #fafafa; /* 浅灰色背景 */
+	background-color: #f0f0f0 !important;
 }
 
-/* 其他数据列平均分配剩余空间 */
+/* 所有非第一列的表头单元格 */
 .wemark_table_header_row .wemark_table_cell_table_th:not(:first-child){
 	flex: 1;
+	background-color: #ffffff !important;
 	text-align: center;
 	word-wrap: break-word;
-}
-
-.wemark_table_data_row .wemark_table_cell_table_td:not(:first-child){
-	flex: 1;
-	word-wrap: break-word;
-}
-
-/* 统一单元格样式 */
-.wemark_table_vertical .wemark_table_cell_table_th,
-.wemark_table_vertical .wemark_table_cell_table_td{
 	padding: 15rpx;
 	border-right: 1px solid #e0e0e0;
 }
 
-.wemark_table_vertical .wemark_table_cell_table_th:last-child,
-.wemark_table_vertical .wemark_table_cell_table_td:last-child{
+/* 所有非第一列的数据单元格 */
+.wemark_table_data_row .wemark_table_cell_table_td:not(:first-child){
+	flex: 1;
+	background-color: #ffffff !important;
+	padding: 15rpx;
+	border-right: 1px solid #e0e0e0;
+	word-wrap: break-word;
+}
+
+/* 最后一列无右边框 */
+.wemark_table_header_row .wemark_table_cell_table_th:last-child,
+.wemark_table_data_row .wemark_table_cell_table_td:last-child{
 	border-right: none;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

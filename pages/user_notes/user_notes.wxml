@@ -43,7 +43,9 @@
         <!-- 消息内容 -->
         <view wx:else class="message-wrapper {{item.role}}-wrapper">
           <view class="message {{item.role}}-message {{item.isWelcome ? 'welcome-message' : ''}}" style="font-size: {{fontScale * 32}}rpx;">
-            <rich-text wx:if="{{item.role === 'assistant' && !item.isWelcome}}" class="message-content" nodes="{{item.content}}"></rich-text>
+            <!-- 助手消息使用 wemark 渲染 markdown -->
+            <wemark wx:if="{{item.role === 'assistant' && !item.isWelcome}}" md="{{item.content}}" type="wemark"></wemark>
+            <!-- 用户消息和欢迎消息使用普通文本 -->
             <text wx:else class="message-content">{{item.content}}</text>
           </view>
 

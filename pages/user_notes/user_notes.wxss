@@ -573,3 +573,89 @@ page {
   color: #667eea;
   text-decoration: underline;
 }
+
+/* wemark 组件样式适配 */
+.assistant-message wemark {
+  width: 100%;
+  font-size: inherit;
+}
+
+/* 覆盖 wemark 默认样式以适配消息气泡 */
+.assistant-message .wemark_wrapper {
+  margin: 0;
+  font-size: inherit;
+  line-height: 1.6;
+}
+
+.assistant-message .wemark_block_p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.assistant-message .wemark_block_p:first-child {
+  margin-top: 0;
+}
+
+.assistant-message .wemark_block_p:last-child {
+  margin-bottom: 0;
+}
+
+.assistant-message .wemark_block_code {
+  background: #f8f8f8;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 16rpx;
+  margin: 12rpx 0;
+  font-size: 26rpx;
+  line-height: 1.5;
+}
+
+.assistant-message .wemark_inline_code {
+  background: rgba(102, 126, 234, 0.1);
+  padding: 2rpx 8rpx;
+  border-radius: 4rpx;
+  font-size: 28rpx;
+  color: #d63384;
+}
+
+.assistant-message .wemark_block_h1,
+.assistant-message .wemark_block_h2,
+.assistant-message .wemark_block_h3 {
+  margin-top: 0.8em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  color: #333;
+}
+
+.assistant-message .wemark_block_h1:first-child,
+.assistant-message .wemark_block_h2:first-child,
+.assistant-message .wemark_block_h3:first-child {
+  margin-top: 0;
+}
+
+.assistant-message .wemark_block_blockquote_p {
+  border-left: 4rpx solid #667eea;
+  background: rgba(102, 126, 234, 0.05);
+  padding: 12rpx 16rpx;
+  margin: 12rpx 0;
+  border-radius: 0 8rpx 8rpx 0;
+  font-size: inherit;
+}
+
+.assistant-message .wemark_inline_strong {
+  font-weight: bold;
+  color: #333;
+  padding: 0;
+}
+
+.assistant-message .wemark_inline_em {
+  font-style: italic;
+  color: #555;
+  padding: 0;
+}
+
+.assistant-message .wemark_inline_deleted {
+  text-decoration: line-through;
+  color: #999;
+  padding: 0;
+}

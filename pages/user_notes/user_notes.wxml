@@ -13,7 +13,7 @@
   <!-- 聊天消息区域 -->
   <scroll-view
     class="chat-container"
-    style="top: {{headerHeight}}px; bottom: {{safeAreaBottom + 78}}px;"
+    style="top: {{headerHeight}}px; bottom: {{safeAreaBottom + 120}}px;"
     scroll-y
     scroll-into-view="{{scrollToView}}"
     scroll-with-animation="{{true}}"
@@ -74,28 +74,30 @@
   </scroll-view>
 
   <!-- 输入区域 -->
-  <view class="input-area" style="padding-bottom: {{safeAreaBottom + 12}}px;">
-    <view class="voice-button {{isRecording ? 'recording' : ''}}" bindtap="onVoiceButtonTap" bindlongpress="onVoiceStart" bindtouchend="onVoiceEnd">
-      <view class="voice-icon">
-        <view class="mic-stand"></view>
-        <view class="mic-head"></view>
-        <view wx:if="{{isRecording}}" class="recording-wave"></view>
+  <view class="input-area-wrapper" style="bottom: {{safeAreaBottom + 20}}px;">
+    <view class="input-container">
+      <view class="voice-button {{isRecording ? 'recording' : ''}}" bindtap="onVoiceButtonTap" bindlongpress="onVoiceStart" bindtouchend="onVoiceEnd">
+        <view class="voice-icon">
+          <view class="mic-stand"></view>
+          <view class="mic-head"></view>
+          <view wx:if="{{isRecording}}" class="recording-wave"></view>
+        </view>
       </view>
-    </view>
-    <input
-      class="input-field"
-      type="text"
-      value="{{inputValue}}"
-      placeholder="输入你的想法..."
-      bindinput="onInput"
-      bindconfirm="onSendMessage"
-      confirm-type="send"
-    />
-    <view
-      class="send-button {{isSending ? 'sending' : (!inputValue ? 'disabled' : '')}}"
-      bindtap="onSendMessage"
-    >
-      <view class="arrow-icon">↑</view>
+      <input
+        class="input-field"
+        type="text"
+        value="{{inputValue}}"
+        placeholder="输入你的想法..."
+        bindinput="onInput"
+        bindconfirm="onSendMessage"
+        confirm-type="send"
+      />
+      <view
+        class="send-button {{isSending ? 'sending' : (!inputValue ? 'disabled' : '')}}"
+        bindtap="onSendMessage"
+      >
+        <view class="arrow-icon">↑</view>
+      </view>
     </view>
   </view>
 </view>

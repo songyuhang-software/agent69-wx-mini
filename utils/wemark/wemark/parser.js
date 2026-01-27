@@ -16,7 +16,7 @@ function parse(md, options){
 	var listLevel = 0;
 	// 记录第N级ol的顺序
 	var orderNum = [0, 0];
-	var tmp;
+	var tmp = {};
 
 	// 获取inline内容
 	var getInlineContent = function(inlineToken){
@@ -214,22 +214,107 @@ function parse(md, options){
 			env.push('blockquote');
 		}else if(blockToken.type === 'blockquote_close'){
 			env.pop();
-		}else if(blockToken.type === 'tr_open'){
-			tmp = {
-				type: 'table_tr',
-				content:[]
+		}else if(blockToken.type === 'table_open'){
+			tmp.tableData = {
+				headers: [],
+				rows: []
 			};
-			return tmp;
+		}else if(blockToken.type === 'tr_open'){
+			if(!tmp.tableData){
+				tmp.tableData = {
+					headers: [],
+					rows: []
+				};
+			}
+			tmp.currentRow = [];
+			return {
+				type: 'table_tr_start',
+				content: []
+			};
 		}else if(blockToken.type === 'th_open'){
-			tmp.content.push({
+			var headerContent = getInlineContent(tokens[index+1]).map(function(inline){return inline.content;}).join('');
+			if(tmp.currentRow !== undefined){
+				tmp.currentRow.push({
+					type: 'table_th',
+					content: headerContent
+				});
+			}
+			return {
 				type: 'table_th',
-				content: getInlineContent(tokens[index+1]).map(function(inline){return inline.content;}).join('')
-			});
+				content: headerContent
+			};
 		}else if(blockToken.type === 'td_open'){
-			tmp.content.push({
+			var cellContent = getInlineContent(tokens[index+1]).map(function(inline){return inline.content;}).join('');
+			if(tmp.currentRow !== undefined){
+				tmp.currentRow.push({
+					type: 'table_td',
+					content: cellContent
+				});
+			}
+			return {
 				type: 'table_td',
-				content: getInlineContent(tokens[index+1]).map(function(inline){return inline.content;}).join('')
-			});
+				content: cellContent
+			};
+		}else if(blockToken.type === 'tr_close'){
+			if(tmp.currentRow){
+				if(tmp.tableData){
+					if(tmp.tableData.headers.length === 0 && tmp.currentRow.length > 0){
+						// 第一行作为表头
+						tmp.tableData.headers = tmp.currentRow;
+					}else{
+						// 数据行
+						tmp.tableData.rows.push(tmp.currentRow);
+					}
+				}
+				tmp.currentRow = [];
+			}
+			return {
+				type: 'table_tr_end'
+			};
+		}else if(blockToken.type === 'table_close'){
+			if(tmp.tableData && tmp.tableData.headers.length > 0){
+				// 进行矩阵转置 - 实现纵向表头
+				var allRows = [tmp.tableData.headers].concat(tmp.tableData.rows);
+
+				// 转置矩阵
+				var transposedData = {
+					headers: [],
+					rows: []
+				};
+				var maxCols = Math.max(...allRows.map(row => row.length));
+
+				for(var colIndex = 0; colIndex < maxCols; colIndex++){
+					var transposedRow = [];
+					for(var rowIndex = 0; rowIndex < allRows.length; rowIndex++){
+						var cell = allRows[rowIndex][colIndex];
+						if(cell){
+							transposedRow.push({
+								type: rowIndex === 0 ? 'table_th' : 'table_td',
+								content: cell.content || cell
+							});
+						}
+					}
+
+					if(transposedRow.length > 0){
+						if(colIndex === 0){
+							// 第一列作为表头
+							transposedData.headers = transposedRow;
+						}else{
+							// 其他列作为数据行
+							transposedData.rows.push(transposedRow);
+						}
+					}
+				}
+
+				tmp.tableData = null;
+				tmp.currentRow = null;
+
+				// 返回纵向表格结构
+				return {
+					type: 'table_vertical',
+					content: transposedData
+				};
+			}
 		}
 	};
 

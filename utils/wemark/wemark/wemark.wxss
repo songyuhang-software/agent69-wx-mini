@@ -144,3 +144,100 @@
 	color: blue;
 	word-wrap:break-word;
 }
+
+/* 横向表格样式 */
+.wemark_table_horizontal{
+	display: flex;
+	margin: 20rpx 0;
+	border: 1px solid #e0e0e0;
+	border-radius: 8rpx;
+	overflow: hidden;
+}
+
+.wemark_table_cell_table_th{
+	flex: 1;
+	background-color: #f0f0f0;
+	padding: 15rpx;
+	font-weight: bold;
+	border-right: 1px solid #e0e0e0;
+}
+
+.wemark_table_cell_table_td{
+	flex: 1;
+	padding: 15rpx;
+	border-right: 1px solid #e0e0e0;
+}
+
+.wemark_table_cell_table_td:last-child{
+	border-right: none;
+}
+
+/* 纵向表格样式 */
+.wemark_table_vertical{
+	width: 100%;
+	margin: 20rpx 0;
+	border: 1px solid #e0e0e0;
+	border-radius: 8rpx;
+	overflow: hidden;
+}
+
+.wemark_table_header_row{
+	display: flex;
+	background-color: #f0f0f0;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.wemark_table_data_row{
+	display: flex;
+	border-bottom: 1px solid #f5f5f5;
+}
+
+.wemark_table_data_row:last-child{
+	border-bottom: none;
+}
+
+/* 所有行的第一列（标题列）统一样式 */
+.wemark_table_vertical .wemark_table_cell_table_th:first-child,
+.wemark_table_vertical .wemark_table_cell_table_td:first-child{
+	flex: 0 0 auto;
+	width: 120rpx;
+	min-width: 120rpx;
+	max-width: 120rpx;
+	background-color: #ffffff; /* 白色背景，与数据行一致 */
+	font-weight: bold;
+	word-wrap: break-word;
+	text-align: center;
+}
+
+/* 数据行背景色 */
+.wemark_table_data_row .wemark_table_cell_table_td:first-child{
+	background-color: #fafafa; /* 浅灰色背景 */
+}
+
+/* 其他数据列平均分配剩余空间 */
+.wemark_table_header_row .wemark_table_cell_table_th:not(:first-child){
+	flex: 1;
+	text-align: center;
+	word-wrap: break-word;
+}
+
+.wemark_table_data_row .wemark_table_cell_table_td:not(:first-child){
+	flex: 1;
+	word-wrap: break-word;
+}
+
+/* 统一单元格样式 */
+.wemark_table_vertical .wemark_table_cell_table_th,
+.wemark_table_vertical .wemark_table_cell_table_td{
+	padding: 15rpx;
+	border-right: 1px solid #e0e0e0;
+}
+
+.wemark_table_vertical .wemark_table_cell_table_th:last-child,
+.wemark_table_vertical .wemark_table_cell_table_td:last-child{
+	border-right: none;
+}
+
+
+
+

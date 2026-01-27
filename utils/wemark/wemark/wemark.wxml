@@ -1,7 +1,34 @@
 <view class="wemark_wrapper">
 <block wx:if="{{type === 'wemark'}}" wx:for="{{parsedData}}" wx:key="blockIndex" wx:for-index="blockIndex" wx:for-item="renderBlock">
 	<view class="wemark_block_{{renderBlock.type}}">
-		<block wx:if="{{renderBlock.isArray}}" wx:for="{{renderBlock.content}}" wx:key="inlineIndex" wx:for-index="inlineIndex" wx:for-item="renderInline">
+		<!-- 纵向表格 -->
+		<view wx:if="{{renderBlock.type === 'table_vertical'}}" class="wemark_table_vertical">
+			<!-- 表头行 -->
+			<view class="wemark_table_header_row" wx:if="{{renderBlock.content.headers && renderBlock.content.headers.length > 0}}">
+				<block wx:for="{{renderBlock.content.headers}}" wx:key="headerIndex" wx:for-index="headerIndex" wx:for-item="headerCell">
+					<view class="wemark_table_cell_table_th">{{headerCell.content}}</view>
+				</block>
+			</view>
+
+			<!-- 数据行 -->
+			<block wx:for="{{renderBlock.content.rows}}" wx:key="rowIndex" wx:for-index="rowIndex" wx:for-item="tableRow">
+				<view class="wemark_table_data_row">
+					<block wx:for="{{tableRow}}" wx:key="cellIndex" wx:for-index="cellIndex" wx:for-item="cellData">
+						<view class="wemark_table_cell_{{cellData.type}}">{{cellData.content}}</view>
+					</block>
+				</view>
+			</block>
+		</view>
+
+		<!-- 横向表格（保留原有功能） -->
+		<view wx:if="{{renderBlock.type === 'table_tr'}}" class="wemark_table_horizontal">
+			<block wx:if="{{renderBlock.isArray}}" wx:for="{{renderBlock.content}}" wx:key="cellIndex" wx:for-index="cellIndex" wx:for-item="cellData">
+				<view class="wemark_table_cell_{{cellData.type}}">{{cellData.content}}</view>
+			</block>
+		</view>
+
+		<!-- 文本和其他内容 -->
+		<block wx:if="{{renderBlock.type !== 'table_vertical' && renderBlock.type !== 'table_tr' && renderBlock.isArray}}" wx:for="{{renderBlock.content}}" wx:key="inlineIndex" wx:for-index="inlineIndex" wx:for-item="renderInline">
 			<text class="wemark_inline_{{renderInline.type}}" wx:if="{{renderInline.type === 'text' || renderInline.type === 'code' || renderInline.type === 'strong' || renderInline.type === 'strong_em' || renderInline.type === 'deleted' || renderInline.type === 'em' || renderInline.type === 'table_th' || renderInline.type === 'table_td'}}">{{renderInline.content}}</text>
 			<!-- 代码高亮 -->
 			<text class="wemark_inline_code_{{renderInline.type}}" wx:if="{{renderInline.type&&renderBlock.highlight}}">{{renderInline.content}}</text>
@@ -9,7 +36,7 @@
 			<navigator class="wemark_inline_link" url="{{renderInline.data.href}}" wx:if="{{renderInline.type === 'link'}}">{{renderInline.content}}</navigator>
 			<image mode="widthFix" class="wemark_inline_image" src="{{renderInline.src}}" wx:if="{{renderInline.type === 'image'}}"></image>
 		</block>
-		<block wx:if="{{!renderBlock.isArray}}">
+		<block wx:if="{{renderBlock.type !== 'table_vertical' && renderBlock.type !== 'table_tr' && !renderBlock.isArray}}">
 			<view wx:if="{{renderBlock.type === 'code'}}">{{renderBlock.content}}</view>
 			<video wx:if="{{renderBlock.type == 'video'}}" class="wemark_block_video" src="{{renderBlock.src}}" poster="{{renderBlock.poster}}" controls></video>
 		</block>

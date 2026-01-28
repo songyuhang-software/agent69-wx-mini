@@ -21,8 +21,8 @@ Page({
     originalFormData: null, // 保存原始数据用于对比
     hasUnsavedChanges: false, // 是否有未保存的修改
     nameCursorSpacing: 30, // 昵称输入框光标与键盘的距离
-    bioCursorSpacingBase: 85, // 个人简介输入框光标与键盘的基础距离（配置值）
-    bioCursorSpacing: 85, // 个人简介输入框光标与键盘的距离（动态调整，初始化时设置）
+    bioCursorSpacingBase: 90, // 个人简介输入框光标与键盘的基础距离（配置值）
+    bioCursorSpacing: 90, // 个人简介输入框光标与键盘的距离（动态调整，初始化时设置）
     safeAreaBottom: 0 // 底部安全区域
   },
 

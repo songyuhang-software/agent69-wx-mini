@@ -16,7 +16,10 @@
       <view 
         wx:for="{{visibleCards}}" 
         wx:key="id"
-        class="card {{item.disabled ? 'disabled' : ''}}" 
+        class="card {{item.disabled ? 'disabled' : ''}}"
+        hover-class="{{item.disabled ? '' : 'card-hover'}}"
+        hover-stay-time="100"
+        hover-start-time="0"
         bindtap="handleCardTap"
         data-action="{{item.action}}"
         data-disabled="{{item.disabled}}"
@@ -43,6 +46,8 @@
     </view>
   </view>
 </view>
+
+
 
 
 

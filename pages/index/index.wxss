@@ -121,12 +121,13 @@ page {
   transition: opacity 0.3s ease;
 }
 
-.card:active:not(.disabled) {
+/* 使用 hover-class 代替 :active 伪类（Skyline 渲染模式推荐） */
+.card-hover {
   transform: translateY(-8rpx);
   box-shadow: 0 8rpx 28rpx rgba(74, 144, 226, 0.2);
 }
 
-.card:active:not(.disabled)::before {
+.card-hover::before {
   opacity: 1;
 }
 
@@ -270,6 +271,8 @@ page {
   transform: scale(0.95);
   box-shadow: 0 4rpx 16rpx rgba(74, 144, 226, 0.3);
 }
+
+
 
 
 

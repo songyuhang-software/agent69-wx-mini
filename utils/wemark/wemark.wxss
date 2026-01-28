@@ -178,13 +178,13 @@
 	border-bottom: none;
 }
 
-/* 最高优先级：统一所有第一列单元格的宽度为90rpx */
+/* 最高优先级：统一所有第一列单元格的宽度为80rpx */
 .wemark_table_vertical .wemark_table_cell_table_th:first-child,
 .wemark_table_vertical .wemark_table_cell_table_td:first-child{
 	flex: 0 0 auto !important;
-	width: 90rpx !important;
-	min-width: 90rpx !important;
-	max-width: 90rpx !important;
+	width: 80rpx !important;
+	min-width: 80rpx !important;
+	max-width: 80rpx !important;
 	background-color: #f0f0f0 !important;
 	font-weight: bold !important;
 	text-align: center !important;
@@ -290,6 +290,7 @@
 .wemark_table_horizontal_td{
 	text-align: left;
 }
+
 
 
 

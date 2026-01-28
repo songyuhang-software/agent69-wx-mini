@@ -86,13 +86,22 @@ Component({
         return;
       }
 
-      // 松开后继续保持高亮 400ms
+      // 清理可能存在的卡片定时器
+      if (this.data.cardTimer) {
+        clearTimeout(this.data.cardTimer);
+        this.setData({ cardTimer: null });
+      }
+
+      // 延迟取消激活状态，但要考虑到操作可能很快开始
       const timer = setTimeout(() => {
-        this.setData({
-          isCardActive: false,
-          cardTimer: null
-        });
-      }, 400);
+        // 检查是否还在操作界面中，如果是则不取消激活
+        if (!this.data.showOperation) {
+          this.setData({
+            isCardActive: false,
+            cardTimer: null
+          });
+        }
+      }, 380); // 稍微缩短时间，减少与操作流程的冲突
 
       this.setData({ cardTimer: timer });
     },
@@ -174,7 +183,7 @@ Component({
     onStartOperation() {
       const { action, currentEmail, cardTimer } = this.data;
 
-      // 清理可能存在的卡片定时器，避免400ms后取消高亮
+      // 清理可能存在的卡片定时器，避免380ms后取消高亮
       if (cardTimer) {
         clearTimeout(cardTimer);
         this.setData({ cardTimer: null });
@@ -194,10 +203,17 @@ Component({
         });
       }
 
+      // 先禁用过渡效果，然后设置状态，再恢复过渡效果
+      this.setData({ noTransition: true });
       this.setData({
         showOperation: true,
         isCardActive: true  // 进入操作界面时激活图标
       });
+
+      // 使用较短的延迟确保状态切换完成
+      setTimeout(() => {
+        this.setData({ noTransition: false });
+      }, 30);
     },
 
     // 发送验证码
@@ -402,7 +418,7 @@ Component({
           // 触发成功事件，让父组件刷新数据
           this.triggerEvent('success', { action: 'association', email: email });
 
-          // 关闭操作界面（成功操作也需要禁用过渡效果）
+          // 关闭操作界面，使用更短的无过渡时间
           this.setData({ noTransition: true });
           this.setData({
             showOperation: false,
@@ -411,10 +427,10 @@ Component({
             isCardActive: false
           });
 
-          // 延迟恢复过渡效果
+          // 使用更短的延迟恢复过渡效果
           setTimeout(() => {
             this.setData({ noTransition: false });
-          }, 50);
+          }, 20);
 
         } else {
           // 正常的绑定/解绑操作
@@ -452,7 +468,7 @@ Component({
           // 触发成功事件，让父组件刷新数据
           this.triggerEvent('success', { action, email: action === 'bind' ? email : '' });
 
-          // 关闭操作界面（成功操作也需要禁用过渡效果）
+          // 关闭操作界面，使用更短的无过渡时间
           this.setData({ noTransition: true });
           this.setData({
             showOperation: false,
@@ -461,10 +477,10 @@ Component({
             isCardActive: false
           });
 
-          // 延迟恢复过渡效果
+          // 使用更短的延迟恢复过渡效果
           setTimeout(() => {
             this.setData({ noTransition: false });
-          }, 50);
+          }, 20);
         }
 
       } catch (error) {

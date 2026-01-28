@@ -3,7 +3,7 @@
   "projectname": "agent69",
   "setting": {
     "compileHotReLoad": true,
-    "skylineRenderEnable": false,
+    "skylineRenderEnable": true,
     "urlCheck": true,
     "coverView": true,
     "lazyloadPlaceholderEnable": false,

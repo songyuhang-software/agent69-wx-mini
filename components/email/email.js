@@ -46,6 +46,8 @@ Component({
     showOperation: false,
     // 卡片是否激活（点击时的高亮状态）
     isCardActive: false,
+    // 卡片定时器
+    cardTimer: null,
     // 是否进入关联模式
     isAssociationMode: false,
     // 微信授权码
@@ -65,6 +67,12 @@ Component({
         return;
       }
 
+      // 清除之前的定时器
+      if (this.data.cardTimer) {
+        clearTimeout(this.data.cardTimer);
+        this.setData({ cardTimer: null });
+      }
+
       // 立即激活
       this.setData({
         isCardActive: true
@@ -78,8 +86,15 @@ Component({
         return;
       }
 
-      // 松开后继续保持高亮，但不再自动取消
-      // 只有在取消操作时才会取消激活状态
+      // 松开后继续保持高亮 400ms
+      const timer = setTimeout(() => {
+        this.setData({
+          isCardActive: false,
+          cardTimer: null
+        });
+      }, 400);
+
+      this.setData({ cardTimer: timer });
     },
 
     // 获取微信授权码
@@ -157,7 +172,13 @@ Component({
 
     // 点击开始操作（绑定/解绑）
     onStartOperation() {
-      const { action, currentEmail } = this.data;
+      const { action, currentEmail, cardTimer } = this.data;
+
+      // 清理可能存在的卡片定时器，避免400ms后取消高亮
+      if (cardTimer) {
+        clearTimeout(cardTimer);
+        this.setData({ cardTimer: null });
+      }
 
       if (action === 'bind') {
         // 绑定时清空邮箱
@@ -502,6 +523,9 @@ Component({
       // 清理定时器
       if (this.data.timer) {
         clearInterval(this.data.timer);
+      }
+      if (this.data.cardTimer) {
+        clearTimeout(this.data.cardTimer);
       }
     }
   },

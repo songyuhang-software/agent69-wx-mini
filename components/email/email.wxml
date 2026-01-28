@@ -1,9 +1,9 @@
 <!--components/email/email.wxml-->
 <view wx:if="{{show}}" class="email-component">
   <!-- 邮箱状态显示区域 -->
-  <view class="email-status {{isCardActive ? 'active' : ''}}" bindtouchstart="onCardTouchStart" bindtouchend="onCardTouchEnd" bindtap="onCardTap">
+  <view class="email-status {{isCardActive ? 'active' : ''}} {{noTransition ? 'no-transition' : ''}}" bindtouchstart="onCardTouchStart" bindtouchend="onCardTouchEnd" bindtap="onCardTap">
     <view class="email-info">
-      <text class="email-icon">📧</text>
+      <text class="email-icon {{noTransition ? 'no-transition' : ''}}">📧</text>
       <view class="email-details">
         <text class="email-label">邮箱</text>
         <text class="email-value">{{currentEmail || '未设置'}}</text>
@@ -13,7 +13,7 @@
       <view 
         wx:if="{{!showOperation}}"
         class="action-button {{currentEmail ? 'danger' : ''}}" 
-        bindtap="onStartOperation"
+        catchtap="onStartOperation"
       >
         {{currentEmail ? '解绑' : '绑定'}}
       </view>

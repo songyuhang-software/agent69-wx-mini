@@ -46,12 +46,12 @@ Component({
     showOperation: false,
     // 卡片是否激活（点击时的高亮状态）
     isCardActive: false,
-    // 卡片定时器
-    cardTimer: null,
     // 是否进入关联模式
     isAssociationMode: false,
     // 微信授权码
-    weChatCode: ''
+    weChatCode: '',
+    // 是否禁用过渡效果
+    noTransition: false
   },
 
   /**
@@ -63,12 +63,6 @@ Component({
       // 如果正在显示操作界面，不执行点击效果
       if (this.data.showOperation) {
         return;
-      }
-
-      // 清除之前的定时器
-      if (this.data.cardTimer) {
-        clearTimeout(this.data.cardTimer);
-        this.setData({ cardTimer: null });
       }
 
       // 立即激活
@@ -84,15 +78,8 @@ Component({
         return;
       }
 
-      // 松开后继续保持高亮 400ms
-      const timer = setTimeout(() => {
-        this.setData({
-          isCardActive: false,
-          cardTimer: null
-        });
-      }, 400);
-
-      this.setData({ cardTimer: timer });
+      // 松开后继续保持高亮，但不再自动取消
+      // 只有在取消操作时才会取消激活状态
     },
 
     // 获取微信授权码
@@ -394,8 +381,19 @@ Component({
           // 触发成功事件，让父组件刷新数据
           this.triggerEvent('success', { action: 'association', email: email });
 
-          // 关闭操作界面
-          this.onCancelOperation();
+          // 关闭操作界面（成功操作也需要禁用过渡效果）
+          this.setData({ noTransition: true });
+          this.setData({
+            showOperation: false,
+            isAssociationMode: false,
+            weChatCode: '',
+            isCardActive: false
+          });
+
+          // 延迟恢复过渡效果
+          setTimeout(() => {
+            this.setData({ noTransition: false });
+          }, 50);
 
         } else {
           // 正常的绑定/解绑操作
@@ -433,8 +431,19 @@ Component({
           // 触发成功事件，让父组件刷新数据
           this.triggerEvent('success', { action, email: action === 'bind' ? email : '' });
 
-          // 关闭操作界面
-          this.onCancelOperation();
+          // 关闭操作界面（成功操作也需要禁用过渡效果）
+          this.setData({ noTransition: true });
+          this.setData({
+            showOperation: false,
+            isAssociationMode: false,
+            weChatCode: '',
+            isCardActive: false
+          });
+
+          // 延迟恢复过渡效果
+          setTimeout(() => {
+            this.setData({ noTransition: false });
+          }, 50);
         }
 
       } catch (error) {
@@ -456,6 +465,10 @@ Component({
       }
 
       this.setData({
+        noTransition: true
+      });
+
+      this.setData({
         email: '',
         verificationCode: '',
         sendCodeBtnText: '发送验证码',
@@ -464,8 +477,15 @@ Component({
         showOperation: false,
         isAssociationMode: false,
         weChatCode: '',
-        isCardActive: false  // 退出操作界面时取消激活状态
+        isCardActive: false
       });
+
+      // 延迟恢复过渡效果
+      setTimeout(() => {
+        this.setData({
+          noTransition: false
+        });
+      }, 50);
     }
   },
 
@@ -482,9 +502,6 @@ Component({
       // 清理定时器
       if (this.data.timer) {
         clearInterval(this.data.timer);
-      }
-      if (this.data.cardTimer) {
-        clearTimeout(this.data.cardTimer);
       }
     }
   },

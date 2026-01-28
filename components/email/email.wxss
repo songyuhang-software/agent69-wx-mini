@@ -20,6 +20,11 @@
   position: relative;
 }
 
+/* 禁用过渡效果 */
+.email-status.no-transition {
+  transition: none !important;
+}
+
 /* 激活状态的邮箱卡片样式 */
 .email-status.active {
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
@@ -52,6 +57,11 @@
   flex-shrink: 0;
   border: 1rpx solid #e6f4ff;
   transition: all 0.25s ease;
+}
+
+/* 禁用过渡效果 */
+.email-icon.no-transition {
+  transition: none !important;
 }
 
 /* 激活状态时图标的高亮效果 */

@@ -56,6 +56,8 @@
         value="{{formData.name}}"
         maxlength="20"
         bindinput="onNameInput"
+        adjust-position="{{true}}"
+        cursor-spacing="{{nameCursorSpacing}}"
       />
       <text wx:if="{{errors.name}}" class="error-text">{{errors.name}}</text>
     </view>
@@ -69,7 +71,10 @@
         value="{{formData.bio}}"
         maxlength="200"
         bindinput="onBioInput"
+        bindlinechange="onBioLineChange"
         auto-height
+        adjust-position="{{true}}"
+        cursor-spacing="{{bioCursorSpacing}}"
       />
       <view class="textarea-counter">{{formData.bio.length}}/200</view>
       <text wx:if="{{errors.bio}}" class="error-text">{{errors.bio}}</text>
@@ -84,5 +89,9 @@
     </view>
   </view>
 </view>
+
+
+
+
 
 

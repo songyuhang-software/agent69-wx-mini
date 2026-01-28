@@ -19,14 +19,21 @@ Page({
     isRandomAvatar: false,
     isCurrent: false, // 是否是当前身份
     originalFormData: null, // 保存原始数据用于对比
-    hasUnsavedChanges: false // 是否有未保存的修改
+    hasUnsavedChanges: false, // 是否有未保存的修改
+    nameCursorSpacing: 20, // 昵称输入框光标与键盘的距离
+    bioCursorSpacingBase: 70, // 个人简介输入框光标与键盘的基础距离（配置值）
+    bioCursorSpacing: 70, // 个人简介输入框光标与键盘的距离（动态调整，初始化时设置）
+    safeAreaBottom: 0 // 底部安全区域
   },
 
   onLoad(options) {
     // 从页面参数中获取模式和数据
     const mode = options.mode || 'add';
 
-    this.setData({ mode });
+    this.setData({
+      mode,
+      bioCursorSpacing: this.data.bioCursorSpacingBase // 初始化为基础距离
+    });
 
     if (mode === 'edit') {
       // 编辑模式，从参数中获取身份数据
@@ -54,6 +61,28 @@ Page({
         originalFormData: JSON.parse(JSON.stringify(this.data.formData))
       });
     }
+
+    // 获取底部安全区域信息
+    this.getSafeAreaInfo();
+  },
+
+  /**
+   * 获取底部安全区域信息
+   */
+  getSafeAreaInfo() {
+    const systemInfo = wx.getSystemInfoSync();
+    const safeArea = systemInfo.safeArea || {};
+    const safeAreaBottom = systemInfo.screenHeight - (safeArea.bottom || systemInfo.screenHeight);
+
+    console.log('底部安全区域:', {
+      safeAreaBottom,
+      nameCursorSpacing: this.data.nameCursorSpacing,
+      bioCursorSpacing: this.data.bioCursorSpacing
+    });
+
+    this.setData({
+      safeAreaBottom
+    });
   },
 
 
@@ -114,6 +143,47 @@ Page({
       'errors.bio': ''
     }, () => {
       this.checkUnsavedChanges();
+      // 实时计算行数并调整光标距离
+      this.adjustBioCursorSpacing(e.detail.value);
+    });
+  },
+
+  // 监听个人简介行数变化，动态调整光标距离
+  onBioLineChange(e) {
+    const lineCount = e.detail.lineCount || 1;
+    this.updateCursorSpacing(lineCount);
+  },
+
+  // 根据文本内容实时计算行数
+  adjustBioCursorSpacing(text) {
+    if (!text) {
+      this.updateCursorSpacing(1);
+      return;
+    }
+    // 计算换行符数量 + 1 就是行数
+    const lineCount = (text.match(/\n/g) || []).length + 1;
+    this.updateCursorSpacing(lineCount);
+  },
+
+  // 统一更新光标距离的方法
+  updateCursorSpacing(lineCount) {
+    const baseCursorSpacing = this.data.bioCursorSpacingBase;
+    const lineHeight = 20; // 每行增加的距离
+    const maxCursorSpacing = 200; // 最大距离限制
+
+    const newCursorSpacing = Math.min(
+      baseCursorSpacing + (lineCount - 1) * lineHeight,
+      maxCursorSpacing
+    );
+
+    console.log('个人简介光标距离调整:', {
+      lineCount,
+      baseCursorSpacing,
+      newCursorSpacing
+    });
+
+    this.setData({
+      bioCursorSpacing: newCursorSpacing
     });
   },
 

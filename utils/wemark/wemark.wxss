@@ -113,12 +113,36 @@
 	white-space: pre;
 	overflow: auto;
 }
+
+/* 表格相关样式 */
 .wemark_block_table{
 	width: 100%;
 	border-spacing: 0;
 	border-collapse: collapse;
 	/* border-left: 1px solid #e0e0e0; */
 	/* border-top: 1px solid #e0e0e0; */
+}
+
+/* 隐藏表格解析过程中产生的中间节点（WebView 兼容修复） */
+.wemark_block_table_tr_start,
+.wemark_block_table_tr_end,
+.wemark_block_table_th,
+.wemark_block_table_td {
+	display: none !important;
+	height: 0 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	line-height: 0 !important;
+	overflow: hidden !important;
+}
+
+/* 表格容器样式（WebView 兼容修复） */
+.wemark_block_table_vertical,
+.wemark_block_table_horizontal {
+	display: block;
+	margin: 0;
+	padding: 0;
+	/* 不设置 line-height 和 font-size，避免影响内部元素 */
 }
 .wemark_block_table_tr{
 	display: flex;
@@ -333,6 +357,8 @@
 .wemark_table_horizontal_td{
 	text-align: left;
 }
+
+
 
 
 

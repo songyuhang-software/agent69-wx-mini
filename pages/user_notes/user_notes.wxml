@@ -93,6 +93,8 @@
         bindinput="onInput"
         bindconfirm="onSendMessage"
         confirm-type="send"
+        adjust-position="{{true}}"
+        cursor-spacing="{{cursorSpacing}}"
       />
       <view
         class="send-button {{isSending ? 'sending' : (!inputValue ? 'disabled' : '')}}"

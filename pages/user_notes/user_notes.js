@@ -38,13 +38,49 @@ Page({
     fontScale: 1, // 字体缩放比例，默认为 1（100%）
     initialDistance: 0, // 双指初始距离
     initialFontScale: 1, // 开始缩放时的字体比例
-    hasScaled: false // 是否发生了缩放
+    hasScaled: false, // 是否发生了缩放
+    cursorSpacing: 0 // 光标与键盘的距离
   },
 
   onLoad() {
     this.getSafeArea();
     this.loadFontScale();
     this.loadChatHistory();
+    this.calculateCursorSpacing();
+  },
+
+  /**
+   * 计算光标与键盘的距离
+   * 目标：让整个输入框容器的底部对齐到键盘顶部
+   */
+  calculateCursorSpacing() {
+    const systemInfo = wx.getSystemInfoSync();
+    const pixelRatio = systemInfo.pixelRatio || 2;
+
+    // 输入框容器的高度计算（rpx 转 px）
+    // .input-area-wrapper padding: 20rpx 上下
+    // .input-container padding: 12rpx 上下
+    // 发送按钮高度: 80rpx
+    // 总高度约: 20 + 12 + 80 + 12 + 20 = 144rpx
+
+    const containerHeightRpx = 144;
+    const containerHeightPx = (containerHeightRpx * systemInfo.windowWidth) / 750;
+
+    // 加上底部安全区域
+    const safeAreaBottom = this.data.safeAreaBottom || 0;
+
+    // 最终的 cursor-spacing 值
+    const cursorSpacing = Math.round(containerHeightPx + safeAreaBottom - 40);
+
+    console.log('计算 cursor-spacing:', {
+      containerHeightPx,
+      safeAreaBottom,
+      cursorSpacing
+    });
+
+    this.setData({
+      cursorSpacing
+    });
   },
 
   /**
@@ -497,6 +533,8 @@ Page({
     return Math.sqrt(x * x + y * y);
   }
 })
+
+
 
 
 

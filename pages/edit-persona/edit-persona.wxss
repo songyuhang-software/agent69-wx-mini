@@ -50,7 +50,7 @@
   color: #333;
   background: white;
   box-sizing: border-box;
-  min-height: 88rpx;
+  min-height: 100rpx;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -67,7 +67,7 @@
 /* 文本域 */
 .form-textarea {
   width: 100%;
-  min-height: 160rpx;
+  min-height: 200rpx;
   max-height: 400rpx;
   padding: 24rpx;
   border: 2rpx solid #e0e0e0;
@@ -354,6 +354,8 @@
   transform: none;
   box-shadow: none;
 }
+
+
 
 
 

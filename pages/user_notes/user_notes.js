@@ -155,24 +155,11 @@ Page({
           this.setData({ hasMore: false });
         }
 
-        // 如果是加载更多,插入到消息列表开头并保持滚动位置
+        // 如果是加载更多,插入到消息列表开头
         if (this.data.currentPage > 1) {
-          // 记录当前第一条消息的ID，用于保持滚动位置
-          const firstMessageId = this.data.messages.length > 0 ? `msg-${this.data.messages[0].id}` : '';
-
-          // 插入新消息到列表开头
           const allMessages = [...newMessages, ...this.data.messages];
           this.setData({
             messages: addTimeLabels(allMessages)
-          });
-
-          // 下一帧滚动回到原来的第一条消息，保持浏览位置
-          wx.nextTick(() => {
-            if (firstMessageId) {
-              this.setData({
-                scrollToView: firstMessageId
-              });
-            }
           });
         } else {
           // 首次加载,添加欢迎消息
@@ -553,8 +540,6 @@ Page({
     return Math.sqrt(x * x + y * y);
   }
 })
-
-
 
 
 

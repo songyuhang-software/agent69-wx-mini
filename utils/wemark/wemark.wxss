@@ -39,6 +39,19 @@
 .wemark_block_p_wrapper {
 	display: inline;
 }
+/* Skyline 渲染模式修复：引用块包裹器样式 */
+.wemark_block_blockquote_p_wrapper {
+	display: inline;
+}
+/* Skyline 渲染模式修复：标题包裹器样式 */
+.wemark_block_h1_wrapper,
+.wemark_block_h2_wrapper,
+.wemark_block_h3_wrapper,
+.wemark_block_h4_wrapper,
+.wemark_block_h5_wrapper,
+.wemark_block_h6_wrapper {
+	display: inline;
+}
 /* Skyline 渲染模式修复：列表项包裹器样式 */
 .wemark_block_ul_li_p_wrapper,
 .wemark_block_ol_li_p_wrapper,
@@ -141,36 +154,43 @@
 	font-weight: bold;
 	padding:0 5px;
 	word-wrap:break-word;
+	display: inline; /* Skyline 兼容 */
 }
 .wemark_inline_em{
 	font-style: italic;
 	padding:0 5px;
 	word-wrap:break-word;
+	display: inline; /* Skyline 兼容 */
 }
 .wemark_inline_strong_em{
 	font-style: italic;
 	font-weight: bold;
 	padding:0 5px;
 	word-wrap:break-word;
+	display: inline; /* Skyline 兼容 */
 }
 .wemark_inline_deleted{
 	text-decoration: line-through;
 	padding:0 5px;
 	word-wrap:break-word;
+	display: inline; /* Skyline 兼容 */
 }
 .wemark_inline_image{
 	width:100%;
 	height:auto;
+	display: block; /* 图片应该是块级元素 */
 }
 .wemark_inline_code{
 	background:#f0f0f0;
 	padding:3px 5px;
 	word-wrap:break-word;
+	display: inline; /* Skyline 兼容 */
 }
 .wemark_inline_text{
 	word-wrap:break-word;
 	user-select: text;
 	-webkit-user-select: text;
+	display: inline; /* Skyline 兼容 */
 }
 .wemark_inline_link{
 	display: inline;
@@ -313,6 +333,8 @@
 .wemark_table_horizontal_td{
 	text-align: left;
 }
+
+
 
 
 

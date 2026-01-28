@@ -65,7 +65,7 @@
 .wemark_block_ol_li_ol_li_p{
 	padding-left: 1em;
 }
-.wemark_block_ul_li_p:last{
+.wemark_block_ul_li_p:last-child{
 	margin-bottom:1em;
 }
 .wemark_block_code{
@@ -107,7 +107,7 @@
 	border-right:1px solid #e0e0e0;
 	border-bottom:1px solid #e0e0e0; */
 }
-.wemark_inline_table_td:last{
+.wemark_inline_table_td:last-child{
 	/* border-top:1px solid #e0e0e0; */
 }
 .wemark_inline_table_th{
@@ -274,8 +274,6 @@
 .wemark_table_data_row .wemark_table_cell_table_td:last-child{
 	border-right: none;
 }
-
-
 
 
 

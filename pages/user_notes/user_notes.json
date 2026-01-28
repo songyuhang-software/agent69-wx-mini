@@ -2,6 +2,6 @@
   "navigationStyle": "custom",
   "usingComponents": {
     "navigation-bar": "/components/navigation-bar/navigation-bar",
-    "wemark": "/utils/wemark/wemark/wemark"
+    "wemark": "/utils/wemark/wemark"
   }
 }

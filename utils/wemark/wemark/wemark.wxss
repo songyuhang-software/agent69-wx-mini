@@ -4,6 +4,8 @@
 	margin:10px 0;
 	font-size:32rpx;
 	line-height: 1.8em;
+	user-select: text;
+	-webkit-user-select: text;
 }
 .wemark_block_h1{
 	font-size:40rpx;
@@ -142,6 +144,8 @@
 }
 .wemark_inline_text{
 	word-wrap:break-word;
+	user-select: text;
+	-webkit-user-select: text;
 }
 .wemark_inline_link{
 	display: inline;
@@ -264,6 +268,8 @@
 .wemark_table_data_row .wemark_table_cell_table_td:last-child{
 	border-right: none;
 }
+
+
 
 
 

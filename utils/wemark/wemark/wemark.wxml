@@ -28,12 +28,12 @@
 		</view>
 
 		<!-- 文本和其他内容 -->
-		<text wx:if="{{renderBlock.type !== 'table_vertical' && renderBlock.type !== 'table_tr' && renderBlock.isArray}}" class="wemark_block_{{renderBlock.type}}_wrapper" space="nbsp">
+		<text wx:if="{{renderBlock.type !== 'table_vertical' && renderBlock.type !== 'table_tr' && renderBlock.isArray}}" class="wemark_block_{{renderBlock.type}}_wrapper" space="nbsp" selectable user-select>
 			<block wx:for="{{renderBlock.content}}" wx:key="inlineIndex" wx:for-index="inlineIndex" wx:for-item="renderInline">
-				<text class="wemark_inline_{{renderInline.type}}" wx:if="{{renderInline.type === 'text' || renderInline.type === 'code' || renderInline.type === 'strong' || renderInline.type === 'strong_em' || renderInline.type === 'deleted' || renderInline.type === 'em' || renderInline.type === 'table_th' || renderInline.type === 'table_td'}}">{{renderInline.content}}</text>
+				<text class="wemark_inline_{{renderInline.type}}" wx:if="{{renderInline.type === 'text' || renderInline.type === 'code' || renderInline.type === 'strong' || renderInline.type === 'strong_em' || renderInline.type === 'deleted' || renderInline.type === 'em' || renderInline.type === 'table_th' || renderInline.type === 'table_td'}}" selectable user-select>{{renderInline.content}}</text>
 				<!-- 代码高亮 -->
-				<text class="wemark_inline_code_{{renderInline.type}}" wx:if="{{renderInline.type&&renderBlock.highlight}}">{{renderInline.content}}</text>
-				<text class="wemark_inline_code_text" wx:if="{{!renderInline.type}}">{{renderInline}}</text>
+				<text class="wemark_inline_code_{{renderInline.type}}" wx:if="{{renderInline.type&&renderBlock.highlight}}" selectable user-select>{{renderInline.content}}</text>
+				<text class="wemark_inline_code_text" wx:if="{{!renderInline.type}}" selectable user-select>{{renderInline}}</text>
 			</block>
 		</text>
 		<!-- 链接和图片需要单独处理 -->
@@ -49,6 +49,8 @@
 </block>
 <rich-text class="wemark_wrapper_richtext" wx:if="{{type === 'rich-text'}}" nodes="{{richTextNodes}}"></rich-text>
 </view>
+
+
 
 
 

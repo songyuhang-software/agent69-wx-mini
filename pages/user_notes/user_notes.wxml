@@ -46,7 +46,7 @@
             <!-- 助手消息使用 wemark 渲染 markdown -->
             <wemark wx:if="{{item.role === 'assistant' && !item.isWelcome}}" md="{{item.content}}" type="wemark"></wemark>
             <!-- 用户消息和欢迎消息使用普通文本 -->
-            <text wx:else class="message-content">{{item.content}}</text>
+            <text wx:else class="message-content" selectable user-select>{{item.content}}</text>
           </view>
 
           <!-- 推荐追问 (仅显示在最新的助手消息下方) -->

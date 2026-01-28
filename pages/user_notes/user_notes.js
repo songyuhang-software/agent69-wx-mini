@@ -467,7 +467,10 @@ Page({
    * 双指触摸开始
    */
   onTouchStart(e) {
+    // 只有双指触摸才处理，单指触摸不做任何处理（允许文本选择）
     if (e.touches.length === 2) {
+      // 阻止默认行为，避免触发文本选择
+      e.preventDefault && e.preventDefault();
       const distance = this.getDistance(e.touches[0], e.touches[1]);
       this.setData({
         initialDistance: distance,
@@ -482,6 +485,10 @@ Page({
    */
   onTouchMove(e) {
     if (e.touches.length === 2 && this.data.initialDistance > 0) {
+      // 阻止默认行为和事件冒泡
+      e.preventDefault && e.preventDefault();
+      e.stopPropagation && e.stopPropagation();
+
       const currentDistance = this.getDistance(e.touches[0], e.touches[1]);
       const scale = currentDistance / this.data.initialDistance;
 
@@ -533,6 +540,7 @@ Page({
     return Math.sqrt(x * x + y * y);
   }
 })
+
 
 
 

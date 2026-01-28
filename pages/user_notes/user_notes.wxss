@@ -184,6 +184,8 @@ page {
   align-items: stretch; /* 替换flex-start，让子元素拉伸至父容器宽度 */
   max-width: 100%;
   min-width: 0;
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 /* 时间标签样式 - 用于显示消息之间的时间分割 */
@@ -578,6 +580,8 @@ page {
 .assistant-message wemark {
   width: 100%;
   font-size: inherit;
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 /* 覆盖 wemark 默认样式以适配消息气泡 */
@@ -585,6 +589,8 @@ page {
   margin: 0;
   font-size: inherit;
   line-height: 1.6;
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 .assistant-message .wemark_block_p {

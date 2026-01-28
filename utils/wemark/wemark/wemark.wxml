@@ -6,7 +6,9 @@
 			<!-- 表头行 -->
 			<view class="wemark_table_header_row" wx:if="{{renderBlock.content.headers && renderBlock.content.headers.length > 0}}">
 				<block wx:for="{{renderBlock.content.headers}}" wx:key="headerIndex" wx:for-index="headerIndex" wx:for-item="headerCell">
-					<view class="wemark_table_cell_table_th">{{headerCell.content}}</view>
+					<view class="wemark_table_cell_table_th">
+						<text selectable user-select>{{headerCell.content}}</text>
+					</view>
 				</block>
 			</view>
 
@@ -14,7 +16,9 @@
 			<block wx:for="{{renderBlock.content.rows}}" wx:key="rowIndex" wx:for-index="rowIndex" wx:for-item="tableRow">
 				<view class="wemark_table_data_row">
 					<block wx:for="{{tableRow}}" wx:key="cellIndex" wx:for-index="cellIndex" wx:for-item="cellData">
-						<view class="wemark_table_cell_{{cellData.type}}">{{cellData.content}}</view>
+						<view class="wemark_table_cell_{{cellData.type}}">
+							<text selectable user-select>{{cellData.content}}</text>
+						</view>
 					</block>
 				</view>
 			</block>
@@ -23,7 +27,9 @@
 		<!-- 横向表格（保留原有功能） -->
 		<view wx:if="{{renderBlock.type === 'table_tr'}}" class="wemark_table_horizontal">
 			<block wx:if="{{renderBlock.isArray}}" wx:for="{{renderBlock.content}}" wx:key="cellIndex" wx:for-index="cellIndex" wx:for-item="cellData">
-				<view class="wemark_table_cell_{{cellData.type}}">{{cellData.content}}</view>
+				<view class="wemark_table_cell_{{cellData.type}}">
+					<text selectable user-select>{{cellData.content}}</text>
+				</view>
 			</block>
 		</view>
 
@@ -49,6 +55,7 @@
 </block>
 <rich-text class="wemark_wrapper_richtext" wx:if="{{type === 'rich-text'}}" nodes="{{richTextNodes}}"></rich-text>
 </view>
+
 
 
 

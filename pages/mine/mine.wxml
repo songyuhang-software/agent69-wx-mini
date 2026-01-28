@@ -89,7 +89,7 @@
 
         <view class="personas-list">
           <!-- 当前身份 -->
-          <view class="persona-card current {{currentPersonaActive ? 'active' : ''}}" bindtap="onCurrentPersonaTap">
+          <view class="persona-card current {{currentPersonaActive ? 'active' : ''}}" bindtouchstart="onCurrentPersonaTouchStart" bindtouchend="onCurrentPersonaTouchEnd" bindtap="onCurrentPersonaTap">
             <view class="persona-header">
               <view class="persona-info">
                 <view class="persona-avatar-small {{!userDetail.personaAvatarUrl ? 'default' : ''}}" id="currentPersonaAvatar">
@@ -128,6 +128,8 @@
               wx:key="personaId"
               data-persona-id="{{item.personaId}}"
               data-index="{{index}}"
+              bindtouchstart="onPersonaCardTouchStart"
+              bindtouchend="onPersonaCardTouchEnd"
               bindtap="onPersonaCardTap"
             >
               <view class="persona-header">

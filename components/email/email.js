@@ -46,6 +46,8 @@ Component({
     showOperation: false,
     // 卡片是否激活（点击时的高亮状态）
     isCardActive: false,
+    // 卡片定时器
+    cardTimer: null,
     // 是否进入关联模式
     isAssociationMode: false,
     // 微信授权码
@@ -56,6 +58,43 @@ Component({
    * 组件的方法
    */
     methods: {
+    // 邮箱卡片按下事件
+    onCardTouchStart() {
+      // 如果正在显示操作界面，不执行点击效果
+      if (this.data.showOperation) {
+        return;
+      }
+
+      // 清除之前的定时器
+      if (this.data.cardTimer) {
+        clearTimeout(this.data.cardTimer);
+        this.setData({ cardTimer: null });
+      }
+
+      // 立即激活
+      this.setData({
+        isCardActive: true
+      });
+    },
+
+    // 邮箱卡片松开事件
+    onCardTouchEnd() {
+      // 如果正在显示操作界面，不执行点击效果
+      if (this.data.showOperation) {
+        return;
+      }
+
+      // 松开后继续保持高亮 400ms
+      const timer = setTimeout(() => {
+        this.setData({
+          isCardActive: false,
+          cardTimer: null
+        });
+      }, 400);
+
+      this.setData({ cardTimer: timer });
+    },
+
     // 获取微信授权码
     getWeChatCode() {
       return new Promise((resolve, reject) => {
@@ -82,22 +121,7 @@ Component({
 
     // 邮箱卡片点击事件
     onCardTap() {
-      // 如果正在显示操作界面，不执行点击效果
-      if (this.data.showOperation) {
-        return;
-      }
-
-      // 添加点击时的激活状态
-      this.setData({
-        isCardActive: true
-      });
-
-      // 400ms后移除激活状态
-      setTimeout(() => {
-        this.setData({
-          isCardActive: false
-        });
-      }, 400);
+      // 保留原有的点击逻辑（如果有需要的话）
     },
 
     // 邮箱输入
@@ -458,6 +482,9 @@ Component({
       // 清理定时器
       if (this.data.timer) {
         clearInterval(this.data.timer);
+      }
+      if (this.data.cardTimer) {
+        clearTimeout(this.data.cardTimer);
       }
     }
   },

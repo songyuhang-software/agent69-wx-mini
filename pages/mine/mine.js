@@ -19,7 +19,11 @@ Component({
     // 其他身份卡片激活状态数组
     otherPersonasActive: [],
     // 显示个人简介说明弹窗
-    showBioInfoModal: false
+    showBioInfoModal: false,
+    // 当前身份卡片的定时器
+    currentPersonaTimer: null,
+    // 其他身份卡片的定时器数组
+    otherPersonasTimers: []
   },
 
   lifetimes: {
@@ -29,30 +33,49 @@ Component({
   },
 
   methods: {
-    // 当前身份卡片点击事件
-    onCurrentPersonaTap() {
-      // 添加点击时的激活状态
+    // 当前身份卡片按下事件
+    onCurrentPersonaTouchStart() {
+      // 清除之前的定时器
+      if (this.data.currentPersonaTimer) {
+        clearTimeout(this.data.currentPersonaTimer);
+        this.setData({ currentPersonaTimer: null });
+      }
+
+      // 立即激活
       this.setData({
         currentPersonaActive: true
       });
-
-      // 400ms后移除激活状态
-      setTimeout(() => {
-        this.setData({
-          currentPersonaActive: false
-        });
-      }, 400);
     },
 
-    // 其他身份卡片点击事件
-    onPersonaCardTap(e) {
-      const index = e.currentTarget.dataset.index;
-      const newOtherPersonasActive = [...this.data.otherPersonasActive];
+    // 当前身份卡片松开事件
+    onCurrentPersonaTouchEnd() {
+      // 松开后继续保持高亮 400ms
+      const timer = setTimeout(() => {
+        this.setData({
+          currentPersonaActive: false,
+          currentPersonaTimer: null
+        });
+      }, 400);
 
-      // 重置所有状态
-      for (let i = 0; i < newOtherPersonasActive.length; i++) {
-        newOtherPersonasActive[i] = false;
+      this.setData({ currentPersonaTimer: timer });
+    },
+
+    // 当前身份卡片点击事件
+    onCurrentPersonaTap() {
+      // 保留原有的点击逻辑（如果有需要的话）
+    },
+
+    // 其他身份卡片按下事件
+    onPersonaCardTouchStart(e) {
+      const index = e.currentTarget.dataset.index;
+
+      // 清除该卡片之前的定时器
+      if (this.data.otherPersonasTimers[index]) {
+        clearTimeout(this.data.otherPersonasTimers[index]);
       }
+
+      const newOtherPersonasActive = [...this.data.otherPersonasActive];
+      const newTimers = [...this.data.otherPersonasTimers];
 
       // 设置当前点击的卡片为激活状态
       if (index !== undefined && index < newOtherPersonasActive.length) {
@@ -60,20 +83,44 @@ Component({
       }
 
       this.setData({
-        otherPersonasActive: newOtherPersonasActive
+        otherPersonasActive: newOtherPersonasActive,
+        otherPersonasTimers: newTimers
       });
+    },
 
-      // 400ms后移除激活状态
-      setTimeout(() => {
+    // 其他身份卡片松开事件
+    onPersonaCardTouchEnd(e) {
+      const index = e.currentTarget.dataset.index;
+
+      // 松开后继续保持高亮 400ms
+      const timer = setTimeout(() => {
         const resetOtherPersonasActive = [...this.data.otherPersonasActive];
+        const resetTimers = [...this.data.otherPersonasTimers];
+
         if (index !== undefined && index < resetOtherPersonasActive.length) {
           resetOtherPersonasActive[index] = false;
+          resetTimers[index] = null;
         }
 
         this.setData({
-          otherPersonasActive: resetOtherPersonasActive
+          otherPersonasActive: resetOtherPersonasActive,
+          otherPersonasTimers: resetTimers
         });
       }, 400);
+
+      const newTimers = [...this.data.otherPersonasTimers];
+      newTimers[index] = timer;
+      this.setData({ otherPersonasTimers: newTimers });
+    },
+
+    // 当前身份卡片点击事件
+    onCurrentPersonaTap() {
+      // 保留原有的点击逻辑（如果有需要的话）
+    },
+
+    // 其他身份卡片点击事件
+    onPersonaCardTap(e) {
+      // 保留原有的点击逻辑（如果有需要的话）
     },
 
     // 加载用户详情
@@ -102,10 +149,13 @@ Component({
 
         // 初始化其他身份卡片的激活状态数组
         const otherPersonasActive = new Array(userDetail.otherPersonas.length).fill(false);
+        // 初始化其他身份卡片的定时器数组
+        const otherPersonasTimers = new Array(userDetail.otherPersonas.length).fill(null);
 
         this.setData({
           userDetail,
-          otherPersonasActive
+          otherPersonasActive,
+          otherPersonasTimers
         });
 
         wx.hideLoading();
@@ -323,6 +373,10 @@ Component({
     }
   }
 })
+
+
+
+
 
 
 

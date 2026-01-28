@@ -39,6 +39,17 @@
 .wemark_block_p_wrapper {
 	display: inline;
 }
+/* Skyline 渲染模式修复：列表项包裹器样式 */
+.wemark_block_ul_li_p_wrapper,
+.wemark_block_ol_li_p_wrapper,
+.wemark_block_ul_li_ul_li_p_wrapper,
+.wemark_block_ul_li_ol_li_p_wrapper,
+.wemark_block_ol_li_ul_li_p_wrapper,
+.wemark_block_ol_li_ol_li_p_wrapper {
+	display: inline-block;
+	width: 100%;
+	box-sizing: border-box;
+}
 .wemark_block_video{
 	margin-top:1em;
 	margin-bottom:1em;
@@ -52,18 +63,30 @@
 	background:#f0f0f0;
 	border-left:5px solid #e0e0e0;
 }
+/* Skyline 渲染模式兼容：无序列表圆点已在 parser.js 中处理 */
+/* 保留 ::before 作为后备方案，但不再依赖它 */
 .wemark_block_ul_li_p::before{
-	content:'• ';
+	/* content:'• '; */
+	/* display: inline-block; */
+	/* width: 1em; */
+	/* margin-left: -1em; */
 }
 .wemark_block_ul_li_ul_li_p::before,
 .wemark_block_ol_li_ul_li_p::before{
-	content:'◦ ';
+	/* content:'◦ '; */
+	/* display: inline-block; */
+	/* width: 1em; */
+	/* margin-left: -1em; */
+}
+.wemark_block_ul_li_p,
+.wemark_block_ol_li_p {
+	/* padding-left: 1em; */ /* 移除缩进，因为圆点已经在内容中 */
 }
 .wemark_block_ul_li_ul_li_p,
 .wemark_block_ul_li_ol_li_p,
 .wemark_block_ol_li_ul_li_p,
 .wemark_block_ol_li_ol_li_p{
-	padding-left: 1em;
+	/* padding-left: 2em; */ /* 移除缩进，因为圆点已经在内容中 */
 }
 .wemark_block_ul_li_p:last-child{
 	margin-bottom:1em;
@@ -290,6 +313,11 @@
 .wemark_table_horizontal_td{
 	text-align: left;
 }
+
+
+
+
+
 
 
 

@@ -130,6 +130,19 @@ function parse(md, options){
 				});
 			}
 
+			// 处理ul前的圆点（Skyline 渲染模式兼容）
+			if(env[env.length - 1] === 'li' && env[env.length - 2] === 'ul'){
+				let prefix = '　';
+				if (firstInLi){
+					// 根据嵌套层级使用不同的符号
+					prefix = listLevel === 1 ? '• ' : '◦ ';
+				}
+				content.unshift({
+					type:'text',
+					content: prefix
+				});
+			}
+
 			return {
 				type: prefix + 'p',
 				content: content
@@ -377,4 +390,5 @@ function parse(md, options){
 module.exports = {
 	parse: parse
 };
+
 

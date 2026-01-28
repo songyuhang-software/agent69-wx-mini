@@ -33,6 +33,10 @@
 	margin-top:1em;
 	margin-bottom:1em;
 }
+/* Skyline 渲染模式修复：包裹器样式 */
+.wemark_block_p_wrapper {
+	display: inline;
+}
 .wemark_block_video{
 	margin-top:1em;
 	margin-bottom:1em;
@@ -260,6 +264,9 @@
 .wemark_table_data_row .wemark_table_cell_table_td:last-child{
 	border-right: none;
 }
+
+
+
 
 
 

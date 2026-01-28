@@ -646,16 +646,47 @@ page {
   font-weight: bold;
   color: #333;
   padding: 0;
+  word-wrap: normal;
+  word-break: normal;
+  display: inline;
 }
 
 .assistant-message .wemark_inline_em {
   font-style: italic;
   color: #555;
   padding: 0;
+  word-wrap: normal;
+  word-break: normal;
+  display: inline;
 }
 
 .assistant-message .wemark_inline_deleted {
   text-decoration: line-through;
   color: #999;
   padding: 0;
+  word-wrap: normal;
+  word-break: normal;
+  display: inline;
+}
+
+.assistant-message .wemark_inline_strong_em {
+  font-weight: bold;
+  font-style: italic;
+  color: #333;
+  padding: 0;
+  word-wrap: normal;
+  word-break: normal;
+  display: inline;
+}
+
+.assistant-message .wemark_inline_text {
+  word-wrap: normal;
+  word-break: normal;
+  display: inline;
+}
+
+/* Skyline 渲染模式下的修复 */
+.assistant-message .wemark_block_p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }

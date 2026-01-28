@@ -72,6 +72,7 @@
         maxlength="200"
         bindinput="onBioInput"
         bindlinechange="onBioLineChange"
+        bindfocus="onBioFocus"
         auto-height
         adjust-position="{{true}}"
         cursor-spacing="{{bioCursorSpacing}}"
@@ -89,6 +90,7 @@
     </view>
   </view>
 </view>
+
 
 
 

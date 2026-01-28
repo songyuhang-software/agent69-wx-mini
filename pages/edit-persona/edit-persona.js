@@ -138,30 +138,46 @@ Page({
   },
 
   onBioInput(e) {
+    const value = e.detail.value;
+    const cursor = e.detail.cursor; // 当前光标位置
+
+    console.log('onBioInput 触发:', {
+      valueLength: value.length,
+      cursor,
+      currentCursorSpacing: this.data.bioCursorSpacing
+    });
+
     this.setData({
-      'formData.bio': e.detail.value,
+      'formData.bio': value,
       'errors.bio': ''
     }, () => {
       this.checkUnsavedChanges();
-      // 实时计算行数并调整光标距离
-      this.adjustBioCursorSpacing(e.detail.value);
     });
   },
 
-  // 监听个人简介行数变化，动态调整光标距离
-  onBioLineChange(e) {
-    const lineCount = e.detail.lineCount || 1;
-    this.updateCursorSpacing(lineCount);
+  // 聚焦时触发，用于初始化光标距离
+  onBioFocus(e) {
+    console.log('onBioFocus 触发:', e.detail);
+    // 聚焦时根据当前内容计算行数
+    const text = this.data.formData.bio;
+    if (text) {
+      // 简单估算：每40个字符约为一行（可根据实际调整）
+      const estimatedLines = Math.max(1, Math.ceil(text.length / 40) + (text.match(/\n/g) || []).length);
+      this.updateCursorSpacing(estimatedLines);
+    }
   },
 
-  // 根据文本内容实时计算行数
-  adjustBioCursorSpacing(text) {
-    if (!text) {
-      this.updateCursorSpacing(1);
-      return;
-    }
-    // 计算换行符数量 + 1 就是行数
-    const lineCount = (text.match(/\n/g) || []).length + 1;
+  // 监听个人简介行数变化，动态调整光标距离（这是最可靠的方式）
+  onBioLineChange(e) {
+    const lineCount = e.detail.lineCount || 1;
+    const height = e.detail.height || 0;
+
+    console.log('onBioLineChange 触发:', {
+      lineCount,
+      height,
+      oldCursorSpacing: this.data.bioCursorSpacing
+    });
+
     this.updateCursorSpacing(lineCount);
   },
 
@@ -176,15 +192,19 @@ Page({
       maxCursorSpacing
     );
 
-    console.log('个人简介光标距离调整:', {
-      lineCount,
-      baseCursorSpacing,
-      newCursorSpacing
-    });
+    // 只有当值真正变化时才更新，避免不必要的 setData
+    if (this.data.bioCursorSpacing !== newCursorSpacing) {
+      console.log('更新光标距离:', {
+        lineCount,
+        baseCursorSpacing,
+        oldCursorSpacing: this.data.bioCursorSpacing,
+        newCursorSpacing
+      });
 
-    this.setData({
-      bioCursorSpacing: newCursorSpacing
-    });
+      this.setData({
+        bioCursorSpacing: newCursorSpacing
+      });
+    }
   },
 
   // 选择头像

@@ -24,17 +24,30 @@
 			</block>
 		</view>
 
-		<!-- 横向表格（保留原有功能） -->
-		<view wx:if="{{renderBlock.type === 'table_tr'}}" class="wemark_table_horizontal">
-			<block wx:if="{{renderBlock.isArray}}" wx:for="{{renderBlock.content}}" wx:key="cellIndex" wx:for-index="cellIndex" wx:for-item="cellData">
-				<view class="wemark_table_cell_{{cellData.type}}">
-					<text selectable user-select>{{cellData.content}}</text>
+		<!-- 横向表格（标准 Markdown 表格） -->
+		<view wx:if="{{renderBlock.type === 'table_horizontal'}}" class="wemark_table_horizontal_wrapper">
+			<block wx:for="{{renderBlock.content}}" wx:key="rowIndex" wx:for-index="rowIndex" wx:for-item="tableRow">
+				<!-- 表头行 -->
+				<view wx:if="{{tableRow.type === 'header'}}" class="wemark_table_horizontal_row wemark_table_horizontal_header">
+					<block wx:for="{{tableRow.content}}" wx:key="cellIndex" wx:for-index="cellIndex" wx:for-item="cellData">
+						<view class="wemark_table_horizontal_cell wemark_table_horizontal_th">
+							<text selectable user-select>{{cellData.content}}</text>
+						</view>
+					</block>
+				</view>
+				<!-- 数据行 -->
+				<view wx:if="{{tableRow.type === 'row'}}" class="wemark_table_horizontal_row">
+					<block wx:for="{{tableRow.content}}" wx:key="cellIndex" wx:for-index="cellIndex" wx:for-item="cellData">
+						<view class="wemark_table_horizontal_cell wemark_table_horizontal_td">
+							<text selectable user-select>{{cellData.content}}</text>
+						</view>
+					</block>
 				</view>
 			</block>
 		</view>
 
 		<!-- 文本和其他内容 -->
-		<text wx:if="{{renderBlock.type !== 'table_vertical' && renderBlock.type !== 'table_tr' && renderBlock.isArray}}" class="wemark_block_{{renderBlock.type}}_wrapper" space="nbsp" selectable user-select>
+		<text wx:if="{{renderBlock.type !== 'table_vertical' && renderBlock.type !== 'table_horizontal' && renderBlock.isArray}}" class="wemark_block_{{renderBlock.type}}_wrapper" space="nbsp" selectable user-select>
 			<block wx:for="{{renderBlock.content}}" wx:key="inlineIndex" wx:for-index="inlineIndex" wx:for-item="renderInline">
 				<text class="wemark_inline_{{renderInline.type}}" wx:if="{{renderInline.type === 'text' || renderInline.type === 'code' || renderInline.type === 'strong' || renderInline.type === 'strong_em' || renderInline.type === 'deleted' || renderInline.type === 'em' || renderInline.type === 'table_th' || renderInline.type === 'table_td'}}" selectable user-select>{{renderInline.content}}</text>
 				<!-- 代码高亮 -->
@@ -43,11 +56,11 @@
 			</block>
 		</text>
 		<!-- 链接和图片需要单独处理 -->
-		<block wx:if="{{renderBlock.type !== 'table_vertical' && renderBlock.type !== 'table_tr' && renderBlock.isArray}}" wx:for="{{renderBlock.content}}" wx:key="inlineIndex2" wx:for-index="inlineIndex2" wx:for-item="renderInline2">
+		<block wx:if="{{renderBlock.type !== 'table_vertical' && renderBlock.type !== 'table_horizontal' && renderBlock.isArray}}" wx:for="{{renderBlock.content}}" wx:key="inlineIndex2" wx:for-index="inlineIndex2" wx:for-item="renderInline2">
 			<navigator class="wemark_inline_link" url="{{renderInline2.data.href}}" wx:if="{{renderInline2.type === 'link'}}">{{renderInline2.content}}</navigator>
 			<image mode="widthFix" class="wemark_inline_image" src="{{renderInline2.src}}" wx:if="{{renderInline2.type === 'image'}}"></image>
 		</block>
-		<block wx:if="{{renderBlock.type !== 'table_vertical' && renderBlock.type !== 'table_tr' && !renderBlock.isArray}}">
+		<block wx:if="{{renderBlock.type !== 'table_vertical' && renderBlock.type !== 'table_horizontal' && !renderBlock.isArray}}">
 			<view wx:if="{{renderBlock.type === 'code'}}">{{renderBlock.content}}</view>
 			<video wx:if="{{renderBlock.type == 'video'}}" class="wemark_block_video" src="{{renderBlock.src}}" poster="{{renderBlock.poster}}" controls></video>
 		</block>
@@ -55,6 +68,10 @@
 </block>
 <rich-text class="wemark_wrapper_richtext" wx:if="{{type === 'rich-text'}}" nodes="{{richTextNodes}}"></rich-text>
 </view>
+
+
+
+
 
 
 

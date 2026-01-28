@@ -10,18 +10,22 @@ Component({
                 this.parseMd();
             }
         },
-		type: {
-			type: String,
-			value: 'wemark'
-		},
-		link: {
-			type: Boolean,
-			value: false
-		},
-		highlight: {
-			type: Boolean,
-			value: false
-		}
+    type: {
+        type: String,
+        value: 'wemark'
+    },
+    link: {
+        type: Boolean,
+        value: false
+    },
+    highlight: {
+        type: Boolean,
+        value: false
+    },
+    transposeTable: {
+        type: Boolean,
+        value: false  // 默认为 false，使用标准的横向表格
+    }
     },
     data: {
         parsedData: {},
@@ -32,7 +36,8 @@ Component({
 			if (this.data.md) {
 				var parsedData = parser.parse(this.data.md, {
 					link: this.data.link,
-					highlight: this.data.highlight
+					highlight: this.data.highlight,
+					transposeTable: this.data.transposeTable
 				});
 				// console.log('parsedData:', parsedData);
 				if(this.data.type === 'wemark'){
@@ -69,3 +74,6 @@ Component({
         }
     }
 });
+
+
+

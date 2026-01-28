@@ -155,38 +155,7 @@
 	word-wrap:break-word;
 }
 
-/* 横向表格样式 */
-.wemark_table_horizontal{
-	display: flex;
-	margin: 20rpx 0;
-	border: 1px solid #e0e0e0;
-	border-radius: 8rpx;
-	overflow: hidden;
-}
-
-.wemark_table_cell_table_th{
-	flex: 1;
-	background-color: #f0f0f0;
-	padding: 15rpx;
-	font-weight: bold;
-	border-right: 1px solid #e0e0e0;
-	user-select: text;
-	-webkit-user-select: text;
-}
-
-.wemark_table_cell_table_td{
-	flex: 1;
-	padding: 15rpx;
-	border-right: 1px solid #e0e0e0;
-	user-select: text;
-	-webkit-user-select: text;
-}
-
-.wemark_table_cell_table_td:last-child{
-	border-right: none;
-}
-
-/* 纵向表格样式 */
+/* 纵向表格样式（翻转表格，用于 user_notes） */
 .wemark_table_vertical{
 	width: 100%;
 	margin: 20rpx 0;
@@ -275,9 +244,52 @@
 	border-right: none;
 }
 
+/* 横向表格样式（标准 Markdown 表格，不翻转） */
+.wemark_table_horizontal_wrapper{
+	width: 100%;
+	margin: 20rpx 0;
+	border: 1px solid #e0e0e0;
+	border-radius: 8rpx;
+	overflow: hidden;
+}
 
+.wemark_table_horizontal_row{
+	display: flex;
+	border-bottom: 1px solid #e0e0e0;
+}
 
+.wemark_table_horizontal_row:last-child{
+	border-bottom: none;
+}
 
+.wemark_table_horizontal_header{
+	background-color: #f0f0f0;
+}
+
+.wemark_table_horizontal_cell{
+	flex: 1;
+	padding: 15rpx;
+	border-right: 1px solid #e0e0e0;
+	word-wrap: break-word;
+	user-select: text;
+	-webkit-user-select: text;
+	display: flex;
+	align-items: center;
+}
+
+.wemark_table_horizontal_cell:last-child{
+	border-right: none;
+}
+
+.wemark_table_horizontal_th{
+	font-weight: bold;
+	text-align: center;
+	justify-content: center;
+}
+
+.wemark_table_horizontal_td{
+	text-align: left;
+}
 
 
 

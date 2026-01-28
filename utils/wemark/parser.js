@@ -273,47 +273,79 @@ function parse(md, options){
 			};
 		}else if(blockToken.type === 'table_close'){
 			if(tmp.tableData && tmp.tableData.headers.length > 0){
-				// 进行矩阵转置 - 实现纵向表头
-				var allRows = [tmp.tableData.headers].concat(tmp.tableData.rows);
+				// 根据 options.transposeTable 决定是否转置表格
+				if(options.transposeTable !== false){
+					// 进行矩阵转置 - 实现纵向表头
+					var allRows = [tmp.tableData.headers].concat(tmp.tableData.rows);
 
-				// 转置矩阵
-				var transposedData = {
-					headers: [],
-					rows: []
-				};
-				var maxCols = Math.max(...allRows.map(row => row.length));
+					// 转置矩阵
+					var transposedData = {
+						headers: [],
+						rows: []
+					};
+					var maxCols = Math.max(...allRows.map(row => row.length));
 
-				for(var colIndex = 0; colIndex < maxCols; colIndex++){
-					var transposedRow = [];
-					for(var rowIndex = 0; rowIndex < allRows.length; rowIndex++){
-						var cell = allRows[rowIndex][colIndex];
-						if(cell){
-							transposedRow.push({
-								type: rowIndex === 0 ? 'table_th' : 'table_td',
-								content: cell.content || cell
-							});
+					for(var colIndex = 0; colIndex < maxCols; colIndex++){
+						var transposedRow = [];
+						for(var rowIndex = 0; rowIndex < allRows.length; rowIndex++){
+							var cell = allRows[rowIndex][colIndex];
+							if(cell){
+								transposedRow.push({
+									type: rowIndex === 0 ? 'table_th' : 'table_td',
+									content: cell.content || cell
+								});
+							}
+						}
+
+						if(transposedRow.length > 0){
+							if(colIndex === 0){
+								// 第一列作为表头
+								transposedData.headers = transposedRow;
+							}else{
+								// 其他列作为数据行
+								transposedData.rows.push(transposedRow);
+							}
 						}
 					}
 
-					if(transposedRow.length > 0){
-						if(colIndex === 0){
-							// 第一列作为表头
-							transposedData.headers = transposedRow;
-						}else{
-							// 其他列作为数据行
-							transposedData.rows.push(transposedRow);
-						}
+					tmp.tableData = null;
+					tmp.currentRow = null;
+
+					// 返回纵向表格结构
+					return {
+						type: 'table_vertical',
+						content: transposedData
+					};
+				} else {
+					// 不转置，返回原始横向表格
+					var tableRows = [];
+
+					// 添加表头行
+					if(tmp.tableData.headers.length > 0){
+						tableRows.push({
+							type: 'header',
+							content: tmp.tableData.headers
+						});
 					}
+
+					// 添加数据行
+					tmp.tableData.rows.forEach(function(row){
+						tableRows.push({
+							type: 'row',
+							content: row
+						});
+					});
+
+					tmp.tableData = null;
+					tmp.currentRow = null;
+
+					// 返回一个包含所有行的横向表格结构
+					return {
+						type: 'table_horizontal',
+						content: tableRows,
+						isArray: false
+					};
 				}
-
-				tmp.tableData = null;
-				tmp.currentRow = null;
-
-				// 返回纵向表格结构
-				return {
-					type: 'table_vertical',
-					content: transposedData
-				};
 			}
 		}
 	};
@@ -345,3 +377,4 @@ function parse(md, options){
 module.exports = {
 	parse: parse
 };
+

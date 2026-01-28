@@ -140,6 +140,8 @@ page {
   width: auto;
   min-width: 0;
   overflow: visible;
+  /* 设置 CSS 变量供 wemark 组件使用 */
+  --wemark-font-scale: 1;
 }
 
 @keyframes fadeIn {

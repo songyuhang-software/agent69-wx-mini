@@ -15,9 +15,8 @@
     class="chat-container"
     style="top: {{headerHeight}}px;"
     scroll-y
-    scroll-top="{{scrollTop}}"
     scroll-into-view="{{scrollToView}}"
-    scroll-with-animation="{{true}}"
+    scroll-with-animation="{{false}}"
     bindscrolltoupper="onScrollToUpper"
     upper-threshold="50"
     bindtouchstart="onTouchStart"

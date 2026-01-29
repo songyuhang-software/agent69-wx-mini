@@ -41,9 +41,7 @@ Page({
     hasScaled: false, // 是否发生了缩放
     cursorSpacing: 0, // 光标与键盘的距离
     // 滚动位置保持
-    scrollTopBeforeLoad: 0, // 加载前的滚动位置
-    scrollHeightBeforeLoad: 0, // 加载前的内容高度
-    scrollTop: 0 // 当前滚动位置
+    anchorMessageId: '' // 加载更多时的锚点消息ID
   },
 
   onLoad() {
@@ -163,9 +161,10 @@ Page({
         if (this.data.currentPage > 1) {
           const allMessages = [...newMessages, ...this.data.messages];
           this.setData({
-            messages: addTimeLabels(allMessages)
+            messages: addTimeLabels(allMessages),
+            scrollToView: '' // 先清空，避免冲突
           }, () => {
-            // 恢复滚动位置
+            // 恢复到锚点消息位置
             this.restoreScrollPosition();
           });
         } else {
@@ -237,53 +236,38 @@ Page({
   onScrollToUpper() {
     if (!this.data.hasMore || this.data.isLoadingMore) return;
 
-    // 记录当前滚动位置和内容高度
-    const query = wx.createSelectorQuery();
-    query.select('.chat-container').scrollOffset();
-    query.select('.messages-wrapper').boundingClientRect();
-    query.exec((res) => {
-      if (res && res[0] && res[1]) {
+    // 记录当前第一条可见消息的ID作为锚点
+    // 加载完成后滚动到这条消息，保持用户视角不变
+    if (this.data.messages.length > 0) {
+      // 找到第一条非时间标签的消息作为锚点
+      const anchorMessage = this.data.messages.find(msg => msg.type !== 'time-label');
+      if (anchorMessage) {
         this.setData({
-          scrollTopBeforeLoad: res[0].scrollTop,
-          scrollHeightBeforeLoad: res[1].height,
+          anchorMessageId: anchorMessage.id,
           currentPage: this.data.currentPage + 1
         });
-
-        this.loadChatHistory();
       }
-    });
+    }
+
+    this.loadChatHistory();
   },
 
   /**
    * 恢复滚动位置（加载更多历史记录后）
    */
   restoreScrollPosition() {
-    // 等待 DOM 更新完成
-    setTimeout(() => {
-      const query = wx.createSelectorQuery();
-      query.select('.messages-wrapper').boundingClientRect();
-      query.exec((res) => {
-        if (res && res[0]) {
-          const newScrollHeight = res[0].height;
-          const heightDifference = newScrollHeight - this.data.scrollHeightBeforeLoad;
-          const newScrollTop = this.data.scrollTopBeforeLoad + heightDifference;
+    if (!this.data.anchorMessageId) return;
 
-          // 使用 scroll-view 的 scroll-top 属性来设置滚动位置
-          // 注意：需要在 wxml 中添加 scroll-top 绑定
-          this.setData({
-            scrollTop: newScrollTop
-          });
-
-          console.log('恢复滚动位置:', {
-            scrollTopBeforeLoad: this.data.scrollTopBeforeLoad,
-            scrollHeightBeforeLoad: this.data.scrollHeightBeforeLoad,
-            newScrollHeight,
-            heightDifference,
-            newScrollTop
-          });
-        }
+    // 使用 nextTick 确保 DOM 已更新
+    wx.nextTick(() => {
+      // 滚动到锚点消息，保持用户视角
+      this.setData({
+        scrollToView: `msg-${this.data.anchorMessageId}`,
+        anchorMessageId: '' // 清空锚点
       });
-    }, 100);
+
+      console.log('恢复到锚点消息:', this.data.anchorMessageId);
+    });
   },
 
   /**
@@ -589,6 +573,10 @@ Page({
     return Math.sqrt(x * x + y * y);
   }
 })
+
+
+
+
 
 
 

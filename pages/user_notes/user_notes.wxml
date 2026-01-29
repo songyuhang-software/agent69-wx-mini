@@ -15,6 +15,7 @@
     class="chat-container"
     style="top: {{headerHeight}}px;"
     scroll-y
+    scroll-top="{{scrollTop}}"
     scroll-into-view="{{scrollToView}}"
     scroll-with-animation="{{true}}"
     bindscrolltoupper="onScrollToUpper"

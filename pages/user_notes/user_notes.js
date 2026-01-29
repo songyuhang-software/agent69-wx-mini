@@ -39,7 +39,11 @@ Page({
     initialDistance: 0, // 双指初始距离
     initialFontScale: 1, // 开始缩放时的字体比例
     hasScaled: false, // 是否发生了缩放
-    cursorSpacing: 0 // 光标与键盘的距离
+    cursorSpacing: 0, // 光标与键盘的距离
+    // 滚动位置保持
+    scrollTopBeforeLoad: 0, // 加载前的滚动位置
+    scrollHeightBeforeLoad: 0, // 加载前的内容高度
+    scrollTop: 0 // 当前滚动位置
   },
 
   onLoad() {
@@ -160,6 +164,9 @@ Page({
           const allMessages = [...newMessages, ...this.data.messages];
           this.setData({
             messages: addTimeLabels(allMessages)
+          }, () => {
+            // 恢复滚动位置
+            this.restoreScrollPosition();
           });
         } else {
           // 首次加载,添加欢迎消息
@@ -230,11 +237,53 @@ Page({
   onScrollToUpper() {
     if (!this.data.hasMore || this.data.isLoadingMore) return;
 
-    this.setData({
-      currentPage: this.data.currentPage + 1
-    });
+    // 记录当前滚动位置和内容高度
+    const query = wx.createSelectorQuery();
+    query.select('.chat-container').scrollOffset();
+    query.select('.messages-wrapper').boundingClientRect();
+    query.exec((res) => {
+      if (res && res[0] && res[1]) {
+        this.setData({
+          scrollTopBeforeLoad: res[0].scrollTop,
+          scrollHeightBeforeLoad: res[1].height,
+          currentPage: this.data.currentPage + 1
+        });
 
-    this.loadChatHistory();
+        this.loadChatHistory();
+      }
+    });
+  },
+
+  /**
+   * 恢复滚动位置（加载更多历史记录后）
+   */
+  restoreScrollPosition() {
+    // 等待 DOM 更新完成
+    setTimeout(() => {
+      const query = wx.createSelectorQuery();
+      query.select('.messages-wrapper').boundingClientRect();
+      query.exec((res) => {
+        if (res && res[0]) {
+          const newScrollHeight = res[0].height;
+          const heightDifference = newScrollHeight - this.data.scrollHeightBeforeLoad;
+          const newScrollTop = this.data.scrollTopBeforeLoad + heightDifference;
+
+          // 使用 scroll-view 的 scroll-top 属性来设置滚动位置
+          // 注意：需要在 wxml 中添加 scroll-top 绑定
+          this.setData({
+            scrollTop: newScrollTop
+          });
+
+          console.log('恢复滚动位置:', {
+            scrollTopBeforeLoad: this.data.scrollTopBeforeLoad,
+            scrollHeightBeforeLoad: this.data.scrollHeightBeforeLoad,
+            newScrollHeight,
+            heightDifference,
+            newScrollTop
+          });
+        }
+      });
+    }, 100);
   },
 
   /**
@@ -540,6 +589,11 @@ Page({
     return Math.sqrt(x * x + y * y);
   }
 })
+
+
+
+
+
 
 
 

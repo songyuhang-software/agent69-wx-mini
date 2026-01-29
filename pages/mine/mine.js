@@ -23,7 +23,11 @@ Component({
     // 当前身份卡片的定时器
     currentPersonaTimer: null,
     // 其他身份卡片的定时器数组
-    otherPersonasTimers: []
+    otherPersonasTimers: [],
+    // 当前身份卡片按下时间戳
+    currentPersonaTouchStartTime: 0,
+    // 其他身份卡片按下时间戳数组
+    otherPersonasTouchStartTimes: []
   },
 
   lifetimes: {
@@ -41,21 +45,28 @@ Component({
         this.setData({ currentPersonaTimer: null });
       }
 
-      // 立即激活
+      // 记录按下时间
       this.setData({
-        currentPersonaActive: true
+        currentPersonaActive: true,
+        currentPersonaTouchStartTime: Date.now()
       });
     },
 
     // 当前身份卡片松开事件
     onCurrentPersonaTouchEnd() {
-      // 松开后继续保持高亮 400ms
+      // 计算按下持续时间
+      const pressDuration = Date.now() - this.data.currentPersonaTouchStartTime;
+
+      // 如果按下时间小于150ms，认为是瞬间点击，持续400ms
+      // 否则认为是长按，持续100ms
+      const duration = pressDuration < 150 ? 400 : 100;
+
       const timer = setTimeout(() => {
         this.setData({
           currentPersonaActive: false,
           currentPersonaTimer: null
         });
-      }, 400);
+      }, duration);
 
       this.setData({ currentPersonaTimer: timer });
     },
@@ -76,15 +87,18 @@ Component({
 
       const newOtherPersonasActive = [...this.data.otherPersonasActive];
       const newTimers = [...this.data.otherPersonasTimers];
+      const newTouchStartTimes = [...this.data.otherPersonasTouchStartTimes];
 
-      // 设置当前点击的卡片为激活状态
+      // 设置当前点击的卡片为激活状态，并记录按下时间
       if (index !== undefined && index < newOtherPersonasActive.length) {
         newOtherPersonasActive[index] = true;
+        newTouchStartTimes[index] = Date.now();
       }
 
       this.setData({
         otherPersonasActive: newOtherPersonasActive,
-        otherPersonasTimers: newTimers
+        otherPersonasTimers: newTimers,
+        otherPersonasTouchStartTimes: newTouchStartTimes
       });
     },
 
@@ -92,7 +106,14 @@ Component({
     onPersonaCardTouchEnd(e) {
       const index = e.currentTarget.dataset.index;
 
-      // 松开后继续保持高亮 400ms
+      // 计算按下持续时间
+      const touchStartTime = this.data.otherPersonasTouchStartTimes[index] || 0;
+      const pressDuration = Date.now() - touchStartTime;
+
+      // 如果按下时间小于150ms，认为是瞬间点击，持续400ms
+      // 否则认为是长按，持续100ms
+      const duration = pressDuration < 150 ? 400 : 100;
+
       const timer = setTimeout(() => {
         const resetOtherPersonasActive = [...this.data.otherPersonasActive];
         const resetTimers = [...this.data.otherPersonasTimers];
@@ -106,7 +127,7 @@ Component({
           otherPersonasActive: resetOtherPersonasActive,
           otherPersonasTimers: resetTimers
         });
-      }, 400);
+      }, duration);
 
       const newTimers = [...this.data.otherPersonasTimers];
       newTimers[index] = timer;
@@ -151,11 +172,14 @@ Component({
         const otherPersonasActive = new Array(userDetail.otherPersonas.length).fill(false);
         // 初始化其他身份卡片的定时器数组
         const otherPersonasTimers = new Array(userDetail.otherPersonas.length).fill(null);
+        // 初始化其他身份卡片的按下时间戳数组
+        const otherPersonasTouchStartTimes = new Array(userDetail.otherPersonas.length).fill(0);
 
         this.setData({
           userDetail,
           otherPersonasActive,
-          otherPersonasTimers
+          otherPersonasTimers,
+          otherPersonasTouchStartTimes
         });
 
         wx.hideLoading();
@@ -373,6 +397,12 @@ Component({
     }
   }
 })
+
+
+
+
+
+
 
 
 

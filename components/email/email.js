@@ -53,7 +53,9 @@ Component({
     // 微信授权码
     weChatCode: '',
     // 是否禁用过渡效果
-    noTransition: false
+    noTransition: false,
+    // 卡片按下时间戳
+    cardTouchStartTime: 0
   },
 
   /**
@@ -73,9 +75,10 @@ Component({
         this.setData({ cardTimer: null });
       }
 
-      // 立即激活
+      // 记录按下时间并激活
       this.setData({
-        isCardActive: true
+        isCardActive: true,
+        cardTouchStartTime: Date.now()
       });
     },
 
@@ -92,7 +95,13 @@ Component({
         this.setData({ cardTimer: null });
       }
 
-      // 延迟取消激活状态，但要考虑到操作可能很快开始
+      // 计算按下持续时间
+      const pressDuration = Date.now() - this.data.cardTouchStartTime;
+
+      // 如果按下时间小于150ms，认为是瞬间点击，持续400ms
+      // 否则认为是长按，持续100ms
+      const duration = pressDuration < 150 ? 400 : 100;
+
       const timer = setTimeout(() => {
         // 检查是否还在操作界面中，如果是则不取消激活
         if (!this.data.showOperation) {
@@ -101,7 +110,7 @@ Component({
             cardTimer: null
           });
         }
-      }, 380); // 稍微缩短时间，减少与操作流程的冲突
+      }, duration);
 
       this.setData({ cardTimer: timer });
     },

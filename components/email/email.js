@@ -100,7 +100,7 @@ Component({
 
       // 如果按下时间小于150ms，认为是瞬间点击，持续400ms
       // 否则认为是长按，持续100ms
-      const duration = pressDuration < 150 ? 400 : 100;
+      const duration = pressDuration < 250 ? 400 : 100;
 
       const timer = setTimeout(() => {
         // 检查是否还在操作界面中，如果是则不取消激活

@@ -98,7 +98,7 @@ Component({
       // 计算按下持续时间
       const pressDuration = Date.now() - this.data.cardTouchStartTime;
 
-      // 如果按下时间小于150ms，认为是瞬间点击，持续400ms
+      // 如果按下时间小于250ms，认为是瞬间点击，持续400ms
       // 否则认为是长按，持续100ms
       const duration = pressDuration < 250 ? 400 : 100;
 

@@ -32,20 +32,11 @@ Page({
     const app = getApp();
     app.checkLogin((result) => {
       if (result.success) {
-        if (result.needWechatRegister === false) {
-          // 不需要注册,保存 token 并跳转到主页
-          wx.setStorageSync('accessToken', result.accessToken);
-          wx.reLaunch({
-            url: '/pages/index/index'
-          });
-        } else {
-          // 需要注册,显示授权选择界面
-          that.setLoadingState(false);
-          that.setNeedAuthState(true);
-          that.setData({
-            weChatCode: result.code
-          });
-        }
+        // 登录成功,保存 token 并跳转到主页
+        wx.setStorageSync('accessToken', result.accessToken);
+        wx.reLaunch({
+          url: '/pages/index/index'
+        });
       } else {
         // 登录失败,显示授权选择界面
         that.setLoadingState(false);

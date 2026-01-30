@@ -1,7 +1,54 @@
 <!--pages/mine/mine.wxml-->
 <view class="page-container">
   <navigation-bar title="用户详情" back="{{false}}" color="black" background="#FFF"></navigation-bar>
-  <scroll-view class="scrollarea" scroll-y type="list">
+
+  <!-- Guest 用户授权引导界面 -->
+  <view wx:if="{{userType === 'guest'}}" class="guest-auth-container">
+    <view class="auth-content">
+      <!-- 品牌区域 -->
+      <view class="brand-section">
+        <view class="brand-icon">👤</view>
+        <view class="brand-title">完善个人信息</view>
+        <view class="brand-subtitle">授权后即可使用完整功能</view>
+      </view>
+
+      <!-- 功能说明 -->
+      <view class="features-section">
+        <view class="feature-item">
+          <view class="feature-icon">✨</view>
+          <view class="feature-text">个性化身份设置</view>
+        </view>
+        <view class="feature-item">
+          <view class="feature-icon">💬</view>
+          <view class="feature-text">专属AI对话体验</view>
+        </view>
+        <view class="feature-item">
+          <view class="feature-icon">🔐</view>
+          <view class="feature-text">数据安全保护</view>
+        </view>
+      </view>
+
+      <!-- 授权按钮 -->
+      <view class="auth-actions">
+        <button
+          class="wechat-auth-btn {{isAuthLoading ? 'loading' : ''}}"
+          bindtap="onWechatAuth"
+          hover-class="wechat-auth-btn-hover">
+          <view wx:if="{{isAuthLoading}}" class="btn-loading-icon"></view>
+          <text class="btn-text">{{isAuthLoading ? '授权中...' : '微信授权登录'}}</text>
+        </button>
+
+        <!-- 已有账号链接 -->
+        <view class="bind-link-wrapper">
+          <text class="bind-text">已有agent69账号?</text>
+          <text class="bind-link" bindtap="onBindExistingAccount">去关联</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- Registered 用户详情界面 -->
+  <scroll-view wx:if="{{userType === 'registered'}}" class="scrollarea" scroll-y type="list">
     <view class="modal-body">
       <!-- 用户信息区域 -->
       <view class="user-info-section">

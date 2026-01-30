@@ -4,6 +4,10 @@ const API_CONFIG = require('../../config/api.js');
 
 Component({
   data: {
+    // 用户类型: guest 或 registered
+    userType: '',
+    // 是否正在授权登录
+    isAuthLoading: false,
     userDetail: {
       personaName: '',
       personaAvatarUrl: '',
@@ -156,7 +160,19 @@ Component({
           needAuth: true
         });
 
-        // 处理返回的数据,映射到组件的数据结构
+        // 检查用户类型
+        const userType = data.type || 'guest';
+
+        if (userType === 'guest') {
+          // Guest 用户，显示授权引导界面
+          this.setData({
+            userType: 'guest'
+          });
+          wx.hideLoading();
+          return;
+        }
+
+        // Registered 用户，处理返回的数据
         const userDetail = {
           personaName: data.personaName || '',
           personaAvatarUrl: data.personaAvatarUrl || '',
@@ -176,6 +192,7 @@ Component({
         const otherPersonasTouchStartTimes = new Array(userDetail.otherPersonas.length).fill(0);
 
         this.setData({
+          userType: 'registered',
           userDetail,
           otherPersonasActive,
           otherPersonasTimers,
@@ -394,9 +411,145 @@ Component({
     // 加载身份列表（供edit-persona页面返回后调用）
     loadPersonas() {
       this.loadUserDetail();
+    },
+
+    // 微信授权登录
+    onWechatAuth() {
+      const that = this;
+
+      // 如果正在加载，不重复执行
+      if (that.data.isAuthLoading) {
+        return;
+      }
+
+      // 立即设置按钮为加载状态
+      that.setData({
+        isAuthLoading: true
+      });
+
+      // 获取用户信息授权
+      wx.getUserProfile({
+        desc: '用于完善用户资料',
+        success: (res) => {
+          const userInfo = res.userInfo;
+          const nickName = userInfo.nickName;
+          const avatarUrl = userInfo.avatarUrl;
+
+          console.log('获取到用户信息:', nickName, avatarUrl);
+
+          // 重新获取微信授权码
+          wx.login({
+            success: (loginRes) => {
+              const newCode = loginRes.code;
+              console.log('获取授权码:', newCode);
+
+              // 调用注册接口
+              wx.request({
+                url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.wechatRegister}`,
+                method: 'POST',
+                header: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${wx.getStorageSync('accessToken')}`
+                },
+                data: {
+                  weChatCode: newCode,
+                  weChatNickName: nickName,
+                  weChatAvatarUrl: avatarUrl
+                },
+                success: (response) => {
+                  console.log('注册成功:', response.data);
+                  const data = response.data;
+
+                  if (data.accessToken) {
+                    // 保存 accessToken 和其他信息
+                    wx.setStorageSync('accessToken', data.accessToken);
+                    if (data.refreshToken) {
+                      wx.setStorageSync('refreshToken', data.refreshToken);
+                    }
+                    if (data.userId) {
+                      wx.setStorageSync('userId', data.userId);
+                    }
+                    if (data.username) {
+                      wx.setStorageSync('username', data.username);
+                    }
+
+                    // 取消加载状态
+                    that.setData({
+                      isAuthLoading: false
+                    });
+
+                    // 显示成功提示
+                    wx.showToast({
+                      title: '授权成功',
+                      icon: 'success'
+                    });
+
+                    // 重新加载用户详情
+                    setTimeout(() => {
+                      that.loadUserDetail();
+                    }, 1500);
+                  } else {
+                    // 取消加载状态
+                    that.setData({
+                      isAuthLoading: false
+                    });
+                    wx.showToast({
+                      title: '注册失败，请重试',
+                      icon: 'none'
+                    });
+                  }
+                },
+                fail: (error) => {
+                  console.error('注册失败:', error);
+                  // 取消加载状态
+                  that.setData({
+                    isAuthLoading: false
+                  });
+                  wx.showToast({
+                    title: '网络请求失败',
+                    icon: 'none'
+                  });
+                }
+              });
+            },
+            fail: (loginError) => {
+              console.error('获取授权码失败:', loginError);
+              // 取消加载状态
+              that.setData({
+                isAuthLoading: false
+              });
+              wx.showToast({
+                title: '获取授权码失败',
+                icon: 'none'
+              });
+            }
+          });
+        },
+        fail: (error) => {
+          console.error('获取用户信息失败:', error);
+          // 用户取消授权，取消加载状态
+          that.setData({
+            isAuthLoading: false
+          });
+          wx.showToast({
+            title: '需要授权才能继续',
+            icon: 'none'
+          });
+        }
+      });
+    },
+
+    // 绑定已有账号
+    onBindExistingAccount() {
+      wx.navigateTo({
+        url: '/pages/bind-account/bind-account'
+      });
     }
   }
 })
+
+
+
 
 
 

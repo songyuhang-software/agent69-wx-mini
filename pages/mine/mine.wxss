@@ -44,7 +44,7 @@ page {
   width: 160rpx;
   height: 160rpx;
   margin: 0 auto 32rpx;
-  background: linear-gradient(135deg, #4A90E2 0%, #2B5FE5 100%);
+  background: linear-gradient(135deg, #edf1f6 0%, #d4e9fa 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;

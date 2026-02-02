@@ -217,11 +217,12 @@ page {
 }
 
 .send-code-btn[disabled] {
-  background: #9ca3af !important;
+  background: #d1d5db !important;
   background-image: none !important;
-  color: white !important;
+  color: #6b7280 !important;
   transform: none !important;
   opacity: 1 !important;
+  cursor: not-allowed;
 }
 
 .send-code-btn[disabled]::after {
@@ -231,6 +232,7 @@ page {
 
 .send-code-btn[disabled]:active {
   transform: none !important;
+  opacity: 1 !important;
 }
 
 /* 登录按钮 */
@@ -310,6 +312,7 @@ page {
     font-size: 22rpx;
   }
 }
+
 
 
 

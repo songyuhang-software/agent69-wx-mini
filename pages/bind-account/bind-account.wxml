@@ -38,6 +38,7 @@
             <input
               class="input password-input"
               type="{{showPassword ? 'text' : 'password'}}"
+              password="{{!showPassword}}"
               name="password"
               placeholder="请输入密码"
               value="{{usernameForm.password}}"
@@ -110,6 +111,9 @@
 
   </view>
 </view>
+
+
+
 
 
 

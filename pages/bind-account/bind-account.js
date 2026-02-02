@@ -41,6 +41,11 @@ Page({
     this.getWeChatCode();
     // 计算光标与键盘的距离
     this.calculateCursorSpacing();
+    // 确保密码默认隐藏
+    this.setData({
+      showPassword: false
+    });
+    console.log('页面加载，密码显示状态初始化为:', false);
   },
 
   /**
@@ -423,6 +428,7 @@ Page({
     }
   }
 });
+
 
 
 

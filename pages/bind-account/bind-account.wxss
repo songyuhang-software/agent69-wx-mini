@@ -9,25 +9,25 @@ page {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 30rpx 20rpx;
+  padding: 20rpx 30rpx;
   box-sizing: border-box;
 }
 
 .login-container {
   background: white;
-  padding: 40rpx;
+  padding: 50rpx 40rpx;
   border-radius: 20rpx;
   box-shadow: 0 20rpx 60rpx rgba(0, 0, 0, 0.12);
   width: 100%;
-  max-width: 600rpx;
+  max-width: 680rpx;
   margin: 0 auto;
 }
 
 /* 适配大屏设备 */
 @media (min-width: 768px) {
   .login-container {
-    max-width: 500rpx;
-    padding: 50rpx;
+    max-width: 650rpx;
+    padding: 60rpx 50rpx;
   }
 }
 
@@ -208,14 +208,29 @@ page {
   min-height: 96rpx;
 }
 
+.send-code-btn::after {
+  border: none;
+}
+
 .send-code-btn:active {
   transform: scale(0.98);
 }
 
 .send-code-btn[disabled] {
-  background: #9ca3af;
-  color: white;
-  transform: none;
+  background: #9ca3af !important;
+  background-image: none !important;
+  color: white !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+.send-code-btn[disabled]::after {
+  border: none !important;
+  background: none !important;
+}
+
+.send-code-btn[disabled]:active {
+  transform: none !important;
 }
 
 /* 登录按钮 */
@@ -295,6 +310,11 @@ page {
     font-size: 22rpx;
   }
 }
+
+
+
+
+
 
 
 

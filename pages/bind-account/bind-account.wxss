@@ -216,6 +216,24 @@ page {
   transform: scale(0.98);
 }
 
+/* 倒计时状态 - 使用 class 控制 */
+.send-code-btn.disabled {
+  background: #d1d5db !important;
+  background-image: none !important;
+  color: #6b7280 !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+.send-code-btn.disabled::after {
+  border: none !important;
+}
+
+.send-code-btn.disabled:active {
+  transform: none !important;
+}
+
+/* 禁用状态 - 邮箱无效时 */
 .send-code-btn[disabled] {
   background: #d1d5db !important;
   background-image: none !important;
@@ -312,6 +330,7 @@ page {
     font-size: 22rpx;
   }
 }
+
 
 
 

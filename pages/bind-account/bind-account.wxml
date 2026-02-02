@@ -91,7 +91,7 @@
               cursor-spacing="{{cursorSpacing}}"
             />
             <button
-              class="send-code-btn"
+              class="send-code-btn {{countdown > 0 ? 'disabled' : ''}}"
               type="button"
               disabled="{{!isEmailValid || countdown > 0}}"
               bindtap="sendVerificationCode"
@@ -111,6 +111,7 @@
 
   </view>
 </view>
+
 
 
 

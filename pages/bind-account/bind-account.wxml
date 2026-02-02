@@ -29,7 +29,7 @@
             value="{{usernameForm.username}}"
             bindinput="onUsernameInput"
             adjust-position="{{true}}"
-            cursor-spacing="{{cursorSpacing}}"
+            cursor-spacing="{{cursorSpacingLarge}}"
           />
         </view>
         <view class="form-group">
@@ -73,7 +73,7 @@
             value="{{emailForm.email}}"
             bindinput="onEmailInput"
             adjust-position="{{true}}"
-            cursor-spacing="{{cursorSpacing}}"
+            cursor-spacing="{{cursorSpacingLarge}}"
           />
         </view>
         <view class="form-group">
@@ -110,6 +110,8 @@
 
   </view>
 </view>
+
+
 
 
 

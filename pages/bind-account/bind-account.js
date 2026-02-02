@@ -32,7 +32,8 @@ Page({
     showPassword: false,
 
     // 光标与键盘的距离
-    cursorSpacing: 0
+    cursorSpacing: 0,           // 密码和验证码使用的较小距离
+    cursorSpacingLarge: 0       // 用户名和邮箱使用的较大距离
   },
 
   onLoad(options) {
@@ -45,6 +46,7 @@ Page({
   /**
    * 计算光标与键盘的距离
    * 参考 user_notes 页面的实现
+   * 为不同输入框设置不同的距离值
    */
   calculateCursorSpacing() {
     const systemInfo = wx.getSystemInfoSync();
@@ -57,22 +59,29 @@ Page({
     // 根据 bind-account 页面的输入框样式
     // .input 高度: 96rpx
     // .form-group margin-bottom: 36rpx
-    // 预留额外空间
+
+    // 密码和验证码使用的较小距离（它们在下方）
     const containerHeightRpx = 150;
     const containerHeightPx = (containerHeightRpx * systemInfo.windowWidth) / 750;
-
-    // 最终的 cursor-spacing 值
     const cursorSpacing = Math.round(containerHeightPx + safeAreaBottom);
+
+    // 用户名和邮箱使用的较大距离（它们在上方，需要更多空间）
+    const containerHeightLargeRpx = 250;
+    const containerHeightLargePx = (containerHeightLargeRpx * systemInfo.windowWidth) / 750;
+    const cursorSpacingLarge = Math.round(containerHeightLargePx + safeAreaBottom);
 
     console.log('计算 cursor-spacing:', {
       containerHeightPx,
+      containerHeightLargePx,
       safeAreaBottom,
       cursorSpacing,
+      cursorSpacingLarge,
       systemInfo
     });
 
     this.setData({
-      cursorSpacing
+      cursorSpacing,
+      cursorSpacingLarge
     });
   },
 
@@ -414,6 +423,8 @@ Page({
     }
   }
 });
+
+
 
 
 

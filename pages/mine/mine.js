@@ -40,6 +40,13 @@ Component({
     }
   },
 
+  pageLifetimes: {
+    show() {
+      // 每次页面显示时都刷新用户详情，确保使用最新的accessToken
+      this.loadUserDetail();
+    }
+  },
+
   methods: {
     // 当前身份卡片按下事件
     onCurrentPersonaTouchStart() {
@@ -153,6 +160,17 @@ Component({
       try {
         wx.showLoading({ title: '加载中...' });
 
+        // 确保使用最新的accessToken - 强制重新读取
+        const currentToken = wx.getStorageSync('accessToken');
+        if (!currentToken) {
+          // 如果没有token，直接返回guest状态
+          this.setData({
+            userType: 'guest'
+          });
+          wx.hideLoading();
+          return;
+        }
+
         // 调用用户详情 API
         const data = await request({
           url: `${API_CONFIG.userserviceUrl}${API_CONFIG.endpoints.userDetail}`,
@@ -203,6 +221,17 @@ Component({
       } catch (error) {
         console.error('加载用户详情失败:', error);
         wx.hideLoading();
+
+        // 如果是token相关的错误，重定向到授权选择页面
+        if (error.message === '登录已过期' || error.message === '未登录') {
+          setTimeout(() => {
+            wx.reLaunch({
+              url: '/pages/auth-select/auth-select'
+            });
+          }, 1500);
+          return;
+        }
+
         wx.showToast({
           title: error.message || '加载失败',
           icon: 'none'
@@ -547,21 +576,3 @@ Component({
     }
   }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

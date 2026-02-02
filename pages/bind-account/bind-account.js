@@ -172,10 +172,10 @@ Page({
         icon: 'success'
       });
 
-      // 延迟跳转到首页
+      // 延迟跳转到mine页面
       setTimeout(() => {
         wx.switchTab({
-          url: '/pages/index/index'
+          url: '/pages/mine/mine'
         });
       }, 1500);
 
@@ -354,10 +354,10 @@ Page({
         icon: 'success'
       });
 
-      // 延迟跳转到首页
+      // 延迟跳转到mine页面
       setTimeout(() => {
         wx.switchTab({
-          url: '/pages/index/index'
+          url: '/pages/mine/mine'
         });
       }, 1500);
 
@@ -373,6 +373,7 @@ Page({
     }
   }
 });
+
 
 
 

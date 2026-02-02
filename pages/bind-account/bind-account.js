@@ -277,9 +277,17 @@ Page({
       return;
     }
 
+    // 如果正在倒计时中，直接返回，避免重复点击
+    if (this.data.countdown > 0) {
+      return;
+    }
+
     this.setData({
       emailError: ''
     });
+
+    // 立即开始倒计时，避免重复点击
+    this.startCountdown();
 
     try {
       const response = await new Promise((resolve, reject) => {
@@ -304,27 +312,37 @@ Page({
         icon: 'success'
       });
 
-      // 开始倒计时
-      this.startCountdown();
-
     } catch (error) {
       console.error('发送验证码失败:', error);
+      // 如果发送失败，停止倒计时
       this.setData({
-        emailError: error.message || '发送验证码失败'
+        emailError: error.message || '发送验证码失败',
+        countdown: 0
       });
+      // 清除定时器
+      if (this.countdownTimer) {
+        clearInterval(this.countdownTimer);
+        this.countdownTimer = null;
+      }
     }
   },
 
   startCountdown() {
+    // 清除可能存在的旧定时器
+    if (this.countdownTimer) {
+      clearInterval(this.countdownTimer);
+    }
+
     let countdown = 60;
     this.setData({ countdown });
 
-    const timer = setInterval(() => {
+    this.countdownTimer = setInterval(() => {
       countdown--;
       this.setData({ countdown });
 
       if (countdown <= 0) {
-        clearInterval(timer);
+        clearInterval(this.countdownTimer);
+        this.countdownTimer = null;
       }
     }, 1000);
   },
@@ -428,20 +446,3 @@ Page({
     }
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -573,20 +573,3 @@ Page({
     return Math.sqrt(x * x + y * y);
   }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

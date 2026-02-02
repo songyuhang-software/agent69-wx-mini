@@ -29,12 +29,51 @@ Page({
     countdown: 0,
 
     // 密码显示状态
-    showPassword: false
+    showPassword: false,
+
+    // 光标与键盘的距离
+    cursorSpacing: 0
   },
 
   onLoad(options) {
     // 页面加载时获取新的微信授权码
     this.getWeChatCode();
+    // 计算光标与键盘的距离
+    this.calculateCursorSpacing();
+  },
+
+  /**
+   * 计算光标与键盘的距离
+   * 参考 user_notes 页面的实现
+   */
+  calculateCursorSpacing() {
+    const systemInfo = wx.getSystemInfoSync();
+
+    // 获取安全区域
+    const safeArea = systemInfo.safeArea || {};
+    const safeAreaBottom = systemInfo.screenHeight - (safeArea.bottom || systemInfo.screenHeight);
+
+    // 输入框容器的高度计算（rpx 转 px）
+    // 根据 bind-account 页面的输入框样式
+    // .input 高度: 96rpx
+    // .form-group margin-bottom: 36rpx
+    // 预留额外空间
+    const containerHeightRpx = 150;
+    const containerHeightPx = (containerHeightRpx * systemInfo.windowWidth) / 750;
+
+    // 最终的 cursor-spacing 值
+    const cursorSpacing = Math.round(containerHeightPx + safeAreaBottom);
+
+    console.log('计算 cursor-spacing:', {
+      containerHeightPx,
+      safeAreaBottom,
+      cursorSpacing,
+      systemInfo
+    });
+
+    this.setData({
+      cursorSpacing
+    });
   },
 
   // 获取微信授权码
@@ -81,9 +120,11 @@ Page({
 
   // 切换密码显示
   togglePasswordVisibility() {
+    const currentShowPassword = this.data.showPassword;
     this.setData({
-      showPassword: !this.data.showPassword
+      showPassword: !currentShowPassword
     });
+    console.log('密码显示状态切换为:', !currentShowPassword);
   },
 
   // ========== 用户名登录相关 ==========
@@ -373,6 +414,9 @@ Page({
     }
   }
 });
+
+
+
 
 
 
